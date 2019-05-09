@@ -24,6 +24,9 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
+    "style-resources-loader": "^1.2.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-cli3.0": "file:E:\\vue-project\\vue-cli3.0",
     "vue-template-compiler": "^2.5.21"

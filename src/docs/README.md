@@ -382,4 +382,140 @@ module.exports = {
 - 你有上千个图片，需要动态引用它们的路径。
 - 有些库可能和 webpack 不兼容，这时你除了将其用一个独立的 `<script>` 标签引入没有别的选择。
 
-## li 服务
+## 
+
+## CSS 相关
+
+
+
+### 自动化导入
+
+如果你想自动化导入文件 (用于颜色、变量、mixin……)，你可以使用 [style-resources-loader](https://github.com/yenshih/style-resources-loader)。以下是一个Stylus 文件例子：
+
+```js
+// vue.config.js
+const path = require('path')
+/*
+* 可在所有style文件中引用 variables / mixins / functions, 不必在每个文件中@import
+* 仅支持 .css .sass .scss .less .styl 类型的文件
+*/
+
+
+module.exports = {
+  chainWebpack: config => {
+    const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
+    types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)))
+  },
+}
+
+function addStyleResource (rule) {
+  rule.use('style-resource')
+    .loader('style-resources-loader')
+    .options({
+      patterns: [
+        path.resolve(__dirname, './src/styles/imports.styl'),
+      ],
+    })
+}
+```
+
+
+
+> ###### 提示：
+>
+> 此方式引入的文件不是显示的引用文件，文件被修改后保存不会触发更新，可通过修改其他显示引用的文件触发webpack的热更新
+
+
+
+### 向预处理器 Loader 传递选项
+
+向 webpack 的预处理器 loader 传递选项。你可以使用 `vue.config.js` 中的 `css.loaderOptions` 选项。比如你可以这样向所有 Sass 样式传入共享的全局变量：
+
+
+
+```js
+// vue.config.js
+/*
+* 可配配置以下loader
+    css-loader
+    postcss-loader
+    sass-loader
+    less-loader
+    stylus-loader
+*/
+
+module.exports = {
+  css: {
+    loaderOptions: {
+      // 给 sass-loader 传递选项
+      sass: {
+        // @/ 是 src/ 的别名
+        // 所以这里假设你有 `src/variables.scss` 这个文件
+        data: `@import "~@/variables.scss";`
+      }
+    }
+  }
+}
+```
+
+
+
+> 提示
+>
+> 这样做比使用 `chainWebpack` 手动指定 loader 更推荐，因为这些选项需要应用在使用了相应 loader 的多个地方。
+
+
+
+## 环境变量和模式
+
+你可以替换你的项目根目录中的下列文件来指定环境变量：
+
+```tex
+.env                # 在所有的环境中被载入
+.env.local          # 在所有的环境中被载入，但会被 git 忽略
+.env.[mode]         # 只在指定的模式中被载入
+.env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
+```
+
+
+
+### 模式
+
+**模式**是 Vue CLI 项目中一个重要的概念。默认情况下，一个 Vue CLI 项目有三个模式：
+
+- `development` 模式用于 `vue-cli-service serve`
+- `production` 模式用于 `vue-cli-service build` 和 `vue-cli-service test:e2e`
+- `test` 模式用于 `vue-cli-service test:unit`
+
+注意模式不同于 `NODE_ENV`，一个模式可以包含多个环境变量。也就是说，每个模式都会将 `NODE_ENV`的值设置为模式的名称——比如在 development 模式下 `NODE_ENV` 的值会被设置为 `"development"`。
+
+你可以通过为 `.env` 文件增加后缀来设置某个模式下特有的环境变量。比如，如果你在项目根目录创建一个名为 `.env.development` 的文件，那么在这个文件里声明过的变量就只会在 development 模式下被载入。
+
+你可以通过传递 `--mode` 选项参数为命令行覆写默认的模式。例如，如果你想要在构建命令中使用开发环境变量，请在你的 `package.json` 脚本中加入：
+
+```json
+"dev-build": "vue-cli-service build --mode development"
+```
+
+
+
+### 环境变量使用
+
+只有以 `VUE_APP_` 开头的变量会被 `webpack.DefinePlugin` 静态嵌入到客户端侧的包中。你可以在应用的代码中这样访问它们：
+
+```js
+console.log(process.env.VUE_APP_SECRET)
+```
+
+在构建过程中，`process.env.VUE_APP_SECRET` 将会被相应的值所取代。在 `VUE_APP_SECRET=secret` 的情况下，它会被替换为 `"sercet"`。
+
+除了 `VUE_APP_*` 变量之外，在你的应用代码中始终可用的还有两个特殊的变量：
+
+- `NODE_ENV` - 会是 `"development"`、`"production"` 或 `"test"` 中的一个。具体的值取决于应用运行的[模式](https://cli.vuejs.org/zh/guide/mode-and-env.html#%E6%A8%A1%E5%BC%8F)。
+- `BASE_URL` - 会和 `vue.config.js` 中的 `publicPath` 选项相符，即你的应用会部署到的基础路径。
+
+所有解析出来的环境变量都可以在 `public/index.html` 中以 [HTML 插值](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#%E6%8F%92%E5%80%BC)中介绍的方式使用。
+
+> 提示
+>
+> 你可以在 `vue.config.js` 文件中计算环境变量。它们仍然需要以 `VUE_APP_` 前缀开头。这可以用于版本信息 `process.env.VUE_APP_VERSION = require('./package.json').version`。

@@ -32,7 +32,8 @@
       }
     },
     created() {
-      console.log('this is home')
+
+      console.log('this is home', eval(process.env.VUE_APP_HOST))
     }
   }
 </script>

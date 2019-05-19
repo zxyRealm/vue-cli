@@ -1,16 +1,16 @@
 // vue.config.js
-const path = require('path')
-
-function addStyleResource (rule) {
-  rule.use('style-resource')
-    .loader('style-resources-loader')
-    .options({
-      patterns: [
-        path.resolve(__dirname, './src/styles/variables.sass')
-        // path.resolve(__dirname, './src/styles/imports.styl')
-      ]
-    })
-}
+// const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// function addStyleResource (rule) {
+//   rule.use('style-resource')
+//     .loader('style-resources-loader')
+//     .options({
+//       patterns: [
+//         path.resolve(__dirname, './src/styles/variables.sass')
+//         // path.resolve(__dirname, './src/styles/imports.styl')
+//       ]
+//     })
+// }
 
 module.exports = {
   publicPath: '', // 部署应用包时的基本 URL
@@ -26,11 +26,22 @@ module.exports = {
   crossorigin: undefined, // 设置生成的 HTML 中 <link rel="stylesheet"> 和 <script> 标签的 crossorigin 属性
   configureWebpack: { // webpack 简单配置
     plugins: [
-      // new MyAwesomeWebpackPlugin()
+      // new UglifyJsPlugin({
+      //   uglifyOptions: {
+      //     warnings: false,
+      //     compress: {
+      //       // drop_console  传递true以放弃对控制台的调用。*功能
+      //       // drop_console: true,
+      //       // pure_funces 禁用console.log函数
+      //       pure_funcs: ['console.log', 'console.info']
+      //     }
+      //   },
+      //   parallel: true
+      // })
     ]
   },
   chainWebpack: config => { // webpack 链式配置
-    config.resolve.symlinks(true)
+    // config.resolve.symlinks(true)
     // const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
     // types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)))
     // types.forEach(type => addStyleResource(config.module.rule('sass').oneOf(type)))
@@ -41,20 +52,18 @@ module.exports = {
     sourceMap: false,
     loaderOptions: { // 向 CSS 相关的 loader 传递选项
       sass: {
-        data: ''
+        data: `@import "@/styles/variables.scss";`
       }
-    },
-    devServer: { // 参考 webpack-dev-server 配置项
-      contentBase: '',
-      allowedHosts: [], // host 白名单
-      disableHostCheck: false, // host 检查
-      host: '0.0.0.0',
-      port: '',
-      https: true,
-      proxy: { // 参考 http-proxy-middleware 配置项
-      }
-    },
-    pluginOptions: { // 传递任何第三方插件选项
     }
+  },
+  devServer: { // 参考 webpack-dev-server 配置项
+    contentBase: '',
+    allowedHosts: [], // host 白名单
+    disableHostCheck: false, // host 检查
+    host: '0.0.0.0',
+    https: true,
+    proxy: {} // 参考 http-proxy-middleware 配置项
+  },
+  pluginOptions: { // 传递任何第三方插件选项
   }
 }

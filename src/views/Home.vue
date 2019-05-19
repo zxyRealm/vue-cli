@@ -32,8 +32,9 @@
       }
     },
     created() {
-
       console.log('this is home', eval(process.env.VUE_APP_HOST))
+      console.info('我和上面的是一家的')
+      console.error('我是他们的兄弟，但是我有些特别哦！')
     }
   }
 </script>

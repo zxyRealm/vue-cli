@@ -4,13 +4,18 @@ import Home from './views/Home.vue'
 
 const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
 const Error404 = () => import('./views/error/404.vue')
-
+const NoticeList = () => import('./views/notice.vue')
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   // base: process.env.BASE_URL,
   routes: [
+    {
+      path: '/notice',
+      name: 'notice',
+      component: NoticeList
+    },
     {
       path: '/',
       name: 'home',

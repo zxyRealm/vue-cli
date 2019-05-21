@@ -9,7 +9,8 @@
       </p>
       <el-button>el-button</el-button>
     </div>
-    <hello-world></hello-world>
+    <router-link to="/notice">通知</router-link>
+    <!--<hello-world></hello-world>-->
     <header class="demo-header">This is demo</header>
     <router-link to="/home">Home</router-link>
     <router-link to="/about">About</router-link>

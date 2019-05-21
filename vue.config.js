@@ -57,12 +57,13 @@ module.exports = {
     }
   },
   devServer: { // 参考 webpack-dev-server 配置项
-    contentBase: '',
-    allowedHosts: [], // host 白名单
+    contentBase: './public',
     disableHostCheck: false, // host 检查
-    host: '0.0.0.0',
-    https: true,
-    proxy: {} // 参考 http-proxy-middleware 配置项
+    proxy: {
+      'api': {
+        target: 'http://192.168.1.150:8000'
+      }
+    } // 参考 http-proxy-middleware 配置项
   },
   pluginOptions: { // 传递任何第三方插件选项
   }

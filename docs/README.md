@@ -1,5 +1,9 @@
 # @vue/cli 脚手架应用
 
+​	此文章时根据自己实际使用的总结，内容主要是官方文档描述，部分地方添加有自己的使用讲解，如有描述不清晰的地方可直接查看官方文档，由于是根据个人需要进行的内容抽取，因此会有部分功能并未提及。同时欢迎各位读者指正文章中的不足和错误，在此表示感谢！
+
+
+
 ## 安装
 
 ```bash
@@ -447,10 +451,12 @@ module.exports = {
   css: {
     loaderOptions: {
       // 给 sass-loader 传递选项
+      // 根据项目中使用的css 预编译语言添加 loader选项  
       sass: {
         // @/ 是 src/ 的别名
         // 所以这里假设你有 `src/variables.scss` 这个文件
-        data: `@import "~@/variables.scss";`
+        // 切记分号不可省略，否则引入失败，多个文件直接拼接即可 
+        data: `@import "~@/variables.scss";@import "~@/mixin.scss";`
       }
     }
   }
@@ -518,3 +524,4 @@ console.log(process.env.VUE_APP_SECRET)
 > 提示
 >
 > 你可以在 `vue.config.js` 文件中计算环境变量。它们仍然需要以 `VUE_APP_` 前缀开头。这可以用于版本信息 `process.env.VUE_APP_VERSION = require('./package.json').version`。
+

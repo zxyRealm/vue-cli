@@ -24,8 +24,8 @@ yarn global remove vue-cli
 
 ## 创建项目
 
-警告：Windows 上使用 Git Bash, 交互提示符并不工作，
-你必须通过 winpty vue.cmd create hello-world 启动这个命令。
+警告：Windows 上使用 Git Bash, 交互提示符并不工作（在windows 的cmd中使用交互
+提示符可以正常工作），你必须通过 winpty vue.cmd create hello-world 启动这个命令。
 不过，如果你仍想使用 vue create hello-world，则可以通过在 ~/.bashrc 
 文件中添加以下行来为命令添加别名。 alias vue='winpty vue.cmd' 
 你需要重新启动 Git Bash 终端会话以使更新后的 bashrc 文件生效。
@@ -123,7 +123,6 @@ Babel 可以通过 `babel.config.js` 进行配置。
 > TIP
 >
 > Vue CLI 使用了 Babel 7 中的新配置格式 `babel.config.js`。和 `.babelrc` 或 `package.json` 中的 `babel` 字段不同，这个配置文件不会使用基于文件位置的方案，而是会一致地运用到项目根目录以下的所有文件，包括 `node_modules` 内部的依赖。我们推荐在 Vue CLI 项目中始终使用 `babel.config.js` 取代其它格式。
-
 
 
 ### ESLint

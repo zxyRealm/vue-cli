@@ -13,8 +13,5 @@
     }
   }
 </script>
-<style lang="sass">
-  @import "~@/styles/variables.sass"
-  h1
-    font-size: $large
+<style lang="scss">
 </style>

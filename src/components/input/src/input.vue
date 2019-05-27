@@ -40,14 +40,18 @@
           {
             // 这里确保组件配合 `v-model` 的工作
             input: function (val) {
-              vm.inputValue = val
+              // vm.inputValue = val
               vm.$emit('input', val)
             },
             focus: function (event) {
               let form = vm.form;
               let formItem = vm.formItem
-              if (vm['focusMessage']) {
+
+              if (form && formItem) {
+                console.log(vm, form)
                 form.clearValidate([formItem.$props.prop])
+              }
+              if (vm['focusMessage']) {
                 vm.isFocus = true
               }
             },
@@ -58,31 +62,37 @@
         )
       },
       form() {
-        let parent = this.$parent;
-        let parentName = parent.$options.componentName;
-        while (parentName !== 'ElForm') {
-          if (parentName === 'ElFormItem') {
-            this.isNested = true;
-          }
-          parent = parent.$parent;
+        let [parent, parentName] = [null, '']
+        try {
+          parent = this.$parent;
           parentName = parent.$options.componentName;
+          while (parentName !== 'ElForm') {
+            parent = parent.$parent;
+            parentName = parent.$options.componentName;
+          }
+        } catch (error) {
         }
         return parent;
       },
       formItem() {
-        let parent = this.$parent;
-        let parentName = parent.$options.componentName;
-        while (parentName !== 'ElFormItem') {
-          parent = parent.$parent;
+        let [parent, parentName] = [null, '']
+        try {
+          parent = this.$parent;
           parentName = parent.$options.componentName;
+          while (parentName !== 'ElFormItem') {
+            parent = parent.$parent;
+            parentName = parent.$options.componentName;
+          }
+        } catch (error) {
         }
         return parent;
       },
       showFocusMessage () {
-        console.log(this.inputValue.length)
-
-        return this.focusMessage && this.isFocus && this.inputValue
+        return this.focusMessage && this.isFocus
       }
+    },
+    mounted () {
+      console.log(this.$listeners)
     }
   }
 </script>

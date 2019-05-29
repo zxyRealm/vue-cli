@@ -3,6 +3,15 @@
     <el-input
       v-bind="$attrs"
       v-on="inputListeners">
+      <!--
+       2.6.0 新增 动态插槽名使用方式
+       <template v-for="(value, name) in $slots" v-slot:[name]>
+        <slot :name="name" :node="value"> </slot>
+       </template>
+      -->
+      <template v-for="(value, name) in $slots" :slot="name">
+        <slot :name="name" :node="value"> </slot>
+      </template>
     </el-input>
     <transition name="el-zoom-in-top">
       <div v-if="showFocusMessage" class="focus--message">
@@ -48,7 +57,6 @@
               let formItem = vm.formItem
 
               if (form && formItem) {
-                console.log(vm, form)
                 form.clearValidate([formItem.$props.prop])
               }
               if (vm['focusMessage']) {
@@ -92,7 +100,7 @@
       }
     },
     mounted () {
-      console.log(this.$listeners)
+      console.log(this.$slots)
     }
   }
 </script>

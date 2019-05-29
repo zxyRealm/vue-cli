@@ -11,6 +11,9 @@
       focus-message="我是focus提示信息"
       placeholder="我可是提示信息哦！"
       v-model.trim="userForm.password">
+      <template slot="prepend">Http://</template>
+      <el-button slot="append" icon="el-icon-search"> </el-button>
+      <!--<template slot="append">.com</template>-->
     </uniubi-input>
     <el-form
       ref="userForm"

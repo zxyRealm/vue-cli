@@ -74,13 +74,11 @@ Vue CLI v3.7.0
 
 由此步骤基本完成，等待依赖安装完成，进入项目目录，执行`npm run serve`即可启动项目
 
-专用文件配置方式：
+vue-cli2.x配置、vue-cli3.x package.json配置方式、vue-cli3.x专用文件配置方式：
 
 ![专用文件](./images/config.png "专用文件")
 
 合并在package.json文件中:
-
-![合并在package.json文件中](./images/config-package.png "合并在package.json文件中")
 
 
 

@@ -6,12 +6,12 @@
 
 </template>
 <script>
-  export default {
-    name: 'about',
-    mounted () {
-      console.info('我是个info, 你能找到我吗？')
-    }
+export default {
+  name: 'about',
+  mounted () {
+    console.info('我是个info, 你能找到我吗？')
   }
+}
 </script>
 <style lang="scss">
 </style>

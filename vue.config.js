@@ -1,16 +1,5 @@
 // vue.config.js
-// const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-// function addStyleResource (rule) {
-//   rule.use('style-resource')
-//     .loader('style-resources-loader')
-//     .options({
-//       patterns: [
-//         path.resolve(__dirname, './src/styles/variables.sass')
-//         // path.resolve(__dirname, './src/styles/imports.styl')
-//       ]
-//     })
-// }
 
 module.exports = {
   publicPath: '', // 部署应用包时的基本 URL
@@ -26,25 +15,18 @@ module.exports = {
   crossorigin: undefined, // 设置生成的 HTML 中 <link rel="stylesheet"> 和 <script> 标签的 crossorigin 属性
   configureWebpack: { // webpack 简单配置
     plugins: [
-      // new UglifyJsPlugin({
-      //   uglifyOptions: {
-      //     warnings: false,
-      //     compress: {
-      //       // drop_console  传递true以放弃对控制台的调用。*功能
-      //       // drop_console: true,
-      //       // pure_funces 禁用console.log函数
-      //       pure_funcs: ['console.log', 'console.info']
-      //     }
-      //   },
-      //   parallel: true
-      // })
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          warnings: false,
+          compress: {
+            pure_funcs: ['console.log', 'console.info'] // 打包时去除console.log console.info
+          }
+        },
+        parallel: true
+      })
     ]
   },
   chainWebpack: config => { // webpack 链式配置
-    // config.resolve.symlinks(true)
-    // const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
-    // types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)))
-    // types.forEach(type => addStyleResource(config.module.rule('sass').oneOf(type)))
   },
   css: {
     modules: false, // CSS Modules 模块
@@ -52,7 +34,7 @@ module.exports = {
     sourceMap: false,
     loaderOptions: { // 向 CSS 相关的 loader 传递选项
       sass: {
-        data: `@import "@/styles/variables.scss";`
+        data: `@import "@/styles/variables.scss";@import "@/styles/mixin.scss";`
       }
     }
   },

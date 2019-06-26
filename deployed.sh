@@ -4,7 +4,7 @@ USER_GROUP='www'
 
 cd /home/git/vue-cli/
 git pull origin master
-npm install
+sudo npm install
 npm run build
 chown -R $USER:$USER_GROUP $SITE_PATH
 rm -rf /home/projects/web/dist/*

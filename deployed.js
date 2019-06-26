@@ -6,8 +6,8 @@ var handler = createHandler({
   secret: '131415'
 })
 http.createServer(function (req, res) {
-  handler(req, res, function (err) {
-    res.statusCode = 404;
+  handler(req, res, function () {
+    res.statusCode = 404
     res.end('no such location')
   })
 }).listen(3000)
@@ -25,7 +25,7 @@ handler.on('push', function (event) {
   })
 })
 
-function rumCommand(cmd, args, callback) {
+function rumCommand (cmd, args, callback) {
   var child = spawn(cmd, args)
   var response = ''
   child.stdout.on('data', function (buffer) {

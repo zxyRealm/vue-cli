@@ -8,11 +8,11 @@
 </template>
 
 <script>
-  export default {
-    name: 'demo',
-    created () {
-      // 我在js 里待着呢！
-      /*
+export default {
+  name: 'demo',
+  created () {
+    // 我在js 里待着呢！
+    /*
       *
       * 我
        是
@@ -23,9 +23,9 @@
        释
        呢
       * */
-      console.log('我在这里打印了，你能看到我吗？')
-    }
+    console.log('我在这里打印了，你能看到我吗？')
   }
+}
 </script>
 
 <style scoped>

@@ -9,10 +9,9 @@
         focus-message="我是focus提示信息"
         v-model.trim="userForm.password">
         <template slot="prepend">Http://</template>
-        <el-button slot="append" icon="el-icon-search"> </el-button>
+        <el-button slot="append" icon="el-icon-search"></el-button>
       </uniubi-input>
     </div>
-
     <el-form
       ref="userForm"
       class="focus-form"
@@ -31,7 +30,7 @@
           placeholder="我可是提示信息哦！"
           v-model.trim="userForm.password">
           <template slot="prepend">Http://</template>
-          <el-button slot="append" icon="el-icon-search"> </el-button>
+          <el-button slot="append" icon="el-icon-search"></el-button>
         </uniubi-input>
       </el-form-item>
       <el-form-item
@@ -50,66 +49,70 @@
 </template>
 
 <script>
-  // @ is an alias to /src
-  import HelloWorld from '@/components/HelloWorld.vue'
-  import UniubiInput from '@/components/input'
-  import CurrentUser from '@/components/current-user'
+// @ is an alias to /src
+import UniubiInput from '@/components/input'
+// import CurrentUser from '@/components/current-user'
+import axios from 'axios'
 
-  export default {
-    name: 'home',
-    components: {
-      HelloWorld,
-      UniubiInput,
-      CurrentUser
-    },
-    data() {
-      return {
+export default {
+  name: 'home',
+  components: {
+    UniubiInput
+  },
+  data () {
+    return {
+      name: '',
+      url: require('../assets/logo.png'),
+      rules: {
+        password: [
+          { required: true, message: '请输入名称', trigger: 'blur' },
+          { min: 6, max: 18, message: '长度为6-18位', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '请输入名称', trigger: 'blur' }
+        ]
+      },
+      userForm: {
         name: '',
-        url: require('../assets/logo.png'),
-        rules: {
-          password: [
-            { required: true, message: '请输入名称', trigger: 'blur' },
-            { min: 6, max: 18, message: '长度为6-18位', trigger: 'blur' }
-          ],
-          name: [
-            { required: true, message: '请输入名称', trigger: 'blur'}
-          ]
-        },
-        userForm: {
-          name: '',
-          password: ''
-        }
-      }
-    },
-    created() {
-      console.log('this is home', eval(process.env.VUE_APP_HOST))
-      console.info('我和上面的是一家的')
-      console.error('我是他们的兄弟，但是我有些特别哦！')
-    },
-    methods: {
-      submit() {
-        this.$refs.userForm.validate((valid) => {
-          if (valid) {
-            console.log('validate success')
-          }
-        })
+        password: ''
       }
     }
+  },
+  created () {
+    this.checkWebHook()
+  },
+  methods: {
+    submit () {
+      this.$refs.userForm.validate((valid) => {
+        if (valid) {
+          console.log('validate success')
+        }
+      })
+    },
+    checkWebHook () {
+      axios.post('/api/autoBuildWeb').then(res => {
+        console.log(res)
+      })
+    }
   }
+}
 </script>
 <style lang="scss" scoped>
-  .demo-title{
+  .demo-title {
     margin: 20px;
   }
-  .demo-content{
+
+  .demo-content {
     margin: 20px;
     width: 400px;
   }
+
   .focus-form {
     width: 400px;
     margin: 20px;
 
   }
+
   .demo::placeholder {
     color: red;
   }

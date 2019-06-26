@@ -14,30 +14,29 @@
   </div>
 </template>
 
-
 <script>
-  export default {
-    name: 'list',
-    data() {
-      return {
-        noticeList: [
-          { text: '1oqf积分撒打飞机沙发了房间啊发上来就按了关机阿萨德链接发快递费放假啊' },
-          { text: '2' },
-          { text: '3' },
-          { text: '4' },
-          { text: '5' },
-          { text: '2' },
-          { text: '3' },
-          { text: '4' },
-          { text: '5' },
-          { text: '2' },
-          { text: '3' },
-          { text: '4' },
-          { text: '5' }
-        ]
-      }
+export default {
+  name: 'list',
+  data () {
+    return {
+      noticeList: [
+        { text: '1oqf积分撒打飞机沙发了房间啊发上来就按了关机阿萨德链接发快递费放假啊' },
+        { text: '2' },
+        { text: '3' },
+        { text: '4' },
+        { text: '5' },
+        { text: '2' },
+        { text: '3' },
+        { text: '4' },
+        { text: '5' },
+        { text: '2' },
+        { text: '3' },
+        { text: '4' },
+        { text: '5' }
+      ]
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

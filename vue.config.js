@@ -42,8 +42,11 @@ module.exports = {
     contentBase: './public',
     disableHostCheck: false, // host 检查
     proxy: {
-      'api': {
-        target: 'http://192.168.1.150:8000'
+      '/api': {
+        target: 'http://47.75.65.255',
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     } // 参考 http-proxy-middleware 配置项
   },

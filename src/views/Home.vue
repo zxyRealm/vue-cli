@@ -80,7 +80,7 @@ export default {
   },
   created () {
     // this.checkWebHook()
-    console.log('看到我就说明自动部署成功了哦！！！')
+    console.warn('看到我就说明自动部署成功了哦！！！')
   },
   methods: {
     submit () {

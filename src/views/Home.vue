@@ -104,13 +104,13 @@ export default {
   }
 
   .demo-content {
-    margin: 20px;
+    margin: 20px 0;
     width: 400px;
   }
 
   .focus-form {
     width: 400px;
-    margin: 20px;
+    margin: 20px 0;
 
   }
 

@@ -3,8 +3,11 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 
 const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
+const NoticeList = () => import(/* webpackChunkName: "notice" */ './views/notice.vue')
+const DataList = () => import(/* webpackChunkName: "list" */ './views/list.vue')
+
 const Error404 = () => import('./views/error/404.vue')
-const NoticeList = () => import('./views/notice.vue')
+
 Vue.use(Router)
 
 export default new Router({
@@ -32,7 +35,7 @@ export default new Router({
     {
       path: '/list',
       name: 'list',
-      component: import('./views/list.vue')
+      component: DataList
     },
     {
       path: '*',

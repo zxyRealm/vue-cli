@@ -38,7 +38,7 @@ export default {
     }
   },
   computed: {
-    inputListeners: function () {
+    inputListeners () {
       let vm = this
       // `Object.assign` 将所有的对象合并为一个新对象
       return Object.assign({},
@@ -98,9 +98,6 @@ export default {
     showFocusMessage () {
       return this.focusMessage && this.isFocus
     }
-  },
-  mounted () {
-    console.log(this.$slots)
   }
 }
 </script>

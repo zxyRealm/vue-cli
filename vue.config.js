@@ -19,15 +19,15 @@ module.exports = {
   productionSourceMap: false, // 生产环境的 source map
   configureWebpack: { // webpack 简单配置
     plugins: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          warnings: false,
-          compress: {
-            pure_funcs: ['console.log', 'console.info'] // 打包时去除console.log console.info
-          }
-        },
-        parallel: true
-      })
+      // new UglifyJsPlugin({
+      //   uglifyOptions: {
+      //     warnings: false,
+      //     compress: {
+      //       pure_funcs: ['console.log', 'console.info'] // 打包时去除console.log console.info
+      //     }
+      //   },
+      //   parallel: true
+      // })
     ]
   },
   chainWebpack: config => { // webpack 链式配置

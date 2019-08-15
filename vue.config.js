@@ -1,6 +1,6 @@
 // vue.config.js
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
+const THEME = process.env.VUE_APP_UNIUBI_THEME
 module.exports = {
   publicPath: process.env.BASE_URL, // 部署应用包时的基本 URL
   outputDir: 'dist', // build 时生成的生产环境构建文件的目录
@@ -12,7 +12,8 @@ module.exports = {
     },
     chain: {
       entry: 'src/index/chain.js',
-      template: 'template/chain.html'
+      template: 'template/chain.html',
+      filename: 'static/views/chain.html'
     }
   }, // 在 multi-page 模式下构建应用
   lintOnSave: true, // 开发环境下保存时lint代码
@@ -35,7 +36,7 @@ module.exports = {
   css: {
     loaderOptions: { // 向 CSS 相关的 loader 传递选项
       sass: {
-        data: `@import "@/styles/variables.scss";@import "@/styles/mixin.scss";`
+        data: `@import "@/styles/variables.scss";@import "/assets/theme/${THEME}/var.scss";@import "@/styles/mixin.scss";`
       }
     }
   },

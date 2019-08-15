@@ -1,10 +1,22 @@
-# @vue/cli 脚手架应用
-
-​	此文章时根据自己实际使用的总结，内容主要是官方文档描述，部分地方添加有自己的使用讲解，如有描述不清晰的地方可直接查看官方文档，由于是根据个人需要进行的内容抽取，因此会有部分功能并未提及。同时欢迎各位读者指正文章中的不足和错误，在此表示感谢！
+<h1 align=center>@vue/cli 脚手架应用</h1>	
 
 
 
-## 安装
+## 前言
+
+
+
+​	此文章是根据自己实际应用， 对 `@vue/cli 3.x` 版本的总结，内容主要是官方文档描述，部分地方添加有自己的使用讲解，如有描述不清晰的地方可直接查看官方文档，由于是根据个人需要进行的内容抽取，因此会有部分功能并未提及。同时欢迎各位读者指正文章中的不足和错误，在此表示感谢！
+
+
+
+
+
+## 创建项目
+
+
+
+使用前请全局安装 `@vue/cli` 
 
 ```bash
 npm install -g @vue/cli
@@ -12,11 +24,15 @@ npm install -g @vue/cli
 yarn global add @vue/cli
 
 ```
-注意事项： Vue CLI 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)。
-Vue CLI 的包名称由 vue-cli 改成了 @vue/cli，如果你已经全局安装了旧版本的 vue-cli，
-请先卸载旧版本
 
-#### 卸载旧版本
+> **注意事项**
+>
+> Vue CLI 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)。
+> Vue CLI 的包名称由 vue-cli 改成了 @vue/cli，如果你已经全局安装了旧版本的 vue-cli，
+> 请先卸载旧版本
+
+卸载旧版本
+
 ```bash
 npm uninstall vue-cli -g 
 # OR
@@ -26,13 +42,21 @@ yarn global remove vue-cli
 
 安装完成后，可直接用命令`vue -V` 检查是否安装成功，显示版本号即表示已经成功
 
-## 创建项目
 
-警告：Windows 上使用 Git Bash, 交互提示符并不工作（在windows 的cmd中使用交互
-提示符可以正常工作），你必须通过 winpty vue.cmd create hello-world 启动这个命令。
-不过，如果你仍想使用 vue create hello-world，则可以通过在 ~/.bashrc 
-文件中添加以下行来为命令添加别名。 alias vue='winpty vue.cmd' 
-你需要重新启动 Git Bash 终端会话以使更新后的 bashrc 文件生效。
+
+### vue create
+
+
+
+> **警告**
+>
+> Windows 上使用 Git Bash, 交互提示符并不工作（在windows 的cmd中使用交互
+> 提示符可以正常工作），你必须通过 winpty vue.cmd create hello-world 启动这个命令。
+> 不过，如果你仍想使用 vue create hello-world，则可以通过在 ~/.bashrc 
+> 文件中添加以下行来为命令添加别名。 alias vue='winpty vue.cmd' 
+> 你需要重新启动 Git Bash 终端会话以使更新后的 bashrc 文件生效。
+
+
 
 ```bash
 Vue CLI v3.7.0
@@ -82,58 +106,11 @@ vue-cli2.x配置、vue-cli3.x package.json配置方式、vue-cli3.x专用文件�
 
 
 
-如果你决定手动选择特性，在操作提示的最后你可以选择将已选项保存为一个将来可复用的 preset。
+如果你决定手动选择特性，在操作提示的最后你可以选择将已选项保存为一个将来可复用的预设配置，详情见下面<a href="#presets">预设配置</a>说明
 
 
 
-> ~/.vuerc
->
-> 被保存的 preset 将会存在用户的 home 目录下一个名为 `.vuerc` 的 JSON 文件里。如果你想要修改被保存的 preset / 选项，可以编辑这个文件。
-
-.vuerc 文件示例：
-
-```bash
-{
-  "useTaobaoRegistry": true,
-  "presets": {
-    "default": {
-      "useConfigFiles": true,
-      "plugins": {
-        "@vue/cli-plugin-babel": {},
-        "@vue/cli-plugin-eslint": {
-          "config": "standard",
-          "lintOn": [
-            "save"
-          ]
-        }
-      },
-      "router": true,
-      "routerHistoryMode": true,
-      "vuex": true,
-      "cssPreprocessor": "node-sass"
-    }
-  }
-}
-```
-
-
-
-### Babel
-
-Babel 可以通过 `babel.config.js` 进行配置。
-
-> TIP
->
-> Vue CLI 使用了 Babel 7 中的新配置格式 `babel.config.js`。和 `.babelrc` 或 `package.json` 中的 `babel` 字段不同，这个配置文件不会使用基于文件位置的方案，而是会一致地运用到项目根目录以下的所有文件，包括 `node_modules` 内部的依赖。我们推荐在 Vue CLI 项目中始终使用 `babel.config.js` 取代其它格式。
-
-
-### ESLint
-
-ESLint 可以通过 `.eslintrc` 或 `package.json` 中的 `eslintConfig` 字段来配置。
-
-
-
-## 使用图形化界面
+### 使用图形化界面
 
 通过 `vue ui` 命令以图形化界面创建和管理项目
 
@@ -141,7 +118,7 @@ ESLint 可以通过 `.eslintrc` 或 `package.json` 中的 `eslintConfig` 字段�
 
 
 
-## 拉取 2.x 模板 (旧版本)
+### 拉取 2.x 模板 (旧版本)
 
 Vue CLI >= 3 和旧版使用了相同的 `vue` 命令，所以 Vue CLI 2 (`vue-cli`) 被覆盖了。如果你仍然需要使用旧版本的 `vue init` 功能，你可以全局安装一个桥接工具：
 
@@ -153,7 +130,7 @@ vue init webpack my-project
 
 
 
-## 插件和 Preset
+## 插件和预设配置
 
 [详细使用可查看官方文档](https://cli.vuejs.org/zh/guide/plugins-and-presets.html#%E6%8F%92%E4%BB%B6)
 
@@ -175,17 +152,81 @@ vue init webpack my-project
 
 
 
+<h3 id="presets">预设配置</h3>
+
+Vue CLI 预设配置是一个包含创建新项目所需的预定义选项和插件的 JSON 对象，让用户无需在命令提示中选择它们。
+
+在 `vue create` 过程中保存的预设配置会被放在你的 home 目录下的一个配置文件中 (`~/.vuerc`)。你可以通过直接编辑这个文件来调整、添加、删除保存好的配置。
+
+此处有一个预设配置的示例：
+
+```json
+{
+  "useTaobaoRegistry": true,
+  "packageManager": "npm",
+  "latestVersion": "3.9.2",
+  "lastChecked": 1563181887108,
+  "presets": {
+    "common": { // 此处自定义创建项目时保存时添加的名称
+      "useConfigFiles": true,
+      "plugins": {
+        "@vue/cli-plugin-babel": {},
+        "@vue/cli-plugin-eslint": {
+          "config": "standard",
+          "lintOn": [
+            "save"
+          ]
+        }
+      },
+      "router": true,
+      "routerHistoryMode": true,
+      "cssPreprocessor": "dart-sass"
+    }
+  }
+}
+
+```
+
+
+
+添加过预设配置名称的在 `vue create`  创建项目时可以选取之前命名的配置方式来创建项目
+
+```basic
+Vue CLI v3.5.5
+┌───────────────────────────┐
+│  Update available: 3.9.2  │
+└───────────────────────────┘
+? Please pick a preset:
+> common (vue-router, dart-sass, babel, eslint)
+  default (babel, eslint)
+  Manually select features
+```
+
+
+
+
+
 ## CLI 服务
 
+​        
+
+CLI 服务 (`@vue/cli-service`) 是一个开发环境依赖。它是一个 npm 包，局部安装在每个 `@vue/cli` 创建的项目中。
+
+CLI 务是构建于 [webpack](http://webpack.js.org/) 和 [webpack-dev-server](https://github.com/webpack/webpack-dev-server) 之上的。它包含：
+
+- 加载其他 CLI 插件的核心服务；
+- 一个针对绝大部分应用优化过的内部的 `webpack` 配置；
+- 项目内部的 `vue-cli-service` 命令， 提供 `serve` 、 `build`  和  `inspect` 命令。
 
 
-### 使用命名
+
+### 使用命令
 
 
 
-在一个 Vue CLI 项目中，`@vue/cli-service` 安装了一个名为 `vue-cli-service` 的命令。你可以在 npm scripts 中以 `vue-cli-service`、或者从终端中以 `./node_modules/.bin/vue-cli-service` 访问这个命令。
+在一个 `VUE CLI` 项目中，`@vue/cli-service` 安装了一个名为 `vue-cli-service` 的命令。你可以在 `npm scripts`  中以  `vue-cli-service` 、或者从终端中以 `./node_modules/.bin/vue-cli-service`  访问这个命令。
 
-package.json文件中应用方式:
+`package.json` 文件中应用方式:
 
 ```bash
 {
@@ -202,13 +243,44 @@ package.json文件中应用方式:
 npx vue-cli-service serve
 ```
 
+ 
+
+### vue-cli-service inspect
+
+
+
+你可以使用 `vue-cli-service inspect` 来审查以 VUE CLI 项目的 webpack config 。如果无法使用 `npx` 命令在外部调用 `vue-cli-service inspect`，可以再 `package.json` 文件中添加运用内部命令
+
+
+
+```js
+...
+"scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "inspect": "vue-cli-service inspect"
+  }
+ ...
+```
+
+添加 `inspect` 命令后就可以 通过 `npm run inspect` 查看 webpack config 配置信息了。
+
+
+
+> **提示**
+>
+> `inspect` 命令输出的配置信息会直接展示在界面上，如果配置内容比较多，查看会不便利，此时可选择使用 `npm run inspect > a.json`  的方式将内容输出保存到文件中
+
+ 
+
 
 
 ## 浏览器兼容性
 
 
 
-### browserslist
+#### browserslist
 
  在`package.json` 文件里的 `browserslist` 字段 (或一个单独的 `.browserslistrc` 文件)，指定了项目的目标浏览器的范围。这个值会被 [@babel/preset-env](https://new.babeljs.io/docs/en/next/babel-preset-env.html) 和 [Autoprefixer](https://github.com/postcss/autoprefixer) 用来确定需要转译的 JavaScript 特性和需要添加的 CSS 浏览器前缀。
 
@@ -246,9 +318,9 @@ not dead
 
 一个默认的 Vue CLI 项目会使用 [@vue/babel-preset-app](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/babel-preset-app)，它通过 `@babel/preset-env` 和 `browserslist` 配置来决定项目需要的 polyfill。
 
-默认情况下，它会把 [`useBuiltIns: 'usage'`](https://new.babeljs.io/docs/en/next/babel-preset-env.html#usebuiltins-usage) 传递给 `@babel/preset-env`，这样它会根据源代码中出现的语言特性自动检测需要的 polyfill。这确保了最终包里 polyfill 数量的最小化。然而，这也意味着**如果其中一个依赖需要特殊的 polyfill，默认情况下 Babel 无法将其检测出来。**
+默认情况下，它会把 [`useBuiltIns: 'usage'`](https://new.babeljs.io/docs/en/next/babel-preset-env.html#usebuiltins-usage) 传递给 `@babel/preset-env`，这样它会根据源代码中出现的语言特性自动检测需要的 `polyfill`。这确保了最终包里 `polyfill` 数量的最小化。然而，这也意味着**如果其中一个依赖需要特殊的 polyfill，默认情况下 Babel 无法将其检测出来。**
 
-如果有依赖需要 polyfill，你有几种选择：
+如果有依赖需要 `polyfill`，你有几种选择：
 
 1. **如果该依赖基于一个目标环境不支持的 ES 版本撰写:** 将其添加到 `vue.config.js` 中的 [`transpileDependencies`](https://cli.vuejs.org/zh/config/#transpiledependencies) 选项。这会为该依赖同时开启语法语法转换和根据使用情况检测 polyfill。
 2. **如果该依赖交付了 ES5 代码并显式地列出了需要的 polyfill:** 你可以使用 `@vue/babel-preset-app` 的 [polyfills](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/babel-preset-app#polyfills) 选项预包含所需要的 polyfill。**注意 es6.promise 将被默认包含，因为现在的库依赖 Promise 是非常普遍的。**
@@ -269,7 +341,7 @@ module.exports = {
 
 
 
-3.**如果该依赖交付 ES5 代码，但使用了 ES6+ 特性且没有显式地列出需要的 polyfill (例如 Vuetify)：请使用 useBuiltIns: 'entry' 然后在入口文件添加 import '@babel/polyfill'。这会根据 browserslist 目标导入所有** polyfill，这样你就不用再担心依赖的 polyfill 问题了，但是因为包含了一些没有用到的 polyfill 所以最终的包大小可能会增加。
+3. **如果该依赖交付 ES5 代码，但使用了 ES6+ 特性且没有显式地列出需要的 polyfill (例如 Vuetify)：请使用 useBuiltIns: 'entry' 然后在入口文件添加 import '@babel/polyfill'。这会根据 browserslist 目标导入所有** polyfill，这样你就不用再担心依赖的 polyfill 问题了，但是因为包含了一些没有用到的 polyfill 所以最终的包大小可能会增加。
 
 
 
@@ -287,7 +359,7 @@ vue-cli-service build --modern
 
 
 
-> 提示
+> **提示**
 >
 > <script type="module"> 需要配合始终开启的 CORS 进行加载。这意味着你的服务器必须返回诸如 Access-Control-Allow-Origin: * 的有效的 CORS 头。如果你想要通过认证来获取脚本，可使将 crossorigin 选项设置为 use-credentials。
 >
@@ -299,7 +371,11 @@ vue-cli-service build --modern
 
 
 
-### HTML 和 静态资源
+## HTML 和 静态资源
+
+
+
+### HTML
 
 
 
@@ -361,7 +437,7 @@ module.exports = {
 
 
 
-## 处理静态资源
+### 处理静态资源
 
 
 
@@ -383,7 +459,7 @@ module.exports = {
 - 你有上千个图片，需要动态引用它们的路径。
 - 有些库可能和 webpack 不兼容，这时你除了将其用一个独立的 `<script>` 标签引入没有别的选择。
 
-## 
+
 
 ## CSS 相关
 
@@ -422,15 +498,15 @@ function addStyleResource (rule) {
 
 
 
-> ###### 提示：
+> **提示**
 >
-> 此方式引入的文件不是显示的引用文件，文件被修改后保存不会触发更新，可通过修改其他显示引用的文件触发webpack的热更新
+> 此方式引入的文件不是显示的引用文件，文件被修改后保存不会触发更新，可通过修改其他显示引用的文件触发 webpack 的热更新
 
 
 
 ### 向预处理器 Loader 传递选项
 
-向 webpack 的预处理器 loader 传递选项。你可以使用 `vue.config.js` 中的 `css.loaderOptions` 选项。比如你可以这样向所有 Sass 样式传入共享的全局变量：
+向 webpack 的预处理器 loader 传递选项。你可以使用 `vue.config.js` 中的  `css.loaderOptions` 选项。比如你可以这样向所有 Sass 样式传入共享的全局变量：
 
 
 
@@ -504,7 +580,7 @@ module.exports = {
 
 ### 环境变量使用
 
-只有以 `VUE_APP_` 开头的变量会被 `webpack.DefinePlugin` 静态嵌入到客户端侧的包中。你可以在应用的代码中这样访问它们：
+只有以 `VUE_APP_` 开头的变量会被  `webpack.DefinePlugin`  静态嵌入到客户端侧的包中。你可以在应用的代码中这样访问它们：
 
 ```js
 console.log(process.env.VUE_APP_SECRET)
@@ -517,9 +593,14 @@ console.log(process.env.VUE_APP_SECRET)
 - `NODE_ENV` - 会是 `"development"`、`"production"` 或 `"test"` 中的一个。具体的值取决于应用运行的[模式](https://cli.vuejs.org/zh/guide/mode-and-env.html#%E6%A8%A1%E5%BC%8F)。
 - `BASE_URL` - 会和 `vue.config.js` 中的 `publicPath` 选项相符，即你的应用会部署到的基础路径。
 
-所有解析出来的环境变量都可以在 `public/index.html` 中以 [HTML 插值](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#%E6%8F%92%E5%80%BC)中介绍的方式使用。
+所有解析出来的环境变量都可以在 `public/index.html` 中以 [HTML 插值](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#%E6%8F%92%E5%80%BC) 中介绍的方式使用。
 
-> 提示
+> **提示**
 >
-> 你可以在 `vue.config.js` 文件中计算环境变量。它们仍然需要以 `VUE_APP_` 前缀开头。这可以用于版本信息 `process.env.VUE_APP_VERSION = require('./package.json').version`。
+> 你可以在 `vue.config.js` 文件中计算环境变量。它们仍然需要以 `VUE_APP_` 前缀开头。这可以用于版本信息 `process.env.VUE_APP_VERSION = require('./package.json').version `。
 
+
+
+<div align=right>
+    <img src="./images/person-label.png" align=right />
+</div>

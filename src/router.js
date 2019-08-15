@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
 const NoticeList = () => import(/* webpackChunkName: "notice" */ './views/notice.vue')
 const DataList = () => import(/* webpackChunkName: "list" */ './views/list.vue')
+const ThreeMap = () => import(/* webpackChunkName: "three-map" */ './views/three-map.vue')
 
 const Error404 = () => import('./views/error/404.vue')
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/list',
       name: 'list',
       component: DataList
+    },
+    {
+      path: '/map',
+      name: 'ThreeMap',
+      component: ThreeMap
     },
     {
       path: '*',

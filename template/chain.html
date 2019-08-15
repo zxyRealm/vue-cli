@@ -3,8 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <title>连锁地图</title>
+  <script src="../three/js/core/three.min.js"></script>
+  <script src="../three/js/controls/OrbitControls.js"></script>
+  <script src="../three/js/controls/TrackballControls.js"></script>
+  <script src="../three/js/postprocessing/EffectComposer.js"></script>
+  <script src="../three/js/postprocessing/RenderPass.js"></script>
+  <script src="../three/js/postprocessing/ShaderPass.js"></script>
+  <script src="../three/js/shaders/CopyShader.js"></script>
+  <script src="../three/js/shaders/LuminosityHighPassShader.js"></script>
+  <script src="../three/js/postprocessing/UnrealBloomPass.js"></script>
+  <script src="../three/js/d3-array.js"></script>
+  <script src="../three/js/d3-geo.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      width: 100%;
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      font-family: "PingFang SC", "Heiti SC", "Arial", "Microsoft YaHei", "\9ED1\4F53", "\5B8B\4F53", sans-serif
+    }
+    #back {
+      position:absolute;
+      top: 58px;
+      right: 20px;
+      color: #0B7EF9;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    #infoBox {
+      position: absolute;
+      display: none;
+      opacity: 0.8;
+      background: #505499;
+      width: 232px;
+      height: 122px;
+      padding: 14px 24px;
+      box-sizing: border-box;
+      color: #B9CCF2;
+      font-size: 16px;
+    }
+    #infoBox div{
+      margin-bottom: 8px;
+    }
+    #chain{
+      position: absolute;
+      color: #252525;
+    }
+    #province {
+      font-size: 20px;
+    }
+    #store {
+      font-size: 16px;
+    }
+    #store span {
+      font-size: 40px;
+      margin-right: 3px
+    }
+    #heatBar{
+      position: absolute;
+      bottom: 100px;
+      right: 70px;
+    }
+    .item {
+      width: 20px;
+      height: 10px;
+      border-radius: 9px;
+      margin-bottom: 10px
+    }
+    .type1 {
+      background: #B9CCF2
+    }
+    .type2 {
+      background: #64C0FF
+    }
+    .type3 {
+      background: #3176FF
+    }
+    .type4 {
+      background: #3333FF
+    }
+    .type5 {
+      background: #1400D3
+    }
+
+  </style>
 </head>
 <body>
-
+<div id="chain"></div>
+<!-- built files will be auto injected -->
 </body>
 </html>

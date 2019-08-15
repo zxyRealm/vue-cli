@@ -8,7 +8,7 @@
         <span class="index">{{$index + 1}}.</span>
         <span class="content ellipsis">{{item.text}}</span>
         <span>{{new Date().toLocaleString()}}</span>
-        <i class="el-icon-close g-fr" @click="del(item)"></i>
+        <i class="el-icon-close g-fr f-pointer" @click="del(item)"></i>
       </li>
     </ul>
   </div>
@@ -35,20 +35,24 @@ export default {
         { text: '5' }
       ]
     }
+  },
+  methods: {
+    del () {
+      this.$confirm('确认删除此条消息？')
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .notice-item {
-    height: 62px;
     padding: 20px 40px;
     box-sizing: border-box;
     border-bottom: 1px solid $global-gray-border;
     text-align: left;
-    line-height: 1.2;
+    /*line-height: 1.2;*/
     &:nth-child(2n + 1) {
-      background: gray;
+      background: #d1dbe5;
     }
     > * {
       display: inline-block;

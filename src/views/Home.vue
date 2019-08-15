@@ -31,41 +31,41 @@
       <!--</uniubi-input>-->
       <!---->
     </div>
-    <div id="three--container" class="three--container">
-    </div>
-    <!--<el-form-->
-    <!--ref="userForm"-->
-    <!--class="focus-form"-->
-    <!--label-width="80px"-->
-    <!--label-position="left"-->
-    <!--@submit.native.prevent-->
-    <!--:rules="rules"-->
-    <!--:model="userForm">-->
-    <!--<el-form-item-->
-    <!--label="点我试试"-->
-    <!--prop="password">-->
-    <!--<uniubi-input-->
-    <!--:class="[name,{ items: name }]"-->
-    <!--show-password-->
-    <!--focus-message="我是focus提示信息"-->
-    <!--placeholder="我可是提示信息哦！"-->
-    <!--v-model.trim="userForm.password">-->
-    <!--<template slot="prepend">Http://</template>-->
-    <!--<el-button slot="append" icon="el-icon-search"></el-button>-->
-    <!--</uniubi-input>-->
-    <!--</el-form-item>-->
-    <!--<el-form-item-->
-    <!--label="名称"-->
-    <!--prop="name">-->
-    <!--<uniubi-input-->
-    <!--show-password-->
-    <!--focus-message="不要乱输哦，会被拒绝的！"-->
-    <!--placeholder="请输入名称"-->
-    <!--@keyup.enter="submit"-->
-    <!--v-model.trim="userForm.name">-->
-    <!--</uniubi-input>-->
-    <!--</el-form-item>-->
-    <!--</el-form>-->
+    <img src="~@/assets/theme/dark/images/favicon.png" alt="">
+    <div class="color-block"></div>
+    <el-form
+      ref="userForm"
+      class="focus-form"
+      label-width="80px"
+      label-position="left"
+      @submit.native.prevent
+      :rules="rules"
+      :model="userForm">
+      <el-form-item
+        label="点我试试"
+        prop="password">
+        <uniubi-input
+          :class="[name,{ items: name }]"
+          show-password
+          focus-message="我是focus提示信息"
+          placeholder="我可是提示信息哦！"
+          v-model.trim="userForm.password">
+          <template slot="prepend">Http://</template>
+          <el-button slot="append" icon="el-icon-search"></el-button>
+        </uniubi-input>
+      </el-form-item>
+      <el-form-item
+        label="名称"
+        prop="name">
+        <uniubi-input
+          show-password
+          focus-message="不要乱输哦，会被拒绝的！"
+          placeholder="请输入名称"
+          @keyup.enter="submit"
+          v-model.trim="userForm.name">
+        </uniubi-input>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -283,7 +283,6 @@
         return true
       },
 
-
       // 获取元素相对窗口坐标
       getElementPosition(e) {
         let [x, y] = [0, 0]
@@ -308,6 +307,12 @@
   }
 </script>
 <style lang="scss" scoped>
+  .color-block{
+    height: 50px;
+    width: 50px;
+    background-color: $--theme-color;
+    background-image: bg-url('favicon.png')
+  }
   .demo-title {
     margin: 20px;
   }

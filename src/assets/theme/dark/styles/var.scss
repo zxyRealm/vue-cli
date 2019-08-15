@@ -1,1 +1,5 @@
+@function bg-url($url) {
+  @return url('~@/assets/theme/dark/images/' + $url)
+}
+
 $--theme-color: black;

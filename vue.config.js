@@ -36,7 +36,7 @@ module.exports = {
   css: {
     loaderOptions: { // 向 CSS 相关的 loader 传递选项
       sass: {
-        data: `@import "@/styles/variables.scss";@import "/assets/theme/${THEME}/var.scss";@import "@/styles/mixin.scss";`
+        data: `@import "@/styles/variables.scss";@import "@/assets/theme/${THEME}/styles/var.scss";@import "@/styles/mixin.scss";`
       }
     }
   },

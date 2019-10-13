@@ -1,17 +1,21 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import Router from './soures/vue-router'
 import Home from './views/Home.vue'
 
-const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
-const NoticeList = () => import(/* webpackChunkName: "notice" */ './views/notice.vue')
-const DataList = () => import(/* webpackChunkName: "list" */ './views/list.vue')
+// const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
+// const NoticeList = () => import(/* webpackChunkName: "notice" */ './views/notice.vue')
+// const DataList = () => import(/* webpackChunkName: "list" */ './views/list.vue')
+// const Error404 = () => import('./views/error/404.vue')
 
-const Error404 = () => import('./views/error/404.vue')
+import About  from './views/About.vue'
+import NoticeList from './views/notice.vue'
+import DataList from './views/list.vue'
+import Error404 from './views/error/404.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   // base: process.env.BASE_URL,
   routes: [
     {

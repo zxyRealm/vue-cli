@@ -76,7 +76,7 @@ export default {
     }
   },
   created() {
-    let list = countNumsToList([88, 34,67,8,9,0,12, 123456789])
+    let list = countNumsToList([88, 34,67,8,9,0,12, 12345678])
     console.log(list)
     let powList = list.map(item => item.reduce((a, b) => a + b, 0))
     console.log(powList)

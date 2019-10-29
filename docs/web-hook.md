@@ -159,16 +159,14 @@
    npm run build
    if [ $? -eq 0 ]
    then
-   rm -rf /home/projects/web/dist/*
-   cp -R /home/git/vue-cli/dist/ /home/projects/web/ -f
-   else
-    echo 'npm run build failed'
+    rm -rf /home/projects/web/dist/*
+    cp -R /home/git/vue-cli/dist/ /home/projects/web/ -f
    fi
    ```
 
    
 
-   > ​	此示例中  `/home/git/vue-cli` 为服务器上vue 项目存放地址， `/home/projects/web/` 为构建后dist 文件放置地址。在Lix服务器上可以用 `sh -n xxx.sh` 检测 shell 脚本是否有语法错误， 使用 `sh -vx xxxx.sh`  命令调试 shell 脚本
+   > 此示例中  `/home/git/vue-cli` 为服务器上vue 项目存放地址， `/home/projects/web/` 为构建后dist 文件放置地址。在Lix服务器上可以用 `sh -n xxx.sh` 检测 shell 脚本是否有语法错误， 使用 `sh -vx xxxx.sh`  命令调试 shell 脚本
 
    
 
@@ -178,7 +176,7 @@
    ssh-keygen
    ```
 
-   输入以上命令后直接回车，完成后再用户根目录会生成.ssh目录，如有已有.ssh 目录可以直接使用 `cat ~/.ssh/id_ras.pub`  后复制公钥文件
+   输入以上命令后直接回车，完成后再用户根目录会生成.ssh目录，如有已有.ssh 目录可以直接使用 `cat ~/.ssh/id_ras.pub`  命令复制公钥文件
 
    
 

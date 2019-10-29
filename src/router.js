@@ -7,9 +7,11 @@ import Home from './views/Home.vue'
 // const DataList = () => import(/* webpackChunkName: "list" */ './views/list.vue')
 // const Error404 = () => import('./views/error/404.vue')
 
-import About  from './views/About.vue'
+import About from './views/About.vue'
 import NoticeList from './views/notice.vue'
 import DataList from './views/list.vue'
+import FlowTest from './views/flow-test.vue'
+
 import Error404 from './views/error/404.vue'
 
 Vue.use(Router)
@@ -40,6 +42,11 @@ export default new Router({
       path: '/list',
       name: 'list',
       component: DataList
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: FlowTest
     },
     {
       path: '*',

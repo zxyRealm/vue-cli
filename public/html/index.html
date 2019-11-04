@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/element-ui.css">
+  <style>
+    html, body, p {
+      padding: 0;
+      margin: 0;  
+    }
+    .result-wrap .item {
+      display: inline-block;
+      width: 200px;
+      margin-right: 20px;
+    }
+    .main-wrap{
+      margin-top: 30px;
+      padding: 0px 20px;
+    }
+    .result-wrap {
+      min-height: 200px;
+      padding: 20px 10px;
+      border: 1px solid #ddd;
+    }
+
+    .result-wrap .label{
+      width: 200px;
+      margin-bottom: 15px;
+      padding: 0 10px;
+      line-height: 1.5;
+      box-sizing: border-box;
+      border: 1px solid #f00;
+    }
+    .result-wrap .label.success{
+      border: 1px solid #0f0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="main-wrap">
+    <!-- inject content -->
+    <!-- 
+      1. 设备IP、固件包、升级结果
+      2. 要求：
+        1. 支持多设备固件自动上传升级
+        2. 升级失败自动重新尝试
+        3. 设置自动尝试事件间隔
+     -->
+     <el-form
+      ref="upgradeForm"
+      label-position="left"
+      label-width="80px"
+      :rules="rules"
+      :model="upgradeForm">
+        <el-form-item label="设备IP" prop="ip">
+          <el-input
+            type="textarea"
+            rows="5"
+            v-model.trim="upgradeForm.ip"></el-input>
+        </el-form-item>
+        <el-form-item label="固件包" prop="file">
+          <div class="file-input">
+            <label
+              for="file-input"
+              v-text="upgradeForm.file && upgradeForm.file.name">
+            </label>
+            <el-input
+              v-show="false"
+              v-model="upgradeForm.file"></el-input>
+            <input
+              ref="fileInput"
+              @change="handleFileChange"
+              id="file-input"
+              type="file">
+          </div>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            :disabled="upgrading"
+            @click="submit"
+            v-text="'升 级' + (upgrading ? ' 中...' : '')">
+          </el-button>
+        </el-form-item>
+        <el-form-item label="升级结果">
+          <div class="result-wrap">
+            <div
+              v-for="(item, index) in resultObj.list"
+              :key="index"
+              :class="{success: item.success}"
+              class="label" v-text="item.ip"></div>
+          </div>
+        </el-form-item>
+      </el-form>
+  </div>
+
+
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <script src="./js/vue.js"></script>
+  <script src="./js/element-ui.js"></script>
+  <script>
+    var ipRep = /^([\d]|[1-9][\d]|1[\d]{2}|2[0-4][\d]|25[0-5])(\.([\d]|[1-9][\d]|1[\d]{2}|2[0-4][\d]|25[0-5])){3}$/
+    
+    // 校验并格式化IP，并将其分组
+    /*
+    * @return {success} Boolean 当前IP是否已经升级成功
+    * @return {count} Number 已升级次数, 
+    * 用于限制自动重新升级次数限制
+    */ 
+    
+    function formatIps (ips) {
+      ips = (ips || '').replace(/\s/g, '').split(',').filter(function (item) {
+        return !!item
+      })
+      console.log(ips)
+      var arr = []
+      for (var i = 0; i < ips.length; i++ ) {
+        if (ips[i]) {
+          if (ipRep.test(ips[i])) {
+            arr.push({
+              ip: ips[i],
+              success: false,
+              count: 0
+            })
+          } else {
+            error.push({
+              ip: ips[i],
+              success: false,
+              count: -1
+            })
+          }
+        } 
+      }
+      return arr
+    }
+  
+    window.onload = function () {
+      // 规则： 多个IP用英文逗号隔开，每个IP 格式必须合法
+      var ipValidator = function (rule, value, cb) {
+        if (value && formatIps(value).length) {
+          cb()
+        } else {
+          cb(new Error('请输入设备IP'))
+        }
+      }
+
+      var fileValidator = function (rule, value, cb) {
+        if (value) {
+          cb()
+        } else {
+          cb(new Error('请选取固件包'))
+        }
+      }
+
+      var _vm = new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            upgradeForm: {
+              ip: '192.168.0.104,192.168.11.122,192.168.1.15',
+              file: ''
+            },
+            rules: {
+              ip: [
+                { required: true, validator: ipValidator, trigger: 'blur'}
+              ],
+              file: [
+                { required: true, validator: fileValidator, trigger: 'blur'}
+              ]
+            },
+            upgrading: false, // 是否正在升级中
+            current: { // 当前上传对象
+              ip: '',
+              index: 0
+            },
+            maxCount: 10, // 限制单个IP升级次数上限
+            sleep: 40, // 同一IP连续升级间隔时间
+            resultObj: {
+              total: 0,
+              list: []
+            },
+            ipList: [] // 待升级的IP List
+          }
+        },
+        mounted() {
+      
+        },
+        computed: {
+          baseUrl () {
+            return 'http://' + this.current.ip + ':3000'
+          },
+          // 固件包版本
+          zipVersion () {
+            var name = (this.upgradeForm.file || {}).name || ''
+            return name.split('_')[3] || ''
+          }
+        },
+        methods: {
+          // 过滤需要重新升级的IP列表
+          filterIp (list) {
+            this.ipList = (list || this.ipList).filter(function (item) {
+              return !item.success && item.count > -1
+            })
+          },
+          submit () {
+            this.$refs.upgradeForm.validate(valid => {
+              if (!valid) {
+                this.resetData()
+                var ips = formatIps(this.upgradeForm.ip)
+                this.filterIp(ips)
+                this.resultObj.list = ips.filter(function (i) {
+                  return i.success || i.count === -1
+                })
+                this.resultObj.total = ips.length
+                if (!this.resultObj.total) {
+                  return this.$message.warn('请输入设备IP')
+                }
+                this.upgrading = true
+                this.handleUpgrade()
+              }
+            })
+          },
+          // 文件格式校验
+          handleFileChange (event) {
+            e = event || window.event
+            var file = e.target.files[0]
+            this.upgradeForm.file = file
+            var type = file.name && file.name.substring(file.name.lastIndexOf('.') + 1)
+            if (file && type !== 'zip') {
+              this.$message.error('只支持zip文件格式')
+              this.$refs.fileInput.value = ''
+              this.upgradeForm.file = ''
+            }
+          },
+          getVersion (index) {
+            var _this = this
+            request({
+              url: '/getdevices',
+              baseUrl: _this.baseUrl
+            }).then(function (res) {
+              if (res.data && res.data.version === _this.zipVersion) {
+                _this.updateState(_this.current.index, true)
+                _this.uploadFile(_this.current.index++)
+              } else {
+                _this.uploadFile(_this.current.index)
+              }  
+            }).catch(function(error) {
+              console.error('-----', error)
+              // 版本信息接口无法正常获取,将视为此IP不存在，不再尝试
+              _this.updateState(_this.current.index)
+              _this.handleUpgrade(_this.current.index++)
+            })
+          },
+          // 固件上传
+          uploadFile (index) {
+            var _this = this
+            request({
+              url: '/upgrade',
+              baseUrl: _this.baseUrl
+            }).then(function (res) {
+              if (res.success) {
+                _this.updateState(_this.current.index, true)
+              } else {
+                _this.updateState(_this.current.index, 'count')
+              }
+              _this.handleUpgrade(_this.current.index++)
+            }).catch(function(error) {
+              console.error(error)
+              // 版本信息接口无法正常获取,将视为此IP不存在，不再尝试
+              _this.updateState(_this.current.index, 'count')
+              _this.handleUpgrade(_this.current.index++)
+            })
+          },
+          // 升级
+          handleUpgrade (index) {
+            index = index || this.current.index || 0
+            if (!this.ipList.length) {
+              this.$message.success('升级完成')
+              return
+            }
+            // index > length - 1 视为数组遍历完一次
+            if (index > this.ipList.length -1) {
+              this.current.index = 0
+              this.filterIp()
+            }
+            if (!this.ipList[this.current.index]) {
+              return this.handleUpgrade(this.current.index++)
+            }
+            this.current.ip = this.ipList[this.current.index].ip
+            this.getVersion(index)
+          },
+          changeState (index) {
+            this.ipList.replace(index, 1, {})
+          },
+          
+          // 更新状态
+          updateState (index, state) {
+            // 当前升级IP 信息
+            var item = this.ipList[index]
+            var newItem
+            console.log('update state', index)
+            // 限制单个IP升级次数上限
+            if (item.count >= this.maxCount || !state) {
+              newItem = Object.assign(item, { count: -1 })
+              this.resultObj.list.push(newItem)
+            } else if (state) { // 升级成功数组状态更新
+              newItem = Object.assign(item, { success: true })
+              this.resultObj.list.push(newItem)
+            } else if (state === 'count'){
+              newItem = Object.assign(item, { count: item.count++ })
+            }
+            this.ipList.splice(index, 1, newItem)
+          },
+          // 重置数据
+          resetData () {
+            this.current = {
+              ip: '',
+              index: 0
+            }
+            this.resultObj = {
+              total: 0,
+              list: []
+            }
+            this.ipList = []
+          }
+        }
+      })
+    }
+
+    function isFunction (val) {
+      return typeof val === 'function'
+    }
+
+    // 统一 ajax 请求
+    function request (params) {
+      // 参数存在 并且非上传接口时 将data转换JSON.stringify
+      return new Promise(function (resolve, reject) {
+        if (params.data && params.type &&
+          params.type !== 'get' &&
+          params.contentType !== 'application/form-data') {
+          params.data = JSON.stringify(params.data)
+        } 
+        
+        var baseParams = {
+          type: 'post',
+          baseUrl: 'http://localhost:3000',
+          url: '',
+          contentType: 'application/json;charset=utf-8',
+          dataType: 'JSON',
+          success: function (res, status, xhr) {
+            // console.log(res, status, xhr)
+            if (res.success) {
+              resolve(res)
+            } else {
+              reject(res)
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error(error)
+            reject(xhr)
+          }
+        }
+
+        params.url = (params.baseUrl || baseParams.baseUrl) + params.url
+     
+        $.ajax(Object.assign(baseParams, params))
+      })
+      
+    }
+  </script>
+</body>
+</html>

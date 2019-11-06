@@ -15,12 +15,12 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       list: 8
-    };
+    }
   }
-};
+}
 </script>
 
 <style>

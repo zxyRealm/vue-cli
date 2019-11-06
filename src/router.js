@@ -11,6 +11,7 @@ import About from './views/About.vue'
 import NoticeList from './views/notice.vue'
 import DataList from './views/list.vue'
 import FlowTest from './views/flow-test.vue'
+import Folder from './views/upload/folder'
 
 import Error404 from './views/error/404.vue'
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/test',
       name: 'test',
       component: FlowTest
+    },
+    {
+      path: '/folder',
+      name: 'Folder',
+      component: Folder
     },
     {
       path: '*',

@@ -11,7 +11,8 @@
           :key="index"
           :style="{ top: item.point[0] + 'px', left: item.point[1] + 'px' }"
           @mouseenter="showPointOfLine($event, item)"
-          @mouseleave="hidePointOfLine($event, item)"></div>
+          @mouseleave="hidePointOfLine($event, item)"
+        ></div>
       </div>
       <div class="right-item">
         <div
@@ -20,11 +21,11 @@
           :key="index"
           :style="{ top: item.view[0] + 'px', left: item.view[1] + 'px' }"
           @mouseenter="showPointOfLine($event, item)"
-          @mouseleave="hidePointOfLine($event, item)"></div>
+          @mouseleave="hidePointOfLine($event, item)"
+        ></div>
       </div>
     </div>
-    <div id="three--container" class="three--container">
-    </div>
+    <div id="three--container" class="three--container"></div>
   </div>
 </template>
 
@@ -49,9 +50,7 @@ export default {
           { required: true, message: '请输入名称', trigger: 'blur' },
           { min: 6, max: 18, message: '长度为6-18位', trigger: 'blur' }
         ],
-        name: [
-          { required: true, message: '请输入名称', trigger: 'blur' }
-        ]
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
       },
       userForm: {
         name: '',
@@ -66,17 +65,17 @@ export default {
         paintStyle: { strokeWidth: 1, strokeDasharray: [5, 10], stroke: '#456' }
       },
       list: [
-        { id: 1, point: [0, 10], view: [60, 20]},
-        { id: 2, point: [20, 10], view: [100, 20]},
-        { id: 3, point: [30, 10], view: [120, 80]},
-        { id: 4, point: [50, 20], view: [90, 20]},
-        { id: 5, point: [100, 20], view: [50, 10]},
-        { id: 6, point: [35, 30], view: [80, 20]},
+        { id: 1, point: [0, 10], view: [60, 20] },
+        { id: 2, point: [20, 10], view: [100, 20] },
+        { id: 3, point: [30, 10], view: [120, 80] },
+        { id: 4, point: [50, 20], view: [90, 20] },
+        { id: 5, point: [100, 20], view: [50, 10] },
+        { id: 6, point: [35, 30], view: [80, 20] }
       ]
     }
   },
   created() {
-    let list = countNumsToList([88, 34,67,8,9,0,12, 12345678])
+    let list = countNumsToList([88, 34, 67, 8, 9, 0, 12, 12345678])
     console.log(list)
     let powList = list.map(item => item.reduce((a, b) => a + b, 0))
     console.log(powList)
@@ -92,7 +91,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$refs.userForm.validate((valid) => {
+      this.$refs.userForm.validate(valid => {
         if (valid) {
           console.log('validate success')
         }
@@ -125,17 +124,19 @@ export default {
       // this.createSvgShape(p1, p2)
       // let xy = this.getElementPosition(target)
       console.log(p1, p2)
-      jsPlumb.ready((e) => {
-        jsPlumb.connect({
-          source: source,
-          target: target,
-          endpoint: 'Dot',
-          connector: 'Straight',
-          connectionsDetachable: false
-        }, this.commonConfig)
+      jsPlumb.ready(e => {
+        jsPlumb.connect(
+          {
+            source: source,
+            target: target,
+            endpoint: 'Dot',
+            connector: 'Straight',
+            connectionsDetachable: false
+          },
+          this.commonConfig
+        )
       })
     },
-
 
     // 创建并显示两点间的连线
     createSvgShape(p1, p2) {
@@ -155,16 +156,25 @@ export default {
       let w = Math.abs(p2.x - p1.x) || 1
       let h = Math.abs(p2.y - p1.y) || 1
       if (!svgNode) {
-        svgNode = document.createElementNS(twConstants.NS_SVG, twConstants.DIALECT_SVG)
+        svgNode = document.createElementNS(
+          twConstants.NS_SVG,
+          twConstants.DIALECT_SVG
+        )
         svgNode.id = svgId
         svgNode.setAttribute('version', '1.1')
         document.body.appendChild(svgNode)
       }
-      svgNode.setAttribute('style', `position: absolute;top: ${psy}px;left: ${psx}px;width: ${w}px;height: ${h}px;`)
+      svgNode.setAttribute(
+        'style',
+        `position: absolute;top: ${psy}px;left: ${psx}px;width: ${w}px;height: ${h}px;`
+      )
       if (!svgLine) {
         svgLine = document.createElementNS(twConstants.NS_SVG, 'line')
         svgLine.id = lineId
-        svgLine.setAttribute('style', 'stroke:blue;stroke-width: 1px;stroke-dasharray: 5 10;')
+        svgLine.setAttribute(
+          'style',
+          'stroke:blue;stroke-width: 1px;stroke-dasharray: 5 10;'
+        )
         svgNode.appendChild(svgLine)
       }
       let pos = { x: psx - 2, y: psy - 2 }
@@ -187,8 +197,12 @@ export default {
     showPointOfLine(e, item) {
       console.log(e.target.id, item.id)
       // let targetId = e.target.id
-      let p1 = this.getElementPosition(document.getElementById(`point-right_${item.id}`))
-      let p2 = this.getElementPosition(document.getElementById(`point-left_${item.id}`))
+      let p1 = this.getElementPosition(
+        document.getElementById(`point-right_${item.id}`)
+      )
+      let p2 = this.getElementPosition(
+        document.getElementById(`point-left_${item.id}`)
+      )
       this.createSvgShape(p1, p2)
     },
     // 隐藏两点连线
@@ -200,51 +214,59 @@ export default {
     },
 
     /*
-      * 判断此对象是否是Object类型
-      * @param {Object} obj
-      */
+     * 判断此对象是否是Object类型
+     * @param {Object} obj
+     */
     isObject(obj) {
       return Object.prototype.toString.call(obj) === '[object Object]'
     },
     /*
-      * 判断此类型是否是Array类型
-      * @param {Array} arr
-      */
+     * 判断此类型是否是Array类型
+     * @param {Array} arr
+     */
     isArray(arr) {
       return Object.prototype.toString.call(arr) === '[object Array]'
     },
     /*
-      *  深度比较两个对象是否相同
-      * @param {Object} oldData
-      * @param {Object} newData
-      */
+     *  深度比较两个对象是否相同
+     * @param {Object} oldData
+     * @param {Object} newData
+     */
     equalsObj(oldData, newData) {
       // 类型为基本类型时,如果相同,则返回true
       if (oldData === newData) return true
-      if (this.isObject(oldData) && this.isObject(newData) && Object.keys(oldData).length === Object.keys(newData).length) {
+      if (
+        this.isObject(oldData) &&
+        this.isObject(newData) &&
+        Object.keys(oldData).length === Object.keys(newData).length
+      ) {
         // 类型为对象并且元素个数相同
         // 遍历所有对象中所有属性,判断元素是否相同
         for (const key in oldData) {
           if (oldData.hasOwnProperty(key)) {
             if (!this.equalsObj(oldData[key], newData[key]))
-            // 对象中具有不相同属性 返回false
+              // 对象中具有不相同属性 返回false
               return false
           }
         }
-      } else if (this.isArray(oldData) && this.isArray(oldData) && oldData.length === newData.length) {
+      } else if (
+        this.isArray(oldData) &&
+        this.isArray(oldData) &&
+        oldData.length === newData.length
+      ) {
         // 类型为数组并且数组长度相同
         for (let i = 0, length = oldData.length; i < length; i++) {
           if (!this.equalsObj(oldData[i], newData[i]))
-          // 如果数组元素中具有不相同元素,返回false
+            // 如果数组元素中具有不相同元素,返回false
             return false
         }
-      } else { // 其它类型,均返回false
+      } else {
+        // 其它类型,均返回false
         return false
       }
       // 走到这里,说明数组或者对象中所有元素都相同,返回true
       return true
     },
-
 
     // 获取元素相对窗口坐标
     getElementPosition(e) {
@@ -263,57 +285,59 @@ export default {
       if (w.innerWidth != null) return { w: w.innerWidth, h: w.innerHeight }
       const d = w.document
       if (document.compatMode === 'CSS1Compat')
-        return { w: d.documentElement.clientWidth, h: d.documentElement.clientHeight }
+        return {
+          w: d.documentElement.clientWidth,
+          h: d.documentElement.clientHeight
+        }
       return { w: d.body.clientWidth, h: d.body.clientHeight }
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-  .demo-title {
-    margin: 20px;
-  }
+.demo-title {
+  margin: 20px;
+}
 
-  .three--container {
-    width: 500px;
+.three--container {
+  width: 500px;
+  height: 300px;
+}
+
+.demo-content {
+  margin: 20px 0;
+  width: 400px;
+  overflow: hidden;
+  > div {
+    position: relative;
+    float: left;
+    width: calc(50% - 12px);
     height: 300px;
-  }
-
-  .demo-content {
-    margin: 20px 0;
-    width: 400px;
-    overflow: hidden;
+    border: 1px dashed #ddd;
+    &:nth-child(1) {
+      margin-right: 20px;
+    }
+    /*#point-left {*/
+    /*top: auto;*/
+    /*bottom: 10px;*/
+    /*}*/
     > div {
-      position: relative;
-      float: left;
-      width: calc(50% - 12px);
-      height: 300px;
-      border: 1px dashed #ddd;
-      &:nth-child(1) {
-        margin-right: 20px;
-      }
-      /*#point-left {*/
-        /*top: auto;*/
-        /*bottom: 10px;*/
-      /*}*/
-      > div {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        top: 15px;
-        right: 50px;
-        background: #0B7EF9;
-      }
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      top: 15px;
+      right: 50px;
+      background: #0b7ef9;
     }
   }
+}
 
-  .focus-form {
-    width: 400px;
-    margin: 20px 0;
+.focus-form {
+  width: 400px;
+  margin: 20px 0;
+}
 
-  }
-
-  .demo::placeholder {
-    color: red;
-  }
+.demo::placeholder {
+  color: red;
+}
 </style>

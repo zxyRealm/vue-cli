@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +8,42 @@
   <title>Document</title>
   <link rel="stylesheet" href="css/element-ui.css">
   <style>
-    html, body, p {
+    html,
+    body,
+    p {
       padding: 0;
-      margin: 0;  
+      margin: 0;
     }
+
     .title {
       font-size: 24px;
       font-weight: 500;
       text-align: center;
     }
+
     /* 使用说明 */
     .instruction {
       padding-left: 20px;
       margin-bottom: 20px;
     }
-    .instruction p{
+
+    .instruction p {
       font-size: 14px;
       line-height: 2;
       color: #666;
     }
+
     .result-wrap .item {
       display: inline-block;
       width: 200px;
       margin-right: 20px;
     }
-    .main-wrap{
+
+    .main-wrap {
       margin-top: 30px;
       padding: 0px 20px;
     }
+
     .result-wrap {
       position: relative;
       min-height: 200px;
@@ -43,7 +52,7 @@
       border: 1px solid #ddd;
     }
 
-    .result-wrap .label{
+    .result-wrap .label {
       width: 200px;
       margin-bottom: 15px;
       padding: 0 10px;
@@ -51,14 +60,17 @@
       box-sizing: border-box;
       border: 1px solid #f00;
     }
-    .result-wrap .label.success{
+
+    .result-wrap .label.success {
       border: 1px solid #0f0;
     }
-    .percent{
+
+    .percent {
       position: absolute;
       bottom: 5px;
       right: 10px;
     }
+
     .file-input {
       position: relative;
       overflow: hidden;
@@ -66,7 +78,8 @@
       line-height: 40px;
       border: 1px solid #ddd;
     }
-    .file-input label{
+
+    .file-input label {
       position: absolute;
       top: 0px;
       left: 0px;
@@ -76,19 +89,22 @@
       padding: 0 15px;
       cursor: pointer;
     }
+
     .file-input label .gray {
       color: #999;
     }
+
     #file-input {
       position: absolute;
       margin-left: -9999px;
       z-index: -1;
       opacity: 0;
-    } 
+    }
   </style>
 </head>
+
 <body>
-  
+
   <div id="app" class="main-wrap">
     <h2 class="title">自动升级</h2>
     <div class="instruction">
@@ -106,58 +122,43 @@
         2. 升级失败自动重新尝试
         3. 设置自动尝试事件间隔
      -->
-     <el-form
-      ref="upgradeForm"
-      label-position="left"
-      label-width="80px"
-      :rules="rules"
-      :model="upgradeForm">
-        <el-form-item label="设备IP" prop="ip">
-          <el-input
-            placeholder="请输入设备IP(多个IP用逗号隔开)"
-            type="textarea"
-            rows="5"
-            v-model.trim="upgradeForm.ip"></el-input>
-        </el-form-item>
-        <el-form-item label="固件包" prop="file">
-          <div class="file-input">
-            <label
-              for="file-input"
-              v-text="">
-              <span :class="{ gray: !(upgradeForm.file && upgradeForm.file.name) }" v-text="upgradeForm.file && upgradeForm.file.name || '请选择固件包'"></span>
-            </label>
-            <el-input
-              v-show="false"
-              v-model="upgradeForm.file"></el-input>
-            <input
-              ref="fileInput"
-              @change="handleFileChange"
-              id="file-input"
-              type="file">
+    <el-form ref="upgradeForm" label-position="left" label-width="80px" :rules="rules" :model="upgradeForm">
+      <el-form-item label="设备IP" prop="ip">
+        <el-input placeholder="请输入设备IP(多个IP用逗号隔开)" type="textarea" rows="5" v-model.trim="upgradeForm.ip"></el-input>
+      </el-form-item>
+      <el-form-item label="固件包" prop="file">
+        <div class="file-input">
+          <label for="file-input" v-text="">
+            <span
+              :class="{ gray: !(upgradeForm.file && upgradeForm.file.name) }"
+              v-text="upgradeForm.file && upgradeForm.file.name || '请选择固件包'">
+            </span>
+          </label>
+          <el-input v-show="false" v-model="upgradeForm.file"></el-input>
+          <input ref="fileInput" @change="handleFileChange" id="file-input" type="file">
+        </div>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" :disabled="upgrading" @click="submit" v-text="'升 级' + (upgrading ? ' 中...' : '')">
+        </el-button>
+      </el-form-item>
+      <el-form-item label="升级结果">
+        <div class="result-wrap">
+          <p class="percent" style="color:#666;">
+            <span style="color: #0f0" v-text="resultObj.list.length"></span>/
+            <span v-text="resultObj.total"></span>
+          </p>
+          <div
+            v-for="(item, index) in resultObj.list"
+            :key="index" :class="{success: item.success}" 
+            class="label"
+            v-text="item.ip">
+            <span v-text="item.ip"></span>
+            <span v-show="item.version" v-text="`(${item.version})`"></span>
           </div>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            :disabled="upgrading"
-            @click="submit"
-            v-text="'升 级' + (upgrading ? ' 中...' : '')">
-          </el-button>
-        </el-form-item>
-        <el-form-item label="升级结果">
-          <div class="result-wrap">
-            <p class="percent" style="color:#666;">
-              <span style="color: #0f0" v-text="resultObj.list.length"></span>/
-              <span v-text="resultObj.total"></span>
-            </p>
-            <div
-              v-for="(item, index) in resultObj.list"
-              :key="index"
-              :class="{success: item.success}"
-              class="label" v-text="item.ip"></div>
-          </div>
-        </el-form-item>
-      </el-form>
+        </div>
+      </el-form-item>l
+    </el-form>
   </div>
 
 
@@ -166,31 +167,34 @@
   <script src="./js/element-ui.js"></script>
   <script>
     var ipRep = /^([\d]|[1-9][\d]|1[\d]{2}|2[0-4][\d]|25[0-5])(\.([\d]|[1-9][\d]|1[\d]{2}|2[0-4][\d]|25[0-5])){3}$/
-    
+
     // 校验并格式化IP，并将其分组
     /*
     * @return {success} Boolean 当前IP是否已经升级成功
     * @return {count} Number 已升级次数, 
     * 用于限制自动重新升级次数限制
-    */ 
-    
-    function formatIps (ips) {
+    */
+
+    function formatIps(ips) {
       ips = (ips || '').replace(/\s/g, '').split(',').filter(function (item) {
         return !!item
       })
       var arr = []
-      for (var i = 0; i < ips.length; i++ ) {
-        if (ips[i]) {
+      // 对象保存键值，进行数组去重
+      var map = {}
+      for (var i = 0; i < ips.length; i++) {
+        if (ips[i] && !map[ips[i]]) {
           arr.push({
-              ip: ips[i],
-              success: false,
-              count: ipRep.test(ips[i]) ? 0 : -1
-            })
-        } 
+            ip: ips[i],
+            success: false,
+            count: ipRep.test(ips[i]) ? 0 : -1
+          })
+          map[ips[i]] = true
+        }
       }
       return arr
     }
-  
+
     window.onload = function () {
       // 规则： 多个IP用英文逗号隔开，每个IP 格式必须合法
       var ipValidator = function (rule, value, cb) {
@@ -219,14 +223,15 @@
             },
             rules: {
               ip: [
-                { required: true, validator: ipValidator, trigger: 'blur'}
+                { required: true, validator: ipValidator, trigger: 'blur' }
               ],
               file: [
-                { required: true, validator: fileValidator, trigger: 'blur'}
+                { required: true, validator: fileValidator, trigger: 'blur' }
               ]
             },
             uploadRequest: null, // 当前上传请求，为了处理上传请求无响应来取消请求的
             upgrading: false, // 是否正在升级中
+            checking: false, // 批量版本校验
             current: { // 当前上传对象
               ip: '',
               index: 0
@@ -243,49 +248,57 @@
           }
         },
         mounted() {
-      
         },
         computed: {
-          baseUrl () {
+          baseUrl() {
             return 'http://' + this.current.ip + ':8090'
           },
           // 固件包版本
-          zipVersion () {
+          zipVersion() {
             var name = (this.upgradeForm.file || {}).name || ''
             return name.split('_')[3] || ''
           }
         },
         methods: {
+          initData () {
+            this.resetData()
+            var ips = formatIps(this.upgradeForm.ip)
+            this.filterIp(ips)
+            this.resultObj.list = ips.filter(function (i) {
+              return i.success || i.count === -1
+            })
+            this.resultObj.total = ips.length
+          },
           // 过滤需要重新升级的IP列表
-          filterIp (list) {
+          filterIp(list) {
             this.ipList = (list || this.ipList).filter(function (item) {
               return !item.success && item.count > -1
             })
           },
-          submit () {
-            this.$refs.upgradeForm.validate(valid => {
+          submit() {
+            if (this.checking) {
+              return this.$message.warn('版本检验正在处理中，请稍后！')
+            }
+            var _this = this
+            this.$refs.upgradeForm.validate(function (valid) {
               if (valid) {
-                this.resetData()
-                var ips = formatIps(this.upgradeForm.ip)
-                this.filterIp(ips)
-                this.resultObj.list = ips.filter(function (i) {
-                  return i.success || i.count === -1
-                })
-                this.resultObj.total = ips.length
-                if (!this.resultObj.total) {
-                  return this.$message.warn('请输入设备IP')
+                _this.initData()
+                if (!_this.resultObj.total) {
+                  return _this.$message.warn('请输入有效设备IP')
                 }
-                this.upgrading = true
-                this.handleUpgrade()
+                _this.upgrading = true
+                _this.handleUpgrade()
               }
             })
           },
           // 文件格式校验
-          handleFileChange (event) {
+          handleFileChange(event) {
             e = event || window.event
             var file = e.target.files[0]
             this.upgradeForm.file = file
-            var type = file && file.name && file.name.substring(file.name.lastIndexOf('.') + 1)
+            var type = file
+              && file.name 
+              && file.name.substring(file.name.lastIndexOf('.') + 1)
             if (file && type !== 'zip') {
               this.$message.error('只支持zip文件格式')
               this.$refs.fileInput.value = ''
@@ -293,7 +306,7 @@
             }
           },
           // 获取设备应用版本，判定如何升级
-          getVersion (index) {
+          getVersion(index) {
             var _this = this
             request({
               url: '/getdevices',
@@ -301,11 +314,11 @@
             }).then(function (res) {
               if (res.data && res.data.version === _this.zipVersion) {
                 _this.updateState(_this.current.index, true)
-                _this.uploadFile(_this.current.index++)
+                _this.handleUpgrade(_this.current.index++)
               } else {
                 _this.uploadFile(_this.current.index)
-              }  
-            }).catch(function(error) {
+              }
+            }).catch(function (error) {
               console.error('version', error)
               // 版本信息接口无法正常获取,将视为此IP不存在，不再尝试
               _this.updateState(_this.current.index)
@@ -313,39 +326,39 @@
             })
           },
           // 固件上传
-          uploadFile () {
+          uploadFile() {
             var _this = this
             // request({
             //   url: '/devicestate',
             //   baseUrl: _this.baseUrl
             // }).then(function (res) {
-              var formData = new FormData()
-              var file = _this.upgradeForm.file
-              formData.append('file', file, file.name)
-              this.uploadRequest = $.ajax({
-                type: 'post',
-                url: _this.baseUrl + '/uploadFile',
-                processData : false, // 使数据不做处理
-                contentType : false, // 不要设置Content-Type请求头
-                data: formData,
-                success: function (res) {
-                  var data = JSON.parse(res)
-                  if (data.success) {
-                    _this.updateState(_this.current.index, true)
-                  } else {
-                    _this.updateState(_this.current.index, 'count')
-                  }
-                  _this.handleUpgrade(_this.current.index++)
-                },
-                error: function () {
+            var formData = new FormData()
+            var file = _this.upgradeForm.file
+            formData.append('file', file, file.name)
+            this.uploadRequest = $.ajax({
+              type: 'post',
+              url: _this.baseUrl + '/uploadFile',
+              processData: false, // 使数据不做处理
+              contentType: false, // 不要设置Content-Type请求头
+              data: formData,
+              success: function (res) {
+                var data = JSON.parse(res)
+                if (data.success) {
+                  _this.updateState(_this.current.index, true)
+                } else {
                   _this.updateState(_this.current.index, 'count')
-                  _this.handleUpgrade(_this.current.index++)
                 }
-              })
+                _this.handleUpgrade(_this.current.index++)
+              },
+              error: function () {
+                _this.updateState(_this.current.index, 'count')
+                _this.handleUpgrade(_this.current.index++)
+              }
+            })
 
-              setTimeout(function () {
-                _this.getPercent()
-              }, 2000)
+            setTimeout(function () {
+              _this.getPercent()
+            }, 2000)
             // }).catch(function (error, xhr) {
             //   console.error(error, xhr)
             //   _this.updateState(_this.current.index, 'count')
@@ -353,7 +366,7 @@
             // })
           },
           // 升级
-          handleUpgrade (index) {
+          handleUpgrade(index) {
             var _this = this
             index = index || this.current.index || 0
             if (!this.ipList.length) {
@@ -362,27 +375,31 @@
               return
             }
             // index > length - 1 视为数组遍历完一次
-            if (index > this.ipList.length -1) {
+            if (index > this.ipList.length - 1) {
               this.current.index = 0
               this.filterIp()
             }
             if (!this.ipList[this.current.index]) {
               return this.handleUpgrade(this.current.index++)
             }
-            // console.log('------', this.current.index, this.ipList)
-            if (this.current.ip === this.ipList[this.current.index].ip) {
-              setTimeout(function () {
-                _this.current.ip = _this.ipList[_this.current.index].ip
-                _this.getVersion(index)
-              }, _this.sleep * 1000)
-            } else {
-              this.current.ip = this.ipList[this.current.index].ip
-              this.getVersion(index)
-            }
-            
+            // 当前设备/IP 信息
+            const cd = this.ipList[this.current.index]
+            const now = new Date().getTime()
+            // 如果lastTime属性存在则视为再次尝试, 
+            // 重新尝试升级须与上一次升级间隔一定时间
+            const sleepTime = (now - (cd.lastTime || 0)
+              < _this.sleep * 1000)
+              ? _this.sleep * 1000
+              : 0
+            setTimeout(function () {
+              _this.current.ip = cd.ip
+              _this.getVersion(index)
+            }, sleepTime)
+
+
           },
           // 获取上传进度
-          getPercent () {
+          getPercent() {
             var _this = this
             request({
               url: '/percent',
@@ -415,13 +432,12 @@
             })
           },
           // 更新状态
-          updateState (index, state) {
+          updateState(index, state) {
             this.percentSame = 0
             this.percent = 0
             // 当前升级IP 信息
             var item = this.ipList[index > this.ipList.length - 1 ? this.ipList.length - 1 : index]
             var newItem
-            console.log(this.ipList,index)
             if (!item) return
             // 限制单个IP升级次数上限
             if (item.count >= this.maxCount || !state) {
@@ -430,15 +446,19 @@
             } else if (state === true) { // 升级成功数组状态更新
               newItem = Object.assign(item, { success: true })
               this.resultObj.list.push(newItem)
-            } else if (state === 'count'){
-              newItem = Object.assign(item, { count: item.count + 1 })
-              // console.log('count', item, newItem)
+            } else if (state === 'count') {
+              newItem = Object.assign(
+                item,
+                {
+                  count: ++item.count,
+                  lastTime: new Date().getTime()
+                }
+              )
             }
-            // console.log(newItem)
             this.ipList.splice(index, 1, newItem)
           },
           // 重置数据
-          resetData () {
+          resetData() {
             this.current = {
               ip: '',
               index: 0
@@ -451,30 +471,79 @@
           },
 
           //  取消上传，通过获取进度接口得到上传完成时，主动断开上传请求
-          abortUpload () {
+          abortUpload() {
             if (this.uploadRequest) {
               this.uploadRequest.abort()
               this.uploadRequest = null
             }
+          },
+          // 批量校验版本信息
+          batchCheckVersion (index) {
+            var _this = this
+            index = index || this.current.index || 0
+            if (index > this.ipList.length - 1) {
+              this.$message.success('版本校验完成！')
+              this.checking = false
+              return
+            }
+            var present = this.ipList[this.current.index]
+            this.current.ip = present.ip
+            request({
+              url: '/getdevices',
+              baseUrl: _this.baseUrl
+            }).then(function (res) {
+              if (res.data.version === _this.zipVersion) {
+                _this.resultObj.list.push(
+                  Object.assign(present, { success: true })
+                )
+              } else {
+                _this.resultObj.list.push(
+                  Object.assign(present, { version: res.data.version })
+                )
+              }
+              _this.batchCheckVersion(_this.current.index++)
+            }).catch(function (error) {
+              _this.resultObj.list.push(
+                Object.assign(present, { version: '获取版本信息失败' })
+              )
+              _this.batchCheckVersion(_this.current.index++)
+            })
+          },
+          // 校验版本
+          handleCheck () {
+            if (this.upgrading) {
+              return this.$message.warn('升级正在处理中，请稍后！')
+            }
+            var _this = this
+            this.$refs.upgradeForm.validate(function (valid) {
+              if (valid) {
+                _this.initData()
+                if (!_this.resultObj.total) {
+                  return _this.$message.warn('请输入有效设备IP')
+                }
+                _this.checking = true
+                _this.batchCheckVersion()
+              }
+            })
           }
         }
       })
     }
 
-    function isFunction (val) {
+    function isFunction(val) {
       return typeof val === 'function'
     }
 
     // 统一 ajax 请求
-    function request (params) {
+    function request(params) {
       // 参数存在 并且非上传接口时 将data转换JSON.stringify
       return new Promise(function (resolve, reject) {
         if (params.data && params.type &&
           params.type !== 'get' &&
           params.contentType !== 'application/form-data') {
           params.data = JSON.stringify(params.data)
-        } 
-        
+        }
+
         var baseParams = {
           type: 'post',
           baseUrl: '',
@@ -494,11 +563,12 @@
         }
 
         params.url = (params.baseUrl || baseParams.baseUrl) + params.url
-     
+
         return $.ajax(Object.assign(baseParams, params))
       })
-      
+
     }
   </script>
 </body>
+
 </html>

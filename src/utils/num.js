@@ -8,7 +8,7 @@ const isNumber = num => typeof num === 'number'
 export function countMaxPow (num) {
   let max = 0
   let current = num
-  while (current>0) {
+  while (current > 0) {
     current = parseInt(current / 2)
     max++
     if (num < Math.pow(2, max)) return max - 1

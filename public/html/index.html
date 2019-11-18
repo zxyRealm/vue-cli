@@ -161,11 +161,13 @@
     </el-form>
   </div>
 
-
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script src="./js/jquery-1.12.4.min.js"></script>
   <script src="./js/vue.js"></script>
   <script src="./js/element-ui.js"></script>
-  <script>
+  <script type="text/babel">
+    var ele = <div>this is my name</div>
+    console.log(ele)
     var ipRep = /^([\d]|[1-9][\d]|1[\d]{2}|2[0-4][\d]|25[0-5])(\.([\d]|[1-9][\d]|1[\d]{2}|2[0-4][\d]|25[0-5])){3}$/
 
     // 校验并格式化IP，并将其分组

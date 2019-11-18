@@ -5,6 +5,7 @@
       <router-link class="nav-item" to="/list">列表</router-link>
       <router-link class="nav-item" to="/notice">通知</router-link>
       <router-link class="nav-item" to="/test">测试</router-link>
+      <router-link class="nav-item" to="/ts">TypeScript</router-link>
     </nav>
     <router-view></router-view>
   </div>

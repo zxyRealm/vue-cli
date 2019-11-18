@@ -1,5 +1,6 @@
 <template>
   <div class="uniubi-input">
+    /* ... */
     <el-input
       v-bind="$attrs"
       v-on="inputListeners">
@@ -26,6 +27,10 @@ export default {
   name: 'UniubiInput',
   inheritAttrs: false,
   props: {
+    /**
+       * The size of the button
+       * @focusMessage '', 'custom'
+       */
     focusMessage: {
       type: String,
       default: ''

@@ -12,7 +12,7 @@ import NoticeList from './views/notice.vue'
 import DataList from './views/list.vue'
 import FlowTest from './views/flow-test.vue'
 import Folder from './views/upload/folder'
-
+import TimeLine from './views/time-line'
 import Error404 from './views/error/404.vue'
 
 Vue.use(Router)
@@ -53,6 +53,11 @@ export default new Router({
       path: '/folder',
       name: 'Folder',
       component: Folder
+    },
+    {
+      path: '/time-line',
+      name: 'TimeLine',
+      component: TimeLine
     },
     {
       path: '*',

@@ -57,8 +57,9 @@
 ### `RTMP` 协议
 
 - 基于TCP
-- 浏览器端依赖Flash播放
+- 浏览器端依赖 Flash 播放
 - 2~5s延时
+- FireFox 已禁用 `Flash` 插件， `Chrome` (2019-12-31 后)不再支持 `Flash` 
 
 
 
@@ -112,7 +113,7 @@ WebRTC学习指南
 
 ### RTP
 
-​	基于`UDP`, 延时1s, 浏览器不支持
+​	基于 `UDP` , 延时1s, 浏览器不支持
 
 
 
@@ -120,6 +121,14 @@ WebRTC学习指南
 
 - 基于`RTMP`
 - `live-plusher` 和 `live-player` 组件，设置好流地址参数即可（仅支持`flv`, `rtmp` 格式）
+
+
+
+### 实践运用
+
+​	`videojs` 播放器插件， [官方文档](<https://docs.videojs.com/>)
+
+​	
 
 
 

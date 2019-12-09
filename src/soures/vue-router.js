@@ -39,7 +39,6 @@ export default class VueRouter {
     this.$options.routes.forEach(item => {
       this.routeMap[item.path] = item
     })
-    console.log(this.routeMap)
   }
   //  ruoter-link / router-view 组件注册
   initComponents () {

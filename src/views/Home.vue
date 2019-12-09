@@ -76,30 +76,23 @@ export default {
   },
   created() {
     let list = countNumsToList([88, 34, 67, 8, 9, 0, 12, 12345678])
-    console.log(list)
     let powList = list.map(item => item.reduce((a, b) => a + b, 0))
-    console.log(powList)
     // this.checkWebHook()
     console.warn('看到我就说明自动部署成功了哦！！！')
     this.createPointLine()
   },
   mounted() {
-    this.addLine()
-    addEventListener('resize', () => {
-      console.log(this.getViewPortSize())
-    })
+    // this.addLine()
   },
   methods: {
     submit() {
       this.$refs.userForm.validate(valid => {
         if (valid) {
-          console.log('validate success')
         }
       })
     },
     checkWebHook() {
       axios.post('/api/autoBuildWeb').then(res => {
-        console.log(res)
       })
     },
     createPointLine() {
@@ -123,7 +116,6 @@ export default {
       let p2 = this.getElementPosition(target)
       // this.createSvgShape(p1, p2)
       // let xy = this.getElementPosition(target)
-      console.log(p1, p2)
       jsPlumb.ready(e => {
         jsPlumb.connect(
           {
@@ -178,7 +170,6 @@ export default {
         svgNode.appendChild(svgLine)
       }
       let pos = { x: psx - 2, y: psy - 2 }
-      console.log(pos, p1, p2)
       if (this.equalsObj(pos, p1) || this.equalsObj(pos, p2)) {
         svgLine.setAttribute('x1', 0)
         svgLine.setAttribute('y1', 0)
@@ -195,7 +186,6 @@ export default {
 
     // 显示两点连线
     showPointOfLine(e, item) {
-      console.log(e.target.id, item.id)
       // let targetId = e.target.id
       let p1 = this.getElementPosition(
         document.getElementById(`point-right_${item.id}`)

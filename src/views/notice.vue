@@ -8,7 +8,8 @@
         <span class="index">{{$index + 1}}.</span>
         <span class="content ellipsis">{{item.text}}</span>
         <span>{{new Date().toLocaleString()}}</span>
-        <i class="el-icon-close g-fr" @click="del(item)"></i>
+        
+        <i class="el-icon-close g-fr f-pointer g-red" @click="del($index)"></i>
       </li>
     </ul>
   </div>
@@ -35,20 +36,24 @@ export default {
         { text: '5' }
       ]
     }
+  },
+  methods: {
+    del (index) {
+      this.noticeList.splice(index, 1)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .notice-item {
-    height: 62px;
     padding: 20px 40px;
     box-sizing: border-box;
     border-bottom: 1px solid $global-gray-border;
     text-align: left;
-    line-height: 1.2;
+    line-height: 1.5;
     &:nth-child(2n + 1) {
-      background: gray;
+      background: $--bg-color--gray;
     }
     > * {
       display: inline-block;
@@ -61,7 +66,7 @@ export default {
       width: 10px;
       border-radius: 5px;
       margin-right: 12px;
-      background: $theme-blue;
+      background: $theme--blue;
       vertical-align: middle;
     }
     .index{
@@ -69,7 +74,7 @@ export default {
     }
     .content{
       width: auto;
-      max-width: calc(100% - 280px);
+      max-width: calc(100% - 300px);
       margin-right: 30px;
     }
   }

@@ -5,7 +5,6 @@
       <router-link class="nav-item" to="/list">列表</router-link>
       <router-link class="nav-item" to="/notice">通知</router-link>
       <router-link class="nav-item" to="/test">测试</router-link>
-      <router-link class="nav-item" to="/ts">TypeScript</router-link>
       <router-link class="nav-item" to="/folder">Folder</router-link>
       <router-link class="nav-item" to="/time-line">TimeLine</router-link>
     </nav>
@@ -16,19 +15,25 @@
 <script>
 export default {
   name: "app",
-  components: {}
+  components: {},
+  data () {
+    return {
+      select: '',
+      count: 10
+    }
+  }
 };
 </script>
 
 <style scoped>
-#app {
+/* #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
   padding: 0 30px;
-}
+} */
 .nav--wrap {
   height: 50px;
   line-height: 50px;

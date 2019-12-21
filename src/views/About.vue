@@ -1,5 +1,29 @@
 <template>
   <div class="about">
+    <el-select
+      @visible-change="handleVisibleChange"
+      v-model="personId">
+      <div
+        :infinite-scroll-disabled="disabled"
+        :infinite-scroll-distance="5"
+        :infinite-scroll-immediate="false"
+        v-infinite-scroll="load">
+        <el-option
+          v-for="i in count"
+          :key="i"
+          :label="i"
+          :value="i"></el-option>
+        <li v-if="loading">Loading...</li>
+        <!-- <li v-if="noMore">no more</li> -->
+      </div>
+      <!-- <ul> -->
+        <!-- <li v-for="item in count" :key="item">{{item}}</li> -->
+        
+      <!-- </ul> -->
+    </el-select>
+    <!-- <div class="flex-box">
+      <div class="flex-item" v-for="i in count" :key="i">{{i}}</div>
+    </div> -->
     <img :src="require('@/assets/logo.png')" alt="">
     <h1>This is an about page</h1>
     <el-button @click="getDataList">刷新</el-button>
@@ -12,6 +36,9 @@
         {{item.label}}
       </el-checkbox>
     </el-checkbox-group>
+
+    
+
     <ul class="check-wrap">
       <li>
         <span
@@ -22,6 +49,8 @@
         </span>
       </li>
     </ul>
+
+    
   </div>
 
 </template>
@@ -30,6 +59,10 @@ export default {
   name: 'about-us',
   data () {
     return {
+      infiniteDisabled: false,
+      personId: '',
+      count: 10,
+      loading: false,
       currentList: [],
       list: [],
       checkList: []
@@ -38,13 +71,31 @@ export default {
   computed: {
     curKey () {
       return 'id'
+    },
+    noMore () {
+      return this.count > 20
+    },
+    disabled () {
+      return this.loading || !this.infiniteDisabled
     }
   },
   mounted () {
     console.info('我是个info, 你能找到我吗？')
-    this.getDataList()
+    // this.getDataList()
   },
   methods: {
+    handleVisibleChange (val) {
+      this.infiniteDisabled = val
+    },
+    load () {
+      console.log('loading...')
+      this.loading = true
+      const timer = setTimeout(() => {
+        this.count += 2
+        this.loading = false
+        clearTimeout(timer)
+      }, 1500)
+    },
     getDataList () {
       let num = Math.random()* 5 + 5
       const list = []
@@ -102,7 +153,42 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.text-ellipsis {
+  display: inline-block;
+  height: 100%;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: none;
+}
+.flex-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // flex-flow: row-reverse wrap;
+  justify-content: space-around;
+  .flex-item {
+    padding: 10px;
+    border-radius: 50%;
+    background: #dab;
+    margin-left: 10px;
+    margin-bottom: -6px;
+  }
+  .left {
+    flex: 0;
+    width: 100px;
+    float: left;
+    max-width: 30%;
+  }
+  .right {
+    height: 100%;
+    overflow: hidden;
+    padding-left: 10px; 
+  }
+ 
+}
 .check-wrap {
   height: 200px;
   margin: 20px 0;

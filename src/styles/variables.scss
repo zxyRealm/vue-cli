@@ -1,5 +1,8 @@
-$theme-blue: #0B7EF9;
-$theme-yellow: #ff0;
+$theme--blue: #0B7EF9;
+$theme--yellow: #ff0;
+$theme--red: #ef470f;
+$theme--black: #333;
 $color: #333;
 
-$global-gray-border: #ddd;
+$global-gray-border: rbga(0, 0, 0, 0.1);
+$--bg-color--gray: rgba(0, 0, 0, 0.1);

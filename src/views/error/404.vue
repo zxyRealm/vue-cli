@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="error--wrap">
     <h2>404</h2>
     <h3> this is loser </h3>
   </div>
@@ -11,10 +11,13 @@ export default {
 }
 </script>
 
-<style scoped>
-  h2 {
-    margin: 50px 0;
-    font-size: 30px;
-    text-align: center;
-  }
+<style lang="scss" scoped>
+.error--wrap {
+  text-align: center;
+}
+h2 {
+  margin: 50px 0;
+  font-size: 30px;
+  text-align: center;
+}
 </style>

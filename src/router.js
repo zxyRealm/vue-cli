@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Router from './soures/vue-router'
+import Router from 'vue-router'
 import Home from './views/Home.vue'
 
 // const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
@@ -13,7 +13,7 @@ import DataList from './views/list.vue'
 import FlowTest from './views/flow-test.vue'
 import Folder from './views/upload/folder'
 import TimeLine from './views/time-line'
-import Error404 from './views/error/404.vue'
+import Error404 from './views/error/404'
 
 Vue.use(Router)
 

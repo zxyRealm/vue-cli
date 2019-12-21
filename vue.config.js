@@ -1,8 +1,8 @@
 // vue.config.js
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
+const { NODE_ENV, BASE_URL } = process.env
 module.exports = {
-  publicPath: process.env.BASE_URL, // 部署应用包时的基本 URL
+  publicPath: BASE_URL, // 部署应用包时的基本 URL
   outputDir: 'dist', // build 时生成的生产环境构建文件的目录
   assetsDir: 'static', // 放置生成的静态资源的目录
   pages: {
@@ -15,7 +15,7 @@ module.exports = {
       template: 'template/chain.html'
     }
   }, // 在 multi-page 模式下构建应用
-  lintOnSave: true, // 开发环境下保存时lint代码
+  lintOnSave: NODE_ENV === 'development', // 开发环境下保存时lint代码
   productionSourceMap: false, // 生产环境的 source map
   configureWebpack: { // webpack 简单配置
     plugins: [

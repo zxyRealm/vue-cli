@@ -36,6 +36,7 @@
     "github-webhook-handler": "^0.7.1",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
+    "serve": "^11.2.0",
     "style-resources-loader": "^1.2.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

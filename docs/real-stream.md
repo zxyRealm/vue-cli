@@ -1,6 +1,6 @@
 [TOC]
 
-# Web直播流
+# Web 直播流
 
 
 
@@ -144,11 +144,21 @@ WebRTC学习指南
 
 VLC:  <a href="https://www.videolan.org" target="_blank">https://www.videolan.org</a>
 
+
+
 线上直播流测试地址
+
+**rtmp 流地址**
+
+湖南卫视：rtmp://58.200.131.2:1935/livetv/hunantv
+
+香港财经：rtmp://202.69.69.180:443/webcast/bshdlive-pc （可用，信号不好）
 
 
 
 **HLS 流地址** 
+
+香港卫视：http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8
 
 CCTV1高清：http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8
 
@@ -160,7 +170,7 @@ CCTV5+高清：http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8
 
 CCTV6高清：http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8
 
-
+苹果提供的测试源（点播）：http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8
 
 参考资料地址
 

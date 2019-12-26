@@ -13,12 +13,14 @@ import DataList from './views/list.vue'
 import FlowTest from './views/flow-test.vue'
 import Folder from './views/upload/folder'
 import TimeLine from './views/time-line'
+import RealStream from './views/real-stream'
+// 404 page
 import Error404 from './views/error/404'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  mode: 'history',
   // base: process.env.BASE_URL,
   routes: [
     {
@@ -58,6 +60,11 @@ export default new Router({
       path: '/time-line',
       name: 'TimeLine',
       component: TimeLine
+    },
+    {
+      path: '/real-stream',
+      name: 'RealStream',
+      component: RealStream
     },
     {
       path: '*',

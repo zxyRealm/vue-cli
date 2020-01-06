@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Select from './views/el-select.vue'
 
 // const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
 // const NoticeList = () => import(/* webpackChunkName: "notice" */ './views/notice.vue')
@@ -65,6 +66,11 @@ export default new Router({
       path: '/real-stream',
       name: 'RealStream',
       component: RealStream
+    },
+    {
+      path: '/select',
+      name: 'Select',
+      component: Select
     },
     {
       path: '*',

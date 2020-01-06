@@ -5,6 +5,8 @@ module.exports = {
   publicPath: BASE_URL, // 部署应用包时的基本 URL
   outputDir: 'dist', // build 时生成的生产环境构建文件的目录
   assetsDir: 'static', // 放置生成的静态资源的目录
+  runtimeCompiler: true,
+  transpileDependencies: ['element-ui/packages/'],
   pages: {
     index: {
       entry: 'src/main.js',

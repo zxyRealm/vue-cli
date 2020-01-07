@@ -24,27 +24,76 @@
         :label="item.name">
       </or-option>
     </or-select>
+
+    <h2> table 行合并 </h2>
+    <el-table
+      :span-method="arraySpanMethod"
+      :data="timeList">
+      <el-table-column
+        fixed="left"
+        prop="name"
+        label="时间段名称"
+        width="100"></el-table-column>
+      <el-table-column
+        fixed="left"
+        prop="name"
+        label="签到/签退时间段"
+        width="130"></el-table-column> 
+      <el-table-column
+        fixed="left"
+        prop="name"
+        label="迟到/早退时间段"
+        width="130"></el-table-column>
+      <el-table-column
+        fixed="left"
+        prop="name"
+        label="操作"
+        width="80">
+        <template slot-scope="{ row }">
+          <i class="el-icon-edit mr10"></i>
+          <i class="el-icon-delete"></i>
+        </template>
+      </el-table-column>
+      <el-table-column
+        min-width="46"
+        v-for="(t, index) in timeStrList"
+        :key="'t' + index"
+        :label="t.label">
+        <template slot-scope="{ row }">
+          <time-line :data="row"></time-line>
+        </template>
+      </el-table-column>
+    </el-table>
   </el-row>
   </div>
 </template>
 <script>
 import OrSelect from 'element-ui/packages/select'
 import OrOption from 'element-ui/packages/option'
+import TimeLine from '@/components/time-line'
+import { timeToNumber } from '@/utils/num'
 // 时间点顺序
 const timeKeys = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8
+  'signInBegin',
+  'signInEnd',
+  'signInLateBegin',
+  'signInLateEnd',
+  'signOutEarlyBegin',
+  'signOutEarlyEnd',
+  'signOutBegin',
+  'signOutEnd'
 ]
+
 export default {
+  provide: {
+    foo: {
+      timeToNumber
+    }
+  },
   components: {
     OrOption,
-    OrSelect
+    OrSelect,
+    TimeLine
   },
   data () {
     return {
@@ -56,21 +105,49 @@ export default {
       loading: false,
       timeList: [
         {
-          1: '07:00',
-          2: '09:00',
-          3: '',
-          4: '05:00',
-          5: '',
-          6: '',
-          7: '18:00',
-          8: '22:00'
+          name: '通用班次',
+          signOut: true,
+          signInBegin: '07:00',
+          signInEnd: '09:00',
+          signInLateBegin: '09:30',
+          signInLateEnd: '10:00',
+          signOutEarlyBegin: '',
+          signOutEarlyEnd: '',
+          signOutBegin: '18:00',
+          signOutEnd: '22:00'
         }
+      ],
+      timeStrList: [
+        { label: '00' },
+        { label: '01' },
+        { label: '02' },
+        { label: '03' },
+        { label: '04' },
+        { label: '05' },
+        { label: '06' },
+        { label: '07' },
+        { label: '08' },
+        { label: '09' },
+        { label: '10' },
+        { label: '11' },
+        { label: '12' },
+        { label: '13' },
+        { label: '14' },
+        { label: '15' },
+        { label: '16' },
+        { label: '17' },
+        { label: '18' },
+        { label: '19' },
+        { label: '20' },
+        { label: '21' },
+        { label: '22' },
+        { label: '23' }
       ]
     }
   },
   mounted () {
     // this.selectList.push({ name: '11111', id: 1 })
-    console.log(this.timeToNumber('23:23'))
+    console.log(timeToNumber('23:23'))
     console.log(this.compareTimeSpot(this.timeList[0]))
   },
   methods: {
@@ -90,16 +167,23 @@ export default {
       }, 500);
 
     },
-    // 24 小时制时间字符串
-    timeToNumber (time) {
-      if (time && typeof time === 'string' && time.includes(':')) {
-        const tArr = time.split(':')
-        const h = tArr[0] * 3600
-        const m = tArr[1] * 60
-        return h + m
+    arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 4) {
+        return [1, 25]
+      } else if (columnIndex > 4) {
+        return [0, 0]
       }
-      return null
     },
+    // // 24 小时制时间字符串
+    // timeToNumber (time) {
+    //   if (time && typeof time === 'string' && time.includes(':')) {
+    //     const tArr = time.split(':')
+    //     const h = tArr[0] * 3600
+    //     const m = tArr[1] * 60
+    //     return h + m
+    //   }
+    //   return null
+    // },
     // 时间顺序排列
     sortTimeToList (obj) {
       const newTimeList = []
@@ -119,7 +203,7 @@ export default {
       const timeNumList = timeList.filter(item => item.value).map(item2 => {
         return {
           ...item2,
-          timeNum: this.timeToNumber(item2.value)
+          timeNum: timeToNumber(item2.value)
         }
       })
       for (let i = 0;i < timeNumList.length; i++) {
@@ -141,3 +225,6 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+
+</style>

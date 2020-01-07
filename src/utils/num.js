@@ -50,3 +50,14 @@ export function countNumsToList (nums) {
   }
   return arr
 }
+
+// 24 小时制时间字符串
+export function timeToNumber (time) {
+  if (time && typeof time === 'string' && time.includes(':')) {
+    const tArr = time.split(':')
+    const h = tArr[0] * 3600
+    const m = tArr[1] * 60
+    return h + m
+  }
+  return null
+}

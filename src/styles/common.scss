@@ -5,6 +5,20 @@
 li{
   list-style: none;
 }
+
+@each $l in $--margin--rl-list {
+  .ml#{$l} {
+    margin-left: #{$l}px;
+  }
+}
+
+@each $r in $--margin--rl-list {
+  .mr#{$r} {
+    margin-right: #{$r}px;
+  }
+}
+
+
 .g-fr{
   float: right;
 }

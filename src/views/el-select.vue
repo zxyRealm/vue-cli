@@ -60,7 +60,7 @@
         :key="'t' + index"
         :label="t.label">
         <template slot-scope="{ row }">
-          <time-line :data="row"></time-line>
+          <time-line percent="100" :data="row"></time-line>
         </template>
       </el-table-column>
     </el-table>
@@ -85,9 +85,9 @@ const timeKeys = [
 ]
 
 export default {
-  provide: {
-    foo: {
-      timeToNumber
+  provide () {
+    return {
+      ruleForm: this
     }
   },
   components: {
@@ -147,8 +147,8 @@ export default {
   },
   mounted () {
     // this.selectList.push({ name: '11111', id: 1 })
-    console.log(timeToNumber('23:23'))
-    console.log(this.compareTimeSpot(this.timeList[0]))
+    // console.log(timeToNumber('23:23'))
+    // console.log(this.compareTimeSpot(this.timeList[0]))
   },
   methods: {
     remoteQuery () {
@@ -188,7 +188,7 @@ export default {
     sortTimeToList (obj) {
       const newTimeList = []
       timeKeys.forEach(key => {
-        console.log(key)
+        // console.log(key)
         newTimeList.push(
           {
             key: key,
@@ -213,7 +213,7 @@ export default {
           }
         }
       }
-      console.log(timeNumList, timeList)
+      // console.log(timeNumList, timeList)
       return null
     }
   },

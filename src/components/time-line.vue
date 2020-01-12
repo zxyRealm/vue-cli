@@ -19,18 +19,22 @@
 <script>
 import { timeToNumber } from '@/utils/num'
 export default {
-  inject: ['foo'],
+  inject: ['ruleForm'],
   props: {
     data: {
       type: Object,
       default: () => ({})
-    }
+    },
+    prop: String,
+    percent: Number
   },
   data () {
     return {
     }
   },
   mounted () {
+    console.log('com prop', this.prop, this.percent)
+    // console.log(this.ruleForm)
   },
   methods: {
     // 计算时间段样式
@@ -90,7 +94,7 @@ export default {
           style: this.computedLineStyle(signOutBegin, signOutEnd)
         })
       }
-      console.log(timeList)
+      // console.log(timeList)
       return timeList
     }
   },

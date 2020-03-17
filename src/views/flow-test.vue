@@ -1,11 +1,11 @@
 <template>
   <div class="wrap">
     <div>
-      <el-scrollbar>
+      <!-- <el-scrollbar>
         <ul class="list-wrap">
           <li class="list-item" v-for="(item, index) in list" :key="index">{{index + 1}}</li>
         </ul>
-      </el-scrollbar>
+      </el-scrollbar> -->
     </div>
     <div>
       <el-button type="primary">按 钮</el-button>

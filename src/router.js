@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Select from './views/el-select.vue'
-
+import Main from './views/layout'
 // const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
 // const NoticeList = () => import(/* webpackChunkName: "notice" */ './views/notice.vue')
 // const DataList = () => import(/* webpackChunkName: "list" */ './views/list.vue')
@@ -25,52 +24,64 @@ export default new Router({
   // base: process.env.BASE_URL,
   routes: [
     {
-      path: '/notice',
-      name: 'notice',
-      component: NoticeList
+      path: '/',
+      redirect: '/array'
+    },
+    {
+      path: '/data',
+      name: 'DataView',
+      component: () => import('@/views/data/index.vue')
     },
     {
       path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: About
-    },
-    {
-      path: '/list',
-      name: 'list',
-      component: DataList
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: FlowTest
-    },
-    {
-      path: '/folder',
-      name: 'Folder',
-      component: Folder
-    },
-    {
-      path: '/time-line',
-      name: 'TimeLine',
-      component: TimeLine
-    },
-    {
-      path: '/real-stream',
-      name: 'RealStream',
-      component: RealStream
-    },
-    {
-      path: '/select',
-      name: 'Select',
-      component: Select
+      component: Main,
+      children: [
+        {
+          path: 'notice',
+          name: 'notice',
+          component: NoticeList
+        },
+        {
+          path: 'home',
+          name: 'home',
+          component: Home
+        },
+        {
+          path: 'about',
+          name: 'about',
+          component: About
+        },
+        {
+          path: 'list',
+          name: 'list',
+          component: DataList
+        },
+        {
+          path: 'test',
+          name: 'test',
+          component: FlowTest
+        },
+        {
+          path: 'folder',
+          name: 'Folder',
+          component: Folder
+        },
+        {
+          path: 'time-line',
+          name: 'TimeLine',
+          component: TimeLine
+        },
+        {
+          path: 'real-stream',
+          name: 'RealStream',
+          component: RealStream
+        },
+        {
+          path: 'array',
+          name: 'Array',
+          component: () => import('@/views/array.vue')
+        },
+      ]
     },
     {
       path: '*',

@@ -3,6 +3,21 @@
     <div>
       <h2>输入框聚焦提示示例</h2>
     </div>
+      <i class="el-icon-arrow-left" @click="$router.push('/about')"></i>
+    <div class="time-line">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <line 
+          style="stroke:rgb(255, 0, 0)"
+          stroke-array="dashed"
+          x1="10" y1="0" x2="10" y2="50"></line>
+        <!-- <path stroke="red" d="M5 20 l215 0" />
+        <path stroke="blue" d="M5 40 l215 0" />
+        <path stroke="black" d="M5 60 l215 0" /> -->
+      </svg>
+      <!-- <embed src="@/assets/dash-line.svg" type="image/svg+xml" />     -->
+    </div>
+    <div ref="bg" class="linear"></div>
+    <el-button size="small" @click="bgChange().add()">change</el-button>
     <div class="demo-content">
       <div class="left-item">
         <div
@@ -280,11 +295,40 @@ export default {
           h: d.documentElement.clientHeight
         }
       return { w: d.body.clientWidth, h: d.body.clientHeight }
+    },
+    bgChange () {
+      const ele = this.$refs.bg
+      let cor = 0
+      console.log(ele.style)
+      return {
+        add: function () {
+          cor++
+          console.log(cor)
+          ele.style.backgroundImage = `linear-gradient(${cor}deg,red, blue)`
+        },
+        dec: function () {
+          cor--
+          ele.style.backgroundImage = `linear-gradient(${cor}deg,red, blue)`
+        }
+      }
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.time-line {
+  height: 40px;
+  // border: 1px solid #ddd;
+  // background: repeating-linear-gradient(0deg, #f00 0, #f00 2px, #fff 0, #fff 4px);
+  // background-size: calc(100% / 24) 100%;
+  // background-repeat: no-repeat repeat-x;  
+}
+
+.linear {
+  margin-top: 20px;
+  height: 50px;
+  background-image: linear-gradient(1deg, red, blue);
+}
 .demo-title {
   margin: 20px;
 }

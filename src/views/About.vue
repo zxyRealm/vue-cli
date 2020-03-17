@@ -21,6 +21,8 @@
         
       <!-- </ul> -->
     </el-select>
+    <i class="el-icon-arrow-left" @click="() => { $router.push('/about') }"></i>
+    <el-button @click="addStorage">Add</el-button>
     <!-- <div class="flex-box">
       <div class="flex-item" v-for="i in count" :key="i">{{i}}</div>
     </div> -->
@@ -36,8 +38,6 @@
         {{item.label}}
       </el-checkbox>
     </el-checkbox-group>
-
-    
 
     <ul class="check-wrap">
       <li>
@@ -65,7 +65,8 @@ export default {
       loading: false,
       currentList: [],
       list: [],
-      checkList: []
+      checkList: [],
+
     }
   },
   computed: {
@@ -77,13 +78,61 @@ export default {
     },
     disabled () {
       return this.loading || !this.infiniteDisabled
+    },
+    localList: {
+      get () {
+        return JSON.parse(localStorage.getItem('list')) || []
+      },
+      set (val) {
+        console.log('val----------', val)
+        localStorage.setItem('list', JSON.stringify(val))
+      }
     }
   },
   mounted () {
     console.info('我是个info, 你能找到我吗？')
     // this.getDataList()
+    this.initStorage('init')
   },
   methods: {
+    getStorage () {
+      return JSON.parse(localStorage.getItem('list')) || []
+    },
+    initStorage () {
+      const local = this.getStorage()
+      local.forEach(item =>  {
+        this.setStorage(item, 'init')
+      })
+    },
+    setStorage (data, type) {
+      const local = this.getStorage()
+      const index = local.findIndex(i => i.name === data.name)
+      if (index === -1) local.push(data)
+      // console.log(index, data, this)
+      if (type === 'init' || index === -1) {
+        const notify = this.$notify({
+          title: '提示',
+          message: `${data.name}<br/>
+          <a target="_blank" href="/">new page</a>`,
+          duration: 0,
+          dangerouslyUseHTMLString: true,
+          onClose: () => {
+            // console.log(data)
+            this.clearStorage(data)
+          }
+        })
+      }
+      localStorage.setItem('list', JSON.stringify(local))
+    },
+    addStorage () {
+      const name = this.getStorage().length.toString().repeat(3)
+      this.setStorage({ name })
+    },
+    clearStorage (data) {
+      if (!data) return
+      const cur = this.getStorage().filter(item => item.name !== data.name)
+      localStorage.setItem('list', JSON.stringify(cur))
+    },
     handleVisibleChange (val) {
       this.infiniteDisabled = val
     },

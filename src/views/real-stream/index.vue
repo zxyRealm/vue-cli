@@ -21,66 +21,66 @@ const VideoJs = require('video.js')
 // require('videojs-flash')
 require('videojs-contrib-hls')
 
-  export default {
-    data () {
-      return {
-        player: null,
-        streamList: [
-          {
-            src: 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8',
-            name: 'CCTV5 高清'
-          }
-          // {
-          //   src: 'rtmp://58.200.131.2:1935/livetv/hunantv',
-          //   name: '湖南卫视'
-          // }
-        ],
-        videoList: [],
-        videoOptions: {
-          language: 'zh-CN',
-          fluid: true,
-          controls: true,
-          techOrder: ['html5'],
-          sources: [
-            {
-              src: 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8'
-            }
-          ]
+export default {
+  data () {
+    return {
+      player: null,
+      streamList: [
+        {
+          src: 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8',
+          name: 'CCTV5 高清'
         }
-      }
-    },
-    mounted () {
-      this.initVideo()
-      VideoJs.language_ = 'zh-CN'
-      console.log(VideoJs)
-    },
-    methods: {
-      initDataList (arr) {
-        const list = (arr || []).map((item, index) => {
-          return {
-            ...item,
-            id: `video-target_${index}`
+        // {
+        //   src: 'rtmp://58.200.131.2:1935/livetv/hunantv',
+        //   name: '湖南卫视'
+        // }
+      ],
+      videoList: [],
+      videoOptions: {
+        language: 'zh-CN',
+        fluid: true,
+        controls: true,
+        techOrder: ['html5'],
+        sources: [
+          {
+            src: 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8'
           }
-        })
-        list.forEach(item => {
-          this.initVideo(item)
-        })
-      },
-      // 初始化 video
-      initVideo (item) {
-        const video = VideoJs('video-target-0', this.videoOptions, (e) => {
-          console.log(video)
-          // video.play()
-        })
-        this.player = video
-      }
-    },
-    beforeDestroy () {
-      if (this.player) {
-        this.player.dispose()
+        ]
       }
     }
+  },
+  mounted () {
+    this.initVideo()
+    VideoJs.language_ = 'zh-CN'
+    console.log(VideoJs)
+  },
+  methods: {
+    initDataList (arr) {
+      const list = (arr || []).map((item, index) => {
+        return {
+          ...item,
+          id: `video-target_${index}`
+        }
+      })
+      list.forEach(item => {
+        this.initVideo(item)
+      })
+    },
+    // 初始化 video
+    initVideo (item) {
+      const video = VideoJs('video-target-0', this.videoOptions, (e) => {
+        console.log(video)
+        // video.play()
+      })
+      this.player = video
+    }
+  },
+  beforeDestroy () {
+    if (this.player) {
+      this.player.dispose()
+    }
   }
+}
 </script>
 <style lang="scss" scoped>
 .real-stream {

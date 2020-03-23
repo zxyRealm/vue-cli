@@ -13,7 +13,7 @@
         {{item.name}}
       </div>
     </el-tooltip>
-    
+
   </div>
 </template>
 <script>
@@ -51,17 +51,17 @@ export default {
   computed: {
     timeLineList () {
       const timeList = []
-      const { 
-              signOut,
-              signInBegin,
-              signInEnd,
-              signInLateBegin,
-              signInLateEnd,
-              signOutEarlyBegin,
-              signOutEarlyEnd,
-              signOutBegin,
-              signOutEnd 
-            } = this.data
+      const {
+        signOut,
+        signInBegin,
+        signInEnd,
+        signInLateBegin,
+        signInLateEnd,
+        signOutEarlyBegin,
+        signOutEarlyEnd,
+        signOutBegin,
+        signOutEnd
+      } = this.data
       if (signInBegin && signInEnd) {
         timeList.push({
           name: '签到',
@@ -100,7 +100,7 @@ export default {
   },
   directives: {
     minwidth: {
-      inserted(el) {
+      inserted (el) {
         if (el.offsetWidth < 40) {
           el.innerText = ''
         }

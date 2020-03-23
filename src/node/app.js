@@ -7,7 +7,6 @@ const colOption = ['key', 'Chinese', 'English']
 // console.info(workbook)
 function compilerData (data) {
   data.forEach((sheet) => {
-    
     // sheet 名称 和 表数据
     readSheetData(sheet, 'English')
   })
@@ -15,7 +14,7 @@ function compilerData (data) {
 
 // 写入文件基本目录
 // excel 格式为第一列为 key 值， 第二列为中文, 第三列为英文
-function readRowData (row, colIndex = 1 ) {
+function readRowData (row, colIndex = 1) {
   const rowMap = {}
   row.forEach((col, index) => {
     if (index === 0 && col) {

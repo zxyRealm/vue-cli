@@ -12,19 +12,19 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       list: [
-        { name: "路人A", age: "18" },
-        { name: "路人B", age: "19" },
-        { name: "路人C", age: "28" },
-        { name: "路人D", age: "38" },
-        { name: "路人E", age: "48" },
-        { name: "路人F", age: "58" }
+        { name: '路人A', age: '18' },
+        { name: '路人B', age: '19' },
+        { name: '路人C', age: '28' },
+        { name: '路人D', age: '38' },
+        { name: '路人E', age: '48' },
+        { name: '路人F', age: '58' }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

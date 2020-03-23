@@ -18,26 +18,15 @@ module.exports = {
   //   }
   // }, // 在 multi-page 模式下构建应用
   lintOnSave: NODE_ENV === 'development', // 开发环境下保存时lint代码
-  productionSourceMap: false, // 生产环境的 source map
+  productionSourceMap: true, // 生产环境的 source map
   configureWebpack: { // webpack 简单配置
-    plugins: [
-      // new UglifyJsPlugin({
-      //   uglifyOptions: {
-      //     warnings: false,
-      //     compress: {
-      //       pure_funcs: ['console.log', 'console.info'] // 打包时去除console.log console.info
-      //     }
-      //   },
-      //   parallel: true
-      // })
-    ]
   },
   chainWebpack: config => { // webpack 链式配置
   },
   css: {
     loaderOptions: { // 向 CSS 相关的 loader 传递选项
       sass: {
-        data: `@import "@/styles/variables.scss";@import "@/styles/mixin.scss";`
+        data: `@import "@/styles/var.scss";@import "@/styles/mixin.scss";`
       }
     }
   },
@@ -54,6 +43,6 @@ module.exports = {
     } // 参考 http-proxy-middleware 配置项
   },
   pluginOptions: { // 传递任何第三方插件选项
-    
+
   }
 }

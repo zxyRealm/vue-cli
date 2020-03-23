@@ -18,7 +18,7 @@
       </div>
       <!-- <ul> -->
         <!-- <li v-for="item in count" :key="item">{{item}}</li> -->
-        
+
       <!-- </ul> -->
     </el-select>
     <i class="el-icon-arrow-left" @click="() => { $router.push('/about') }"></i>
@@ -44,13 +44,12 @@
         <span
           class="item"
           v-for="(item, index) in checkList"
-          :key="index">{{item.label}} 
+          :key="index">{{item.label}}
           <i class="el-icon-close" @click="delItem(item)"></i>
         </span>
       </li>
     </ul>
 
-    
   </div>
 
 </template>
@@ -65,7 +64,7 @@ export default {
       loading: false,
       currentList: [],
       list: [],
-      checkList: [],
+      checkList: []
 
     }
   },
@@ -100,7 +99,7 @@ export default {
     },
     initStorage () {
       const local = this.getStorage()
-      local.forEach(item =>  {
+      local.forEach(item => {
         this.setStorage(item, 'init')
       })
     },
@@ -146,7 +145,7 @@ export default {
       }, 1500)
     },
     getDataList () {
-      let num = Math.random()* 5 + 5
+      let num = Math.random() * 5 + 5
       const list = []
       for (let i = 0; i < num; i++) {
         const num = parseInt(Math.random() * 50)
@@ -192,9 +191,9 @@ export default {
   watch: {
     checkList: {
       handler (val, oldVal) {
-        // 监听处理删除事件 
+        // 监听处理删除事件
         if (val.length < oldVal.length) {
-          // const curIndex = 
+          // const curIndex =
         }
       },
       deep: true
@@ -234,9 +233,9 @@ export default {
   .right {
     height: 100%;
     overflow: hidden;
-    padding-left: 10px; 
+    padding-left: 10px;
   }
- 
+
 }
 .check-wrap {
   height: 200px;

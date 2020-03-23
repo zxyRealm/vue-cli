@@ -11,16 +11,16 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       info: {
-          name: '彩彩',
-          sex: '小萌妹',
-          address: '黑水路彩虹桥天堂小镇幸福家园'
+        name: '彩彩',
+        sex: '小萌妹',
+        address: '黑水路彩虹桥天堂小镇幸福家园'
       }
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

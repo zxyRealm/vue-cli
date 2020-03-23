@@ -23,17 +23,17 @@ export default {
           name: 'All',
           id: 'all',
           children: [
-            { 
+            {
               id: '01',
               name: '001',
               children: [
-                {id: '0101', name: '0101', type: 1, children: []},
-                {id: '0102', name: '0102', type: 1, children: []},
-                {id: '0103', name: '0103', type: 1, children: []},
-                {id: '0104', name: '0104', type: 2, children: []}
+                { id: '0101', name: '0101', type: 1, children: [] },
+                { id: '0102', name: '0102', type: 1, children: [] },
+                { id: '0103', name: '0103', type: 1, children: [] },
+                { id: '0104', name: '0104', type: 2, children: [] }
               ]
             }
-            // { 
+            // {
             //   id: '02',
             //   name: '002',
             //   children: [
@@ -43,7 +43,7 @@ export default {
             //     {id: '0204', name: '0204', type: 1, children: []}
             //   ]
             // }
-          ] 
+          ]
         }
       ]
     }
@@ -53,7 +53,7 @@ export default {
       return {
         label: 'name',
         children: 'children',
-        disabled:  (item) => {
+        disabled: (item) => {
           return this.disabledTypes.includes(item.type)
         }
       }
@@ -64,9 +64,8 @@ export default {
   },
   methods: {
     handleCheckChange (data, check) {
-      // const firstOne 
+      // const firstOne
       console.log(data)
-
     }
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="12">
-    
+
         <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
@@ -48,29 +48,29 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       treeList: [
         {
-          index: "/test-index2",
-          url: "/about"
+          index: '/test-index2',
+          url: '/about'
         },
         {
-          index: "/test-index3",
-          url: "/list"
+          index: '/test-index3',
+          url: '/list'
         },
         {
-          index: "/test-index1",
-          url: "/notice"
+          index: '/test-index1',
+          url: '/notice'
         },
         {
-          index: "/test-index4",
-          url: "/nav-bar"
+          index: '/test-index4',
+          url: '/nav-bar'
         }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -6,9 +6,10 @@
 
 <template>
   <div class="wrap">
+    <h1>{{currentTime}}</h1>
     <el-button @click="addItem">Add item</el-button>
     <input type="text" v-model="domStr">
-    <span @click="caculStringWidth(domStr)">get width</span><br/>
+    <span @click="calcuStringWidth(domStr)">get width</span><br/>
     <span style="font-size: 12px;" id="dom-node" @click="getNode()">{{domStr}}</span>
     <ul class="list-wrap">
       <li class="item"
@@ -37,6 +38,9 @@ export default {
   name: 'array',
   data () {
     return {
+      alarmTimer: null,
+      oldTime: '',
+      currentTime: '',
       audio: null,
       domStr: 'dom',
       num: 1,
@@ -47,14 +51,38 @@ export default {
     }
   },
   mounted () {
+    // this.checkSleep()
     this.dataList = Array.from({ length: 6 }, (v, i) => ({ lock: false, value: i }))
-    setTimeout(() => {
-      this.setIntervalTimer()
-    }, 3000);
-    window.addEventListener('resize', this.scaleBodySize)
+    // window.addEventListener('resize', this.scaleBodySize)
     window.addEventListener('touchstart', this.handleTouchStart)
   },
   methods: {
+    // 通过定时器判定当前页面是否休眠
+    checkSleep () {
+      clearInterval(this.alarmTimer)
+      this.oldTime = Date().now
+      this.alarmTimer = setInterval(() => {
+        const now = new Date().getTime()
+        console.log(new Date(now).toLocaleTimeString())
+        // 时间间隔大于 4 s, 则默认页面被休眠了，再次出现时刷新页面数据
+        if (now - this.oldTime > 4 * 1000) {
+          clearInterval(this.alarmTimer)
+          console.log('time out 4s -------')
+          setTimeout(() => {
+            this.checkSleep()
+          }, 0)
+          // const c = confirm('页面新开始，数据更新了！')
+        }
+        this.oldTime = now
+      }, 2000)
+    },
+    axiosRequest () {
+      console.log('refresh data')
+      const time = setTimeout(() => {
+        clearTimeout(time)
+        this.checkSleep()
+      }, 0)
+    },
     scaleBodySize () {
       const rw = document.body.clientWidth / 1920
       const rh = document.body.clientHeight / 1080
@@ -71,7 +99,7 @@ export default {
       clearInterval(this.timer)
       this.timer = setInterval(() => {
         this.autoPlayAudio()
-      }, 2000);
+      }, 2000)
     },
     handleTouchStart () {
       console.log('touch start---------')
@@ -112,7 +140,7 @@ export default {
         this.playNumber++
         console.log('not permission', error)
       })
-      
+
       // this.$nextTick(() => {
       //   // 初始化 web audio api
       //   const AudioContext = window.AudioContext || window.webkitAudioContext
@@ -133,7 +161,7 @@ export default {
       // this.audio.setAttribute('muted', false)
       // this.audio
     },
-    caculStringWidth (str) {
+    calcuStringWidth (str) {
       const div = document.createElement('span')
       div.style.position = 'absolute'
       div.style.visibility = 'hidden'
@@ -185,7 +213,7 @@ export default {
       const item = this.dataList[index]
       const limitLen = this.dataList.filter(item => item.lock).length
       // debugger
-      console.log(limitLen, item) 
+      console.log(limitLen, item)
       if (limitLen >= 5 && !item.lock) {
         this.$message.error('锁定数量已达上限')
       } else {
@@ -204,6 +232,9 @@ export default {
     }
     if (this.scaleBodySize) {
       window.removeEventListener('resize', this.scaleBodySize)
+    }
+    if (this.alarmTimer) {
+      clearInterval(this.alarmTimer)
     }
   }
 }

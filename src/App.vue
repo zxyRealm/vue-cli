@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "app",
+  name: 'app',
   components: {},
   data () {
     return {
@@ -14,7 +14,7 @@ export default {
       count: 10
     }
   }
-};
+}
 </script>
 
 <style scoped>

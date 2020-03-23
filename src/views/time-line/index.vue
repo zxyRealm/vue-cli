@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import FullCalendar from '@fullcalendar/vue';
-import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import FullCalendar from '@fullcalendar/vue'
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 
 export default {
   components: {

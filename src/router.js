@@ -35,6 +35,7 @@ export default new Router({
     {
       path: '/',
       component: Main,
+      name: 'Layout',
       children: [
         {
           path: 'notice',
@@ -44,16 +45,41 @@ export default new Router({
         {
           path: 'home',
           name: 'home',
+          meta: {
+            showMenu: true,
+            index: '/home',
+            title: '首页'
+          },
           component: Home
         },
         {
           path: 'about',
           name: 'about',
-          component: About
+          meta: {
+            showMenu: true,
+            index: '/about',
+            title: '关于'
+          },
+          component: About,
+          children: [
+            {
+              path: 'item1',
+              meta: {
+                showMenu: true,
+                title: '示例一号',
+                index: '/about/item1'
+              }
+            }
+          ]
         },
         {
           path: 'list',
           name: 'list',
+          meta: {
+            showMenu: true,
+            index: '/list',
+            title: '列表'
+          },
           component: DataList
         },
         {
@@ -79,8 +105,13 @@ export default new Router({
         {
           path: 'array',
           name: 'Array',
+          meta: {
+            showMenu: true,
+            index: '/array',
+            title: '数组方法'
+          },
           component: () => import('@/views/array.vue')
-        },
+        }
       ]
     },
     {

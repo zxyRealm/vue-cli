@@ -47,11 +47,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.init()
   },
   methods: {
-    init() {
+    init () {
       this.uploader = this.$refs.uploader
     },
     initFileFn (root, files, file) {
@@ -83,7 +83,7 @@ export default {
       const type = fileName.substr(fileName.lastIndexOf('.') + 1)
       // zip 或者文件夹 只允许单个上传
       const oneItem = fileList.length === 1 && (fileList[0].type)
-      
+
       if (!['png', 'jpeg', 'jpg', 'zip'].includes(type)) {
         // this.$message.closeAll()
         // this.$message.warning('仅允许png、jpg、jpeg格式')

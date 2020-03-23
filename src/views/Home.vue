@@ -6,7 +6,7 @@
       <i class="el-icon-arrow-left" @click="$router.push('/about')"></i>
     <div class="time-line">
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <line 
+        <line
           style="stroke:rgb(255, 0, 0)"
           stroke-array="dashed"
           x1="10" y1="0" x2="10" y2="50"></line>
@@ -56,7 +56,7 @@ export default {
   components: {
     UniubiInput
   },
-  data() {
+  data () {
     return {
       name: '',
       url: require('../assets/logo.png'),
@@ -89,28 +89,28 @@ export default {
       ]
     }
   },
-  created() {
+  created () {
     let list = countNumsToList([88, 34, 67, 8, 9, 0, 12, 12345678])
     let powList = list.map(item => item.reduce((a, b) => a + b, 0))
     // this.checkWebHook()
     console.warn('看到我就说明自动部署成功了哦！！！')
     this.createPointLine()
   },
-  mounted() {
+  mounted () {
     // this.addLine()
   },
   methods: {
-    submit() {
+    submit () {
       this.$refs.userForm.validate(valid => {
         if (valid) {
         }
       })
     },
-    checkWebHook() {
+    checkWebHook () {
       axios.post('/api/autoBuildWeb').then(res => {
       })
     },
-    createPointLine() {
+    createPointLine () {
       let dom = document.getElementById('two-point-of-line')
       if (!dom) {
         dom = document.createElement('div')
@@ -124,7 +124,7 @@ export default {
       document.body.appendChild(dom)
     },
 
-    addLine(point1, point2) {
+    addLine (point1, point2) {
       let source = document.getElementById('point-right')
       let target = document.getElementById('point-left')
       let p1 = this.getElementPosition(source)
@@ -146,7 +146,7 @@ export default {
     },
 
     // 创建并显示两点间的连线
-    createSvgShape(p1, p2) {
+    createSvgShape (p1, p2) {
       if (!p1 || !p2) return
       const twConstants = {
         DIALECT_SVG: 'svg',
@@ -200,7 +200,7 @@ export default {
     },
 
     // 显示两点连线
-    showPointOfLine(e, item) {
+    showPointOfLine (e, item) {
       // let targetId = e.target.id
       let p1 = this.getElementPosition(
         document.getElementById(`point-right_${item.id}`)
@@ -211,7 +211,7 @@ export default {
       this.createSvgShape(p1, p2)
     },
     // 隐藏两点连线
-    hidePointOfLine(e, item) {
+    hidePointOfLine (e, item) {
       let svgNode = document.getElementById('svg-two-point--rect')
       if (svgNode) {
         svgNode.setAttribute('display', 'none')
@@ -222,14 +222,14 @@ export default {
      * 判断此对象是否是Object类型
      * @param {Object} obj
      */
-    isObject(obj) {
+    isObject (obj) {
       return Object.prototype.toString.call(obj) === '[object Object]'
     },
     /*
      * 判断此类型是否是Array类型
      * @param {Array} arr
      */
-    isArray(arr) {
+    isArray (arr) {
       return Object.prototype.toString.call(arr) === '[object Array]'
     },
     /*
@@ -237,7 +237,7 @@ export default {
      * @param {Object} oldData
      * @param {Object} newData
      */
-    equalsObj(oldData, newData) {
+    equalsObj (oldData, newData) {
       // 类型为基本类型时,如果相同,则返回true
       if (oldData === newData) return true
       if (
@@ -250,8 +250,8 @@ export default {
         for (const key in oldData) {
           if (oldData.hasOwnProperty(key)) {
             if (!this.equalsObj(oldData[key], newData[key]))
-              // 对象中具有不相同属性 返回false
-              return false
+            // 对象中具有不相同属性 返回false
+            { return false }
           }
         }
       } else if (
@@ -262,8 +262,8 @@ export default {
         // 类型为数组并且数组长度相同
         for (let i = 0, length = oldData.length; i < length; i++) {
           if (!this.equalsObj(oldData[i], newData[i]))
-            // 如果数组元素中具有不相同元素,返回false
-            return false
+          // 如果数组元素中具有不相同元素,返回false
+          { return false }
         }
       } else {
         // 其它类型,均返回false
@@ -274,7 +274,7 @@ export default {
     },
 
     // 获取元素相对窗口坐标
-    getElementPosition(e) {
+    getElementPosition (e) {
       let [x, y] = [0, 0]
       while (e != null) {
         x += e.offsetLeft
@@ -285,15 +285,16 @@ export default {
     },
 
     // 获取视口尺寸
-    getViewPortSize(w) {
+    getViewPortSize (w) {
       w = w || window
       if (w.innerWidth != null) return { w: w.innerWidth, h: w.innerHeight }
       const d = w.document
-      if (document.compatMode === 'CSS1Compat')
+      if (document.compatMode === 'CSS1Compat') {
         return {
           w: d.documentElement.clientWidth,
           h: d.documentElement.clientHeight
         }
+      }
       return { w: d.body.clientWidth, h: d.body.clientHeight }
     },
     bgChange () {
@@ -321,7 +322,7 @@ export default {
   // border: 1px solid #ddd;
   // background: repeating-linear-gradient(0deg, #f00 0, #f00 2px, #fff 0, #fff 4px);
   // background-size: calc(100% / 24) 100%;
-  // background-repeat: no-repeat repeat-x;  
+  // background-repeat: no-repeat repeat-x;
 }
 
 .linear {

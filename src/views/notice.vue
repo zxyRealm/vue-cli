@@ -8,7 +8,7 @@
         <span class="index">{{$index + 1}}.</span>
         <span class="content ellipsis">{{item.text}}</span>
         <span>{{new Date().toLocaleString()}}</span>
-        
+
         <i class="el-icon-close g-fr f-pointer g-red" @click="del($index)"></i>
       </li>
     </ul>
@@ -49,7 +49,7 @@ export default {
   .notice-item {
     padding: 20px 40px;
     box-sizing: border-box;
-    border-bottom: 1px solid $global-gray-border;
+    border-bottom: 1px solid $global_gray_border;
     text-align: left;
     line-height: 1.5;
     &:nth-child(2n + 1) {

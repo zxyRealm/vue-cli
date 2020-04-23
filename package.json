@@ -5,7 +5,7 @@
   "scripts": {
     "styleguide": "vue-styleguidist server",
     "build:styleguide": "vue-styleguidist build",
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve && node docs-build.js",
     "build": "vue-cli-service build",
     "build:inner": "vue-cli-service build --mode inner",
     "lint": "vue-cli-service lint",
@@ -18,15 +18,17 @@
     "core-js": "^2.6.5",
     "element-ui": "^2.13.0",
     "jsplumb": "^2.11.1",
+    "moment": "^2.24.0",
     "three": "^0.106.2",
     "video.js": "^6.13.0",
     "videojs-contrib-hls": "^5.15.0",
     "videojs-flash": "^2.2.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vuex": "^3.0.1",
+    "vue-simple-uploader": "^0.7.3",
     "vue2-dropzone": "^3.6.0",
-    "vue-simple-uploader": "^0.7.3"
+    "vuex": "^3.0.1",
+    "webcamjs": "^1.0.26"
   },
   "devDependencies": {
     "@fullcalendar/vue": "^4.3.1",
@@ -36,6 +38,7 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "babel-polyfill": "^6.26.0",
+    "chokidar": "^3.3.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "github-webhook-handler": "^0.7.1",

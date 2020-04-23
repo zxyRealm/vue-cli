@@ -1,5 +1,5 @@
 /*
-* @Desc 
+* @Desc
 * @Author  折威
 * @Date 2020-03-21 15:14:17
 */
@@ -7,7 +7,7 @@
 <template>
   <el-scrollbar class="menu-scrollbar">
     <el-menu
-      :default-active="$route.meta.index"
+      :default-active="$route.meta && $route.meta.index"
       class="el-menu-vertical-demo"
       background-color="#fff"
       text-color="#333"
@@ -29,7 +29,7 @@
               :router="subMenu.fullPath"
               :key="`sub-menu-${index}`">{{subMenu.title}}</el-menu-item>
           </el-submenu>
-        
+
           <el-menu-item
             v-else
             :index="menu.index"
@@ -60,14 +60,14 @@ export default {
       let list = JSON.parse(JSON.stringify(this.appRoutes))
       list = (list.find(route => route.name === 'Layout') || {}).children || []
       const newList = this.walkTree(list,
-      (data, p) => {
-        let { meta, path, children } = data
-        const fullPath = ((p && p.path) || '/') + path
-        return { ...meta, fullPath, children, path }
-      },
-      data2 => { // 过滤数据
-        return data2.children || (data2.meta && data2.meta.showMenu)
-      })
+        (data, p) => {
+          let { meta, path, children } = data
+          const fullPath = ((p && p.path) || '/') + path
+          return { ...meta, fullPath, children, path }
+        },
+        data2 => { // 过滤数据
+          return data2.children || (data2.meta && data2.meta.showMenu)
+        })
       return newList
     }
   },
@@ -77,7 +77,7 @@ export default {
   methods: {
     // 遍历树形数据
     walkTree (tree, cb, filter) {
-      // 
+      //
       const walk = (tree, parent, depth = 0) => {
         const isAllow = typeof filter === 'function' && filter(tree, depth)
         if (isAllow || filter === undefined) {
@@ -92,7 +92,7 @@ export default {
               item && copy.children.push(item)
             })
           }
-          if (typeof cb === 'function') { 
+          if (typeof cb === 'function') {
             return cb(copy, parent, depth) || copy
           } else {
             return copy

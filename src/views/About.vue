@@ -109,14 +109,13 @@ export default {
       if (index === -1) local.push(data)
       // console.log(index, data, this)
       if (type === 'init' || index === -1) {
-        const notify = this.$notify({
+        this.$notify({
           title: '提示',
           message: `${data.name}<br/>
           <a target="_blank" href="/">new page</a>`,
           duration: 0,
           dangerouslyUseHTMLString: true,
           onClose: () => {
-            // console.log(data)
             this.clearStorage(data)
           }
         })
@@ -148,7 +147,7 @@ export default {
       let num = Math.random() * 5 + 5
       const list = []
       for (let i = 0; i < num; i++) {
-        const num = parseInt(Math.random() * 50)
+        num = parseInt(Math.random() * 50)
         if (list.includes(num)) {
           num = parseInt(Math.random() * 50)
         }

@@ -46,16 +46,13 @@
 
 <script>
 // @ is an alias to /src
-import UniubiInput from '@/components/input'
 import { jsPlumb } from 'jsplumb'
 import axios from 'axios'
-import { countSplitList, countMaxPow, countNumsToList } from '@/utils/num'
+import {
+} from '@/utils/num'
 
 export default {
   name: 'home',
-  components: {
-    UniubiInput
-  },
   data () {
     return {
       name: '',
@@ -90,14 +87,10 @@ export default {
     }
   },
   created () {
-    let list = countNumsToList([88, 34, 67, 8, 9, 0, 12, 12345678])
-    let powList = list.map(item => item.reduce((a, b) => a + b, 0))
-    // this.checkWebHook()
-    console.warn('看到我就说明自动部署成功了哦！！！')
-    this.createPointLine()
-  },
-  mounted () {
-    // this.addLine()
+    // let list = countNumsToList([88, 34, 67, 8, 9, 0, 12, 12345678])
+    // let powList = list.map(item => item.reduce((a, b) => a + b, 0))
+    const { NODE_ENV } = process.env
+    if (NODE_ENV === 'production') console.warn('看到我就说明自动部署成功了哦！！！')
   },
   methods: {
     submit () {
@@ -129,7 +122,7 @@ export default {
       let target = document.getElementById('point-left')
       let p1 = this.getElementPosition(source)
       let p2 = this.getElementPosition(target)
-      // this.createSvgShape(p1, p2)
+      this.createSvgShape(p1, p2)
       // let xy = this.getElementPosition(target)
       jsPlumb.ready(e => {
         jsPlumb.connect(
@@ -249,9 +242,8 @@ export default {
         // 遍历所有对象中所有属性,判断元素是否相同
         for (const key in oldData) {
           if (oldData.hasOwnProperty(key)) {
-            if (!this.equalsObj(oldData[key], newData[key]))
             // 对象中具有不相同属性 返回false
-            { return false }
+            if (!this.equalsObj(oldData[key], newData[key])) { return false }
           }
         }
       } else if (
@@ -261,9 +253,8 @@ export default {
       ) {
         // 类型为数组并且数组长度相同
         for (let i = 0, length = oldData.length; i < length; i++) {
-          if (!this.equalsObj(oldData[i], newData[i]))
           // 如果数组元素中具有不相同元素,返回false
-          { return false }
+          if (!this.equalsObj(oldData[i], newData[i])) { return false }
         }
       } else {
         // 其它类型,均返回false

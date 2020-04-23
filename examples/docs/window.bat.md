@@ -22,5 +22,5 @@
 call scripts/auto.bat
 ```
 
-如果此时的 .bat 文件路径错误, 脚本执行时就会报错 " <span style='color:#f00'>’scripts‘ 不是内部或外部命令，也不是可执行的程序或批处理文件</span> "
+如果此时的 .bat 文件路径错误, 脚本执行时就会报错 " <span style='color:#f00'>'scripts' 不是内部或外部命令，也不是可执行的程序或批处理文件</span> "
 

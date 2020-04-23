@@ -1,22 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Main from './views/layout'
-// const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
-// const NoticeList = () => import(/* webpackChunkName: "notice" */ './views/notice.vue')
-// const DataList = () => import(/* webpackChunkName: "list" */ './views/list.vue')
-// const Error404 = () => import('./views/error/404.vue')
-
-import About from './views/About.vue'
-import NoticeList from './views/notice.vue'
-import DataList from './views/list.vue'
-import FlowTest from './views/flow-test.vue'
-import Folder from './views/upload/folder'
-import TimeLine from './views/time-line'
-import RealStream from './views/real-stream'
+import Home from '@/views/Home.vue'
+import Main from '@/views/layout'
+import About from '@/views/About.vue'
+import NoticeList from '@/views/notice.vue'
+import DataList from '@/views/list.vue'
+import FlowTest from '@/views/flow-test.vue'
+import Folder from '@/views/upload/folder'
+import TimeLine from '@/views/time-line'
+import RealStream from '@/views/real-stream'
+import Systems from '@/router/modules/system'
 // 404 page
-import Error404 from './views/error/404'
+import Error404 from '@/views/error/404'
 
+console.log('systems --------', Systems)
 Vue.use(Router)
 
 export default new Router({
@@ -37,6 +34,7 @@ export default new Router({
       component: Main,
       name: 'Layout',
       children: [
+        ...Systems,
         {
           path: 'notice',
           name: 'notice',

@@ -1,5 +1,7 @@
 // vue.config.js
+const fs = require('fs')
 const { NODE_ENV, BASE_URL } = process.env
+yield
 module.exports = {
   publicPath: BASE_URL, // 部署应用包时的基本 URL
   outputDir: 'dist', // build 时生成的生产环境构建文件的目录
@@ -22,6 +24,10 @@ module.exports = {
   devServer: { // 参考 webpack-dev-server 配置项
     contentBase: './public',
     disableHostCheck: false, // host 检查
+    https: true,
+    key: fs.readFileSync('./server.key'),
+    cert: fs.readFileSync('./server.crt'),
+    ca: fs.readFileSync('./ca.key'),
     proxy: {
       '/api': {
         target: 'http://47.75.65.255',

@@ -9,26 +9,23 @@ import FlowTest from '@/views/flow-test.vue'
 import Folder from '@/views/upload/folder'
 import TimeLine from '@/views/time-line'
 import RealStream from '@/views/real-stream'
-import Systems from '@/router/modules/system'
+import Systems from '@/router/modules/system' 
 // 404 page
 import Error404 from '@/views/error/404'
 
-console.log('systems --------', Systems)
 Vue.use(Router)
+const baseRoutes = [
+  {
+    path: '*',
+    name: 'error',
+    component: Error404
+  }
+]
 
-export default new Router({
+const AppRouter = new Router({
   mode: 'history',
   // base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      redirect: '/array'
-    },
-    {
-      path: '/data',
-      name: 'DataView',
-      component: () => import('@/views/data/index.vue')
-    },
     {
       path: '/',
       component: Main,
@@ -109,6 +106,16 @@ export default new Router({
             title: '数组方法'
           },
           component: () => import('@/views/array.vue')
+        },
+        {
+          path: 'config-form',
+          name: 'configForm',
+          meta: {
+            showMenu: true,
+            index: '/config-form',
+            title: '配置化表单'
+          },
+          component: () => import('@/views/config-form')
         }
       ]
     },
@@ -119,3 +126,7 @@ export default new Router({
     }
   ]
 })
+AppRouter.onReady(function () {
+  console.log(arguments)
+})
+export default AppRouter

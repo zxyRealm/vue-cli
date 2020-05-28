@@ -1,7 +1,7 @@
 // vue.config.js
 const fs = require('fs')
 const { NODE_ENV, BASE_URL } = process.env
-yield
+
 module.exports = {
   publicPath: BASE_URL, // 部署应用包时的基本 URL
   outputDir: 'dist', // build 时生成的生产环境构建文件的目录

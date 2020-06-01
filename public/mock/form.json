@@ -1,0 +1,154 @@
+{
+  "data": [
+  {
+    "title": "设备配置",
+    "formList": [
+      {
+        "prop": "baseUrl",
+        "label": "服务器地址",
+        "type": 0,
+        "children": [],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": "text",
+        "required": true,
+        "validator": 0,
+        "min": 3,
+        "max": null
+      },
+      {
+        "prop": "appId",
+        "label": "AppID",
+        "type": 0,
+        "children": [],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": 0,
+        "validator": "function(rule,value,callback){if(/^[0-9]+$/.test(value)){callback();}else{callback(new Error('请输入数字'));}}",
+        "required": true,
+        "min": null,
+        "max": null
+      },
+      {
+        "prop": "appSecret",
+        "label": "AppSecret",
+        "type": 0,
+        "children": [],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": "",
+        "required": true,
+        "validator": "function(rule,value,callback){if(value){if(/^[\\d]+$/.test(value)){callback();}else{callback(new Error('仅限数字'));}}else{callback();}}",
+        "min": null,
+        "max": null
+      },
+      {
+        "prop": "direction",
+        "label": "进出方向",
+        "type": "radio",
+        "children": [
+          { "value": "1", "label": "进" },
+          { "value": "2", "label": "出" }
+        ],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": 0,
+        "required": true,
+        "min": null,
+        "max": null
+      },
+      {
+        "prop": "type",
+        "label": "设备类型",
+        "type": "select",
+        "children": [
+          { "value": 1, "label": "通用" },
+          { "value": 2, "label": "体温检测" },
+          { "value": 3, "label": "门禁" }
+        ],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": 0,
+        "required": true,
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "title": "广西平台配置",
+    "formList": [
+      {
+        "prop": "baseUrl",
+        "label": "服务器地址",
+        "type": 0,
+        "children": [],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": "text",
+        "required": true,
+        "validator": 0,
+        "min": 3,
+        "max": null
+      },
+      {
+        "prop": "appId",
+        "label": "AppID",
+        "type": 0,
+        "children": [],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": 0,
+        "validator": "function(rule,value,callback){if(/^[0-9]+$/.test(value)){callback();}else{callback(new Error('请输入数字'));}}",
+        "required": true,
+        "min": null,
+        "max": null
+      },
+      {
+        "prop": "appSecret",
+        "label": "AppSecret",
+        "type": 0,
+        "children": [],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": "",
+        "required": true,
+        "validator": "function(rule,value,callback){if(value){if(/^[\\d]+$/.test(value)){callback();}else{callback(new Error('仅限数字'));}}else{callback();}}",
+        "min": null,
+        "max": null
+      },
+      {
+        "prop": "direction",
+        "label": "进出方向",
+        "type": "radio",
+        "children": [
+          { "value": "1", "label": "进" },
+          { "value": "2", "label": "出" }
+        ],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": 0,
+        "required": true,
+        "min": null,
+        "max": null
+      },
+      {
+        "prop": "type",
+        "label": "设备类型",
+        "type": "select",
+        "children": [
+          { "value": 1, "label": "通用" },
+          { "value": 2, "label": "体温检测" },
+          { "value": 3, "label": "门禁" }
+        ],
+        "placeholder": "",
+        "emptytip": "",
+        "inputtype": 0,
+        "required": true,
+        "min": null,
+        "max": null
+      }
+    ]
+  }
+]
+}

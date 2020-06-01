@@ -4,6 +4,8 @@
     <my-tree></my-tree>
     <h1>CSS 应用</h1>
     <h3>居中</h3>
+    <el-button @click="getRouter">Routes</el-button>
+  <router-link to="config">config</router-link>
     <div class="center--wrap">
       <div class="center-item flex-item">
         <div class="sub-item">
@@ -32,7 +34,25 @@ export default {
   components: {
     myTree
   },
-  name: 'list'
+  name: 'list',
+  methods: {
+    getRouter() {
+      this.$router.addRoutes([
+        {
+          path: '/config',
+          name: 'config',
+          meta: {
+            showMenu: true,
+            title: '配置化表单',
+            index: '/config'
+          },
+          component: () => import('@/views/config-form')
+        }
+      ])
+      console.log(this.$router)
+
+    }
+  }
 }
 </script>
 

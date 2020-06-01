@@ -83,7 +83,6 @@ export default {
         return JSON.parse(localStorage.getItem('list')) || []
       },
       set (val) {
-        console.log('val----------', val)
         localStorage.setItem('list', JSON.stringify(val))
       }
     }

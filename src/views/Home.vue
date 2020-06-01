@@ -2,6 +2,7 @@
   <div class="home">
     <div>
       <h2>输入框聚焦提示示例</h2>
+      <router-link to="/about" replace>About</router-link>
     </div>
       <i class="el-icon-arrow-left" @click="$router.push('/about')"></i>
     <div class="time-line">

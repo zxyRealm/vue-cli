@@ -14,6 +14,9 @@
     :rules="rules"
     :model="form"
     v-on="$attrs">
+    <div class="page-title">
+      {{$route.meta && $route.meta.title}}
+    </div>
     <el-form-item
       :key="`item_${index}`"
       :prop="item.prop"
@@ -21,14 +24,14 @@
       v-for="(item, index) in config.formList">
       <!-- type 为 text 或者 textarea -->
       <el-input
-        v-if="['text', 'textarea'].includes(typeList[item.type]) || !typeList[item.type]"
+        v-if="['text', 'textarea'].includes(item.type) || !item.type"
         :placeholder="item.placeholder || `请输入${item.label}`"
         v-model="form[item.prop]"
-        :type="typeList[item.type] || 'text'">
+        :type="item.type || 'text'">
       </el-input>
       <!-- type 为 radio -->
       <el-radio-group
-        v-else-if="['radio'].includes(typeList[item.type])"
+        v-else-if="['radio'].includes(item.type)"
         v-model="form[item.prop]">
         <el-radio
           :key="`radio_${index}`"
@@ -39,7 +42,7 @@
       </el-radio-group>
       <!-- type 为 checkbox -->
       <el-checkbox-group
-        v-else-if="['checkbox'].includes(typeList[item.type])"
+        v-else-if="['checkbox'].includes(item.type)"
         v-model="form[item.prop]">
         <el-checkbox
           :key="`checkbox_${index}`"
@@ -50,7 +53,7 @@
       </el-checkbox-group>
       <!-- type 为 select -->
       <el-select
-        v-else-if="['select'].includes(typeList[item.type])"
+        v-else-if="['select'].includes(item.type)"
         v-model="form[item.prop]"
         :placeholder="item.placeholder || `请选择${item.label}`">
         <el-option
@@ -75,6 +78,36 @@
 
 
 <script>
+// 正则校验
+function validateRule(value, type) {
+  let reg = ''
+  switch (type) {
+    case 0: // validate web url
+      reg = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/i
+      return {
+        result: reg.test(value),
+        message: '请输入合法网址'
+      }
+    case 1: // 仅限数字
+      reg = /^(\d|([1-9]+\d*))$/
+      return {
+        result: reg.test(value),
+        message: '请输入正整数'
+      }
+    case 2:
+      reg = /^[A-Za-z]+$/
+      return {
+        result: reg.test(value),
+        message: '请输入字母'
+      }
+    case 3:
+      reg = /^[0-9A-Za-z]+$/
+      return {
+        result: reg.test(value),
+        message: '请输入字母或数字'
+      }
+  }
+}
 export default {
   name: 'ConfigForm',
   props: {
@@ -83,7 +116,7 @@ export default {
       default: () => ({})
     },
     config: { // 生成表单内容的配置
-      type: Object,
+      type: [Object, Array],
       default: () => ({})
     },
     labelPosition: {
@@ -92,19 +125,23 @@ export default {
     }
   },
   data () {
+    function numberValidator (rule, value, callback) {
+      if (value) {
+        if (/^[\d]+$/.test(value)) {
+          callback();
+        } else {
+          callback(new Error('仅限数字'));
+        }
+      } else {
+        callback();
+      }
+    }
     return {
-      typeList: {
-        0: 'text',
-        1: 'radio',
-        2: 'checkbox',
-        3: 'select',
-        4: 'textarea'
-      },
       form: {},
       rules: {}
     }
   },
-  mounted () {
+  created () {
     this.initFormData(this.config.formList)
   },
   methods: {
@@ -114,14 +151,14 @@ export default {
       this.rules = {}
       array.forEach(item => {
         const { required, emptytip, label } = item
-        const message = ([1, 2, 3].includes(item.type) ? '请选择' : '请输入') + label
+        const message = (['radio', 'select', 'checkbox'].includes(item.type) ? '请选择' : '请输入') + label
         const rule = [{
           required,
           message: emptytip || message,
-          trigger: [1, 2, 3].includes(item.type) ? 'change' : 'blur'
+          trigger: ['radio', 'select', 'checkbox'].includes(item.type) ? 'change' : 'blur'
         }]
         // input text / textarea 内容长度限制
-        if ([0, 4].includes(item.type) || !item.type) {
+        if (!['radio', 'select', 'checkbox'].includes(item.type) || !item.type) {
           let range = ''
           if (![null, undefined].includes(item.min) && ![null, undefined].includes(item.max)) {
             range = `${item.min}-${item.max}位`
@@ -139,10 +176,20 @@ export default {
             if (![null, undefined].includes(item.max)) rangeRule.max = item.max
             rule.push(rangeRule)
           }
-          
+          // 自定义校验规则
+          const validateFun = (item.validator || '').indexOf('function') === 0 && eval('(' + item.validator + ')')
+          // console.log(validateFun)
+          if (typeof validateFun === 'function') {
+            rule.push({
+              validator: validateFun.bind(this),
+              trigger: 'blur'
+            })
+          } else if ([0, 1, 2, 3].includes(item.validator)) {
+            rule.push(this.baseValidator(item.validator))
+          }
         }
         this.$set(this.rules, item.prop, rule)
-        this.$set(this.form, item.prop, [2].includes(item.type) ? [] : '')
+        this.$set(this.form, item.prop, ['checkbox'].includes(item.type) ? [] : '')
         this.$nextTick(() => {
           const form = this.$refs.configForm
           if (form) {
@@ -151,10 +198,27 @@ export default {
         })
       })
     },
+    baseValidator (type) {
+      const validator = (rule, value, callback) => {
+        if (value) {
+          const regResult = validateRule(value, type)
+          if (regResult.result) {
+            callback()
+          } else {
+            callback(new Error(regResult.message))
+          }
+        } else {
+          callback()
+        }
+      }
+      return {
+        validator,
+        trigger: 'blur'
+      }
+    },
     // 获取信息
     getConfigInfo () {
       const params = this.form
-      console.log(this.config.getrequest, params)
     },
     // 保存信息
     setConfigInfo () {
@@ -164,13 +228,12 @@ export default {
 
         }
       })
-      console.log(this.config.getrequest, params)
     }
   },
   watch: {
     userInfo: {
       handler (val) {
-        if (val && val.id) {
+        if (val && val.id && !this.$slots.footer) {
           this.getConfigInfo()
         }
       },
@@ -182,6 +245,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.page-title {
+  margin-bottom: 20px;
+  line-height: 40px;
+  border-bottom: 1px solid #ddd;
+}
 .el-form--label-top {
   /deep/.el-form-item__label {
     padding: 0;

@@ -13,7 +13,7 @@
 
 <script>
 import ConfigForm from '@/components/config-form'
-import config from '@/mock/form'
+// import config from '@/mock/form'
 export default {
   name: 'index',
   components: {
@@ -21,7 +21,20 @@ export default {
   },
   data () {
     return {
-      config: config.data
+      // config: config.data
+    }
+  },
+  computed: {
+    config () {
+      let { formConfig } = this.$store.state.permission
+      formConfig = JSON.parse(JSON.stringify(formConfig))
+      if (Array.isArray(formConfig)) {
+        const params = this.$route.path.split('/')
+        const index = params[params.length - 1].split('_')[1]
+        return formConfig[index] || {}
+      } else {
+        return formConfig
+      }
     }
   },
   mounted () {},

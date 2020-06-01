@@ -24,7 +24,7 @@ module.exports = {
   devServer: { // 参考 webpack-dev-server 配置项
     contentBase: './public',
     disableHostCheck: false, // host 检查
-    https: true,
+    // https: true,
     key: fs.readFileSync('./server.key'),
     cert: fs.readFileSync('./server.crt'),
     ca: fs.readFileSync('./ca.key'),

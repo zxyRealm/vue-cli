@@ -22,7 +22,7 @@
 
 <script>
 import AppHeader from './Header'
-import SiderBar from './SiderBar'
+import SiderBar from './SideBar'
 export default {
   name: 'index',
   components: {

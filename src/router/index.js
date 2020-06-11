@@ -18,7 +18,7 @@ Vue.use(Router)
 const constantRoutes = [
   {
     path: '/',
-    redirect: '/home/index',
+    redirect: '/home',
     hidden: true
   },
   {
@@ -48,8 +48,7 @@ const constantRoutes = [
         name: 'noticeList',
         meta: {
           title: '系统通知',
-          index: '/notice
-          '
+          index: '/notice'
         },
         component: NoticeList,
         props: true

@@ -2,23 +2,7 @@
   <div class="home">
     <div>
       <h2>输入框聚焦提示示例</h2>
-      <router-link to="/about" replace>About</router-link>
     </div>
-      <i class="el-icon-arrow-left" @click="$router.push('/about')"></i>
-    <div class="time-line">
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <line
-          style="stroke:rgb(255, 0, 0)"
-          stroke-array="dashed"
-          x1="10" y1="0" x2="10" y2="50"></line>
-        <!-- <path stroke="red" d="M5 20 l215 0" />
-        <path stroke="blue" d="M5 40 l215 0" />
-        <path stroke="black" d="M5 60 l215 0" /> -->
-      </svg>
-      <!-- <embed src="@/assets/dash-line.svg" type="image/svg+xml" />     -->
-    </div>
-    <div ref="bg" class="linear"></div>
-    <el-button size="small" @click="bgChange().add()">change</el-button>
     <div class="demo-content">
       <div class="left-item">
         <div
@@ -41,7 +25,30 @@
         ></div>
       </div>
     </div>
-    <div id="three--container" class="three--container"></div>
+    <div>
+      <h2>手机号国际化</h2>
+    
+      <el-input v-model="phone">
+        {{Countrys}}
+        <el-select slot="prefix" v-model="form.conutry">
+          <el-option
+            :key="index"
+            :label="item.value"
+            :value="item.name"
+            v-for="(item, index) in Countrys">
+            <span
+              :style="{
+                backgroundPosition: `-1px -${item.index}px`
+              }"
+              class="flags"></span>
+            <span>
+              {{item.name}} +{{item.ab}}
+            </span>
+          </el-option>
+        </el-select>
+      </el-input>
+    </div>
+    <!-- <div id="three--container" class="three--container"></div> -->
   </div>
 </template>
 
@@ -49,14 +56,16 @@
 // @ is an alias to /src
 import { jsPlumb } from 'jsplumb'
 import axios from 'axios'
-import {
-} from '@/utils/num'
-
+import {} from '@/utils/num'
+import { IZ, Rcb } from '@/utils/phone'
 export default {
   name: 'home',
   data () {
     return {
+      Countrys: Rcb,
+      phone: '',
       name: '',
+      form: {},
       url: require('../assets/logo.png'),
       rules: {
         password: [
@@ -309,6 +318,18 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.flags {
+  display: inline-block;
+  height: 80%;
+  width: 60px;
+  background-image: url(../assets/images/flags.png);
+  background-size: 24px 3876px;
+  width: 24px;
+  height: 16px;
+  background-repeat: no-repeat;
+  // background-position: center;
+  vertical-align: middle;
+}
 .time-line {
   height: 40px;
   // border: 1px solid #ddd;

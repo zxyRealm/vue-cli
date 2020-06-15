@@ -9,7 +9,8 @@ import FlowTest from '@/views/flow-test.vue'
 import Folder from '@/views/upload/folder'
 import TimeLine from '@/views/time-line'
 import RealStream from '@/views/real-stream'
-import Systems from '@/router/modules/system' 
+import Systems from '@/router/modules/system'
+import Phone from '@/router/modules/phone'
 // 404 page
 import Error404 from '@/views/error/404'
 import axios from 'axios'
@@ -39,6 +40,7 @@ const constantRoutes = [
     ]
   },
   ...Systems,
+  ...Phone,
   {
     path: '/notice',
     component: Layout,

@@ -9,7 +9,7 @@ module.exports = {
   runtimeCompiler: true,
   // transpileDependencies: ['element-ui/packages/'],
   lintOnSave: NODE_ENV === 'development', // 开发环境下保存时lint代码
-  productionSourceMap: true, // 生产环境的 source map
+  productionSourceMap: NODE_ENV === 'development', // 生产环境的 source map
   configureWebpack: { // webpack 简单配置
   },
   chainWebpack: config => { // webpack 链式配置

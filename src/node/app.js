@@ -1,6 +1,6 @@
 const XLSX = require('node-xlsx').default
 const fs = require('fs')
-const workbook = XLSX.parse('./public/read/attendance.index20100110.xlsx')
+const workbook = XLSX.parse('./public/read/内部修改2_离线客户端V2.2-字段翻译-20200703.xlsx')
 const wp = (name) => `./public/write/${name}`
 const colOption = ['key', 'Chinese', 'English']
 

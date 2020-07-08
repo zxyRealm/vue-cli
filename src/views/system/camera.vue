@@ -25,7 +25,7 @@ export default {
         height: 240,
         dest_width: 320,
         dest_height: 240,
-        crop_width: 320, 
+        crop_width: 320,
         crop_height: 240,
         image_format: 'jpeg',
         jpeg_quality: 90
@@ -47,12 +47,18 @@ export default {
       WebCam.on('live', data => {
         console.log('camerar is alreay')
       })
+      WebCam.on('load', (data) => {
+        console.log('webcam load', data)
+      })
       WebCam.set(this.cameraConfig)
       WebCam.attach('#web-camera')
     },
     // 销毁 camera
     destoryCamera () {
       WebCam.reset()
+      WebCam.off('live')
+      WebCam.off('load')
+      WebCam.off('error')
     },
     // 开始抓拍
     startCapture () {

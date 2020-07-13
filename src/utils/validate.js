@@ -2,11 +2,11 @@
  * @param {string} path
  * @returns {Boolean}
  */
-export function isExternal(path) {
+export function isExternal (path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
-export function validateRule(value, type) {
+export function validateRule (value, type) {
   let reg = ''
   switch (type) {
     case 0: // validate web url

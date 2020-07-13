@@ -36,7 +36,7 @@ export default {
   },
   name: 'list',
   methods: {
-    getRouter() {
+    getRouter () {
       this.$router.addRoutes([
         {
           path: '/config',
@@ -50,7 +50,6 @@ export default {
         }
       ])
       console.log(this.$router)
-
     }
   }
 }

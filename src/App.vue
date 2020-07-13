@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <!-- 我是中文你这也算吗 -->
+    {{'你是个假的标题么？'}}
+    {{'这是要国际化的内容哦！'}}
     <router-view></router-view>
   </div>
 </template>
@@ -9,9 +12,16 @@ export default {
   name: 'app',
   components: {},
   data () {
+    const type = 'name'
     return {
       select: '',
-      count: 10
+      count: 10,
+      title: '你是不知道，这是个啥事'
+    }
+  },
+  filters: {
+    numberFilter () {
+      return /* i18n.t */ I18N.common.app_content_list_title
     }
   }
 }

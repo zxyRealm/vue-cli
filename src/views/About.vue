@@ -14,21 +14,14 @@
           :label="i"
           :value="i"></el-option>
         <li v-if="loading">Loading...</li>
-        <!-- <li v-if="noMore">no more</li> -->
       </div>
-      <!-- <ul> -->
-        <!-- <li v-for="item in count" :key="item">{{item}}</li> -->
-
-      <!-- </ul> -->
     </el-select>
     <i class="el-icon-arrow-left" @click="() => { $router.push('/about') }"></i>
     <el-button @click="addStorage">Add</el-button>
-    <!-- <div class="flex-box">
-      <div class="flex-item" v-for="i in count" :key="i">{{i}}</div>
-    </div> -->
-    <img :src="require('@/assets/logo.png')" alt="">
+    <!-- <img :src="require('@/assets/logo.png')" alt=""> -->
     <h1>This is an about page</h1>
-    <el-button @click="getDataList">刷新</el-button>
+    <el-button @click="getDataList">{{$t('common_refresh')}}</el-button>
+    {{$t('测试')}}
     <el-checkbox-group @change="checkChange" v-model="currentList">
       <el-checkbox
         v-for="(item, index) in list"
@@ -54,6 +47,8 @@
 
 </template>
 <script>
+import langData from '@/node/index'
+
 export default {
   name: 'about-us',
   data () {
@@ -64,7 +59,8 @@ export default {
       loading: false,
       currentList: [],
       list: [],
-      checkList: []
+      checkList: [],
+      newObj: {}
 
     }
   },
@@ -91,8 +87,21 @@ export default {
     console.info('我是个info, 你能找到我吗？')
     // this.getDataList()
     this.initStorage('init')
+    this.unfoldObjectKey(langData, this.newObj, '')
+    console.log(this.newObj, Object.keys(this.newObj))
   },
   methods: {
+    unfoldObjectKey (obj, newObj, parentsKey) {
+      // const newObj = {}
+      Object.keys(obj).forEach((key) => {
+        const fullKey = `${parentsKey}.${key}`.replace(/^(\.)(.*)/, '$2')
+        if (typeof obj[key] === 'object') {
+          this.unfoldObjectKey(obj[key], newObj, fullKey)
+        } else {
+          if (parentsKey) newObj[fullKey] = obj[key]
+        }
+      })
+    },
     getStorage () {
       return JSON.parse(localStorage.getItem('list')) || []
     },
@@ -109,7 +118,7 @@ export default {
       // console.log(index, data, this)
       if (type === 'init' || index === -1) {
         this.$notify({
-          title: '提示',
+          title: this.$t('提示'),
           message: `${data.name}<br/>
           <a target="_blank" href="/">new page</a>`,
           duration: 0,

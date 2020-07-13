@@ -38,5 +38,11 @@ module.exports = {
     } // 参考 http-proxy-middleware 配置项
   },
   pluginOptions: { // 传递任何第三方插件选项
+    i18n: {
+      locale: 'zh-CN',
+      fallbackLocale: 'zh-CN',
+      localeDir: 'locale/lang',
+      enableInSFC: false
+    }
   }
 }

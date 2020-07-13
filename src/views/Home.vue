@@ -26,8 +26,9 @@
       </div>
     </div>
     <div>
-      <h2>手机号国际化</h2>
-    
+      <h2>{{$t('content.part1.2')}}</h2>
+      <h2>{{$t('home.title')}}</h2>
+
       <el-input v-model="phone">
         {{Countrys}}
         <el-select slot="prefix" v-model="form.conutry">
@@ -56,8 +57,8 @@
 // @ is an alias to /src
 import { jsPlumb } from 'jsplumb'
 import axios from 'axios'
-import {} from '@/utils/num'
-import { IZ, Rcb } from '@/utils/phone'
+// import {} from '@/utils/num'
+import { Rcb } from '@/utils/phone'
 export default {
   name: 'home',
   data () {

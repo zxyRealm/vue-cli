@@ -1,5 +1,5 @@
 /*
-* @Desc 
+* @Desc
 * @Author  折威
 * @Date 2020-05-31 15:32:51
 */
@@ -9,7 +9,7 @@
     :index="resolvePath(onlyOneChild.path)">
     <i v-if="onlyOneChild.meta && onlyOneChild.meta.icon" :class="onlyOneChild.meta.icon"></i>
     <span class="menu__title">
-      {{onlyOneChild.meta && onlyOneChild.meta.title}}
+      {{onlyOneChild.meta && $t(onlyOneChild.meta.title)}}
     </span>
   </el-menu-item>
   <el-submenu
@@ -18,7 +18,7 @@
     <template slot="title">
       <i v-if="item.meta && item.meta.icon" :class="item.meta.icon"></i>
       <span class="menu__title">
-        {{item.meta && item.meta.title}}
+        {{item.meta && $t(item.meta.title)}}
       </span>
     </template>
     <side-bar-item
@@ -62,9 +62,8 @@ export default {
           this.onlyOneChild = child
           return true
         }
-        return !child.hidden
       })
-      if (showChild.length === 0)  {
+      if (showChild.length === 0) {
         this.onlyOneChild = { ...parent, path: '' }
       }
       return showChild.length <= 1

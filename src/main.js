@@ -6,11 +6,13 @@ import router from '@/router'
 import store from '@/store'
 import './plugins/element/element.js'
 import './permission'
+import i18n from '@/locales'
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

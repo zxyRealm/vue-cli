@@ -1,5 +1,5 @@
 import axios from 'axios'
-import router, { mergeRoutes, constantRoutes } from '@/router'
+import { mergeRoutes } from '@/router'
 import Layout from '@/views/layout'
 const state = {
   routes: [], // 侧边导航栏
@@ -28,7 +28,7 @@ const actions = {
             hidden: true,
             path: '/config',
             redirect: '/config/site_0'
-          },{
+          }, {
             hidden: true,
             path: '/config/site',
             redirect: '/config/site_0'
@@ -44,7 +44,7 @@ const actions = {
                   path: pm,
                   name: pm,
                   meta: {
-                    title: item.title || "工地配置"
+                    title: item.title || '工地配置'
                   },
                   component: () => import('@/views/config-form')
                 }
@@ -66,7 +66,7 @@ const actions = {
                   path: 'site',
                   name: 'configSite',
                   meta: {
-                    title: config.title || '配置化表单',
+                    title: config.title || '配置化表单'
                   },
                   component: () => import('@/views/config-form')
                 }
@@ -80,7 +80,7 @@ const actions = {
       }).catch((error) => {
         commit('SET_FORM_CONFIG', {})
         console.error(error)
-        reject()
+        reject(error)
       })
     })
   }

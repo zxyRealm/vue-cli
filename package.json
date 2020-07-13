@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "styleguide": "vue-styleguidist server",
-    "build:styleguide": "vue-styleguidist build",
     "serve": "vue-cli-service serve && node docs-build.js",
     "build": "vue-cli-service build",
-    "build:inner": "vue-cli-service build --mode inner",
     "lint": "vue-cli-service lint",
-    "lint:fix": "vue-cli-service lint --fix"
+    "build:inner": "vue-cli-service build --mode inner",
+    "build:styleguide": "vue-styleguidist build",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
+    "lint:fix": "vue-cli-service lint --fix",
+    "styleguide": "vue-styleguidist server"
   },
   "dependencies": {
     "@fullcalendar/core": "^4.3.1",
@@ -26,6 +27,7 @@
     "videojs-contrib-hls": "^5.15.0",
     "videojs-flash": "^2.2.1",
     "vue": "^2.6.10",
+    "vue-i18n": "^8.17.3",
     "vue-router": "^3.0.3",
     "vue-simple-uploader": "^0.7.3",
     "vue2-dropzone": "^3.6.0",
@@ -33,7 +35,11 @@
     "webcamjs": "^1.0.26"
   },
   "devDependencies": {
-    "@fullcalendar/vue": "^4.3.1",
+    "commander": "^2.9.0",
+    "glob": "^7.1.1",
+    "n-readlines": "^0.2.7",
+    "rimraf": "^2.6.2",
+    "@babel/core": "^7.0.0",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
@@ -51,6 +57,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue-cli-plugin-element": "^1.0.1",
+    "vue-cli-plugin-i18n": "^1.0.1",
     "vue-cli-plugin-styleguidist": "^4.0.1",
     "vue-styleguidist": "^4.0.1",
     "vue-template-compiler": "^2.5.21"

@@ -64,7 +64,7 @@
         </el-option>
       </el-select>
     </el-form-item>
-   
+
     <div class="form__footer">
       <template v-if="$slots.footer">
         <slot name="footer"></slot>
@@ -76,10 +76,9 @@
   </el-form>
 </template>
 
-
 <script>
 // 正则校验
-function validateRule(value, type) {
+function validateRule (value, type) {
   let reg = ''
   switch (type) {
     case 0: // validate web url
@@ -125,17 +124,17 @@ export default {
     }
   },
   data () {
-    function numberValidator (rule, value, callback) {
-      if (value) {
-        if (/^[\d]+$/.test(value)) {
-          callback();
-        } else {
-          callback(new Error('仅限数字'));
-        }
-      } else {
-        callback();
-      }
-    }
+    // function numberValidator (rule, value, callback) {
+    //   if (value) {
+    //     if (/^[\d]+$/.test(value)) {
+    //       callback()
+    //     } else {
+    //       callback(new Error('仅限数字'))
+    //     }
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       form: {},
       rules: {}
@@ -218,11 +217,11 @@ export default {
     },
     // 获取信息
     getConfigInfo () {
-      const params = this.form
+      // const params = this.form
     },
     // 保存信息
     setConfigInfo () {
-      const params = this.form
+      // const params = this.form
       this.$refs.configForm.validate((valid) => {
         if (valid) {
 

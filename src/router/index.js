@@ -4,16 +4,15 @@ import Home from '@/views/Home.vue'
 import Layout from '@/views/layout'
 import About from '@/views/About.vue'
 import NoticeList from '@/views/notice.vue'
-import DataList from '@/views/list.vue'
-import FlowTest from '@/views/flow-test.vue'
-import Folder from '@/views/upload/folder'
-import TimeLine from '@/views/time-line'
-import RealStream from '@/views/real-stream'
+// import DataList from '@/views/list.vue'
+// import FlowTest from '@/views/flow-test.vue'
+// import Folder from '@/views/upload/folder'
+// import TimeLine from '@/views/time-line'
+// import RealStream from '@/views/real-stream'
 import Systems from '@/router/modules/system'
 import Phone from '@/router/modules/phone'
 // 404 page
 import Error404 from '@/views/error/404'
-import axios from 'axios'
 Vue.use(Router)
 // 基本配置子项
 const constantRoutes = [
@@ -67,7 +66,7 @@ const constantRoutes = [
         name: 'aboutIndex',
         component: About,
         meta: {
-          title: '关于我们',
+          title: '关于我们'
         }
       }
     ]
@@ -105,7 +104,7 @@ const createRouter = (routes) => new Router({
 })
 const router = createRouter()
 
-export function resetRouter(routes) {
+export function resetRouter (routes) {
   const newRouter = createRouter(routes)
   router.matcher = newRouter.matcher // reset router
 }

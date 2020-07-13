@@ -2,7 +2,7 @@ import Layout from '@/views/layout'
 
 export default [{
   path: '/phone',
-  name: 'Phone',
+  // name: 'Phone',
   component: Layout,
   children: [
     {

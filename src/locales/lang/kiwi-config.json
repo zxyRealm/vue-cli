@@ -1,0 +1,17 @@
+{
+  "kiwiDir": "./src/locales/lang/",
+  "configFile": "./src/locales/lang/kiwi-config.json",
+  "srcLang": "zh-CN",
+  "distLangs": [
+    "en-US",
+    "zh-TW"
+  ],
+  "googleApiKey": "",
+  "translateOptions": {
+    "concurrentLimit": 10,
+    "requestOptions": {}
+  },
+  "importI18N": "import I18N from 'src/locales';",
+  "ignoreDir": "",
+  "ignoreFile": ""
+}

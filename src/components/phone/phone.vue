@@ -28,13 +28,13 @@
           {{item.name}} +{{item.ab}}
         </span>
       </el-option>
-    </el-select>  
+    </el-select>
   </el-input>
 </div>
 </template>
 
 <script>
-import { IZ, Rcb } from './public/data'
+import { Rcb } from './public/data'
 export default {
   name: 'PhoneInput',
   props: {
@@ -72,7 +72,7 @@ export default {
           key
         })
       })
-      const newList = areaList.sort((a, b ) => a.name.localeCompare(b.name))
+      const newList = areaList.sort((a, b) => a.name.localeCompare(b.name))
       console.log(newList)
     },
     // 拼接完整手机号

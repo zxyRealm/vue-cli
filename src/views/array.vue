@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import langData from '@/node/index'
 export default {
   name: 'array',
   data () {
@@ -47,7 +48,8 @@ export default {
       dataList: [],
       timer: null,
       isHandle: false,
-      playNumber: 0
+      playNumber: 0,
+      newObj: {}
     }
   },
   mounted () {
@@ -55,8 +57,22 @@ export default {
     this.dataList = Array.from({ length: 6 }, (v, i) => ({ lock: false, value: i }))
     // window.addEventListener('resize', this.scaleBodySize)
     window.addEventListener('touchstart', this.handleTouchStart)
+    this.unfoldObjectKey(langData, this.newObj, '')
+    console.log(this.newObj)
+  
   },
   methods: {
+    unfoldObjectKey (obj, newObj, parentsKey) {
+      // const newObj = {}
+      Object.keys(obj).forEach((key) => {
+        const fullKey = `${parentsKey}.${key}`.replace(/^(\.)(.*)/, '$2')
+        if (typeof obj[key] === 'object') {
+          unfoldObjectKey(obj[key], fullKey)
+        } else {
+          newObj[fullKey] = obj[key]
+        }
+      })
+    },
     // 通过定时器判定当前页面是否休眠
     checkSleep () {
       clearInterval(this.alarmTimer)

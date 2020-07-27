@@ -27,7 +27,7 @@ module.exports = {
     https: true,
     key: fs.readFileSync('./server.key'),
     cert: fs.readFileSync('./server.crt'),
-    ca: fs.readFileSync('./ca.key'),
+    // ca: fs.readFileSync('./ca.key'),
     proxy: {
       '/api': {
         target: 'http://47.75.65.255',

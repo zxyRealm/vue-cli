@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <!-- 我是中文你这也算吗 -->
-    {{'你是个假的标题么？'}}
-    {{'这是要国际化的内容哦！'}}
     <router-view></router-view>
   </div>
 </template>

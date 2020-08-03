@@ -39,5 +39,21 @@ body, html {
 .f-pointer {
   cursor: pointer;
 }
-
-
+.f-clear {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+    visibility:hidden;
+  }
+}
+.page__title {
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  &--sub {
+    font-size: 16px;
+    border-bottom: none;
+  }
+}

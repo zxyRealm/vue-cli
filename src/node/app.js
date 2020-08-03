@@ -1,6 +1,6 @@
 const XLSX = require('node-xlsx').default
 const fs = require('fs')
-const workbook = XLSX.parse('./public/read/内部修改2_离线客户端V2.2-字段翻译-20200703.xlsx')
+const workbook = XLSX.parse('./public/read/Linux多语言字符串翻译文件.xlsx')
 const wp = (name) => `./public/write/${name}`
 const colOption = ['key', 'Chinese', 'English']
 
@@ -37,7 +37,7 @@ function readSheetData (sheet, type) {
     }
   })
   console.log(pathName)
-  fs.writeFile(pathName, creatJsFile(mapJs), (error) => {
+  fs.writeFile(`${pathName}.js`, creatJsFile(mapJs), (error) => {
     console.log(error)
   })
   return mapJs

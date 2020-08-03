@@ -22,6 +22,7 @@
     "jsplumb": "^2.11.1",
     "moment": "^2.24.0",
     "node-xlsx": "^0.15.0",
+    "prettier": "^2.0.5",
     "three": "^0.106.2",
     "video.js": "^6.13.0",
     "videojs-contrib-hls": "^5.15.0",

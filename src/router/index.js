@@ -11,8 +11,10 @@ import NoticeList from '@/views/notice.vue'
 // import RealStream from '@/views/real-stream'
 import Systems from '@/router/modules/system'
 import Phone from '@/router/modules/phone'
+import Css from '@/router/modules/css'
 // 404 page
 import Error404 from '@/views/error/404'
+// import axios from 'axios'
 Vue.use(Router)
 // 基本配置子项
 const constantRoutes = [
@@ -38,6 +40,7 @@ const constantRoutes = [
       }
     ]
   },
+  ...Css,
   ...Systems,
   ...Phone,
   {

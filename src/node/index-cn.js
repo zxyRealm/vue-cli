@@ -1,4 +1,5 @@
-{
+export default {
+  // 设备校时
   device_time: {
     title: '设备校时',
     form: {
@@ -19,6 +20,7 @@
     },
     successMsg: '设备校时成功！'
   },
+  // 网络配置
   device_wifi: {
     title: '网络配置',
     form: {
@@ -61,6 +63,7 @@
     setSuccessMsg: '设备网络配置成功！',
     saveSuccessMsg: '设备网络保存成功！'
   },
+  // 固件升级
   device_upgrade: {
     title: '固件升级',
     uploadLabel: '上传固件：',
@@ -79,6 +82,7 @@
       packageError: '升级包包名错误,无法升级'
     }
   },
+  // 设备配置
   device_config: {
     title: '设备配置',
     generalParams: {
@@ -90,10 +94,8 @@
       recRankTip: '检测是真人还是照片',
       identifyDistance: '识别距离',
       identifyDistanceTip: '例如识别距离在0.5米以内，设备只会检测0.5米以内的人脸',
-      miDistance: '%{num
-      }米以内',
-      miDistances: '%{num
-      }米以内',
+      miDistance: '%{num}米以内',
+      miDistances: '%{num}米以内',
       noDistance: '无限制',
       delayTimeForCloseDoor: '继电器控制时间',
       delayTimeForCloseDoor_tip1: '继电器控制开门到关门之间的时间间隔',
@@ -104,15 +106,9 @@
       successParams: '识别成功参数',
       ttsModType: '语音播报模式',
       ttsModTypeTip: '识别成功后语音播报内容',
-      ttsModTypeTip2: '允许{name
-      }、{tag
-      }、数字、英文和汉字',
-      ttsModTypeTip3: '允许{phone
-      }、{idcardNum
-      }、{id
-      }、数字、英文和英文符号',
-      ttsModTypeExample: '如：{name
-      }欢迎光临',
+      ttsModTypeTip2: '允许{name}、{tag}、数字、英文和汉字',
+      ttsModTypeTip3: '允许{phone}、{idcardNum}、{id}、数字、英文和英文符号',
+      ttsModTypeExample: '如：{name}欢迎光临',
       modName: '播报名字',
       modNone: '不播报',
       modCustom: '自定义',
@@ -125,11 +121,8 @@
       screen2Custom: '自定义',
       comModType: '串口输出模式',
       comModTypeTip1: '串口支持输出韦根信号，设备需要外接串口→韦根信号转换小板，小板由本公司定制。自定义内容传入格式',
-      comModTypeTip2: '韦根26：#26WG{idcardNum
-      }#，韦根34：#34WG{idcardNum
-      }#',
-      comModTypeTip3: '注意：{idcardNum
-      }+数字组合后，韦根26范围为1-65535，有效范围为5位；韦根34范围为1-4294967295，有效范围为10位。若超出范围，则输出的信号会进行转换，输出无效信号。',
+      comModTypeTip2: '韦根26：#26WG{idcardNum}#，韦根34：#34WG{idcardNum}#',
+      comModTypeTip3: '注意：{idcardNum}+数字组合后，韦根26范围为1-65535，有效范围为5位；韦根34范围为1-4294967295，有效范围为10位。若超出范围，则输出的信号会进行转换，输出无效信号。',
       comModTypeOpen: '开门',
       comModTypeNoOutPut: '不输出',
       comModTypeOutPutId: '输出人员id',
@@ -137,13 +130,10 @@
       comModTypeOutPutPhone: '输出phone',
       comModTypeCustom: '自定义',
       recSucWiegandType: '韦根输出模式',
-      recSucWiegandTypeTip: '{idcardNum
-      }+数字组合后，韦根26范围为1-65535，有效范围为5位；韦根34范围为1-4294967295，有效范围为10位。若超出范围，则输出的信号会进行转换，输出无效信号',
+      recSucWiegandTypeTip: '{idcardNum}+数字组合后，韦根26范围为1-65535，有效范围为5位；韦根34范围为1-4294967295，有效范围为10位。若超出范围，则输出的信号会进行转换，输出无效信号',
       recSucWiegandTypeNoOutput: '不输出',
       recSucWiegandTypeWk: '韦根',
-      onlyNumIdCard: '只允许{id
-      }、{idcardNum
-      }和数字',
+      onlyNumIdCard: '只允许{id}、{idcardNum}和数字',
       onlyNumber: '只允许数字',
       isOpenRelay: '继电器输出',
       isOpenRelayTip: '继电器输出打开，则识别后会输出开关量信号',
@@ -156,7 +146,7 @@
       modFailContent2: '播报识别失败',
       modRule: '只允许数字、英文和汉字',
       modExample: '如：注意陌生人！',
-      screenShowtext: '屏幕显示文字',
+      screenShowText: '屏幕显示文字',
       showFail: '显示识别失败',
       modRule2: '只允许数字、中英文和中英文符号',
       modRule4: '允许数字、英文和英文符号',
@@ -167,26 +157,15 @@
       noAccessParamsTip: '识别成功后提示权限不足，例如：甲在08：00-20：00方可进入公司，然而他在21：00来到公司，则甲为权限不足',
       noAccessModTip: '权限不足时语音播报内容',
       noAccessNameTip: '播报姓名权限不足',
-      modRule3: '允许{name
-      }、{tag
-      }、数字、英文和汉字',
-      nameExample: '如：{name
-      }权限不足',
+      modRule3: '允许{name}、{tag}、数字、英文和汉字',
+      nameExample: '如：{name}权限不足',
       name: '姓名',
-      deviceRule3: '允许{name
-      }、{tag
-      }、数字、中英文和中英文符号',
-      nameRule3: '如：{name
-      }权限不足！',
+      deviceRule3: '允许{name}、{tag}、数字、中英文和中英文符号',
+      nameRule3: '如：{name}权限不足！',
       noAccess: '权限不足',
       thunkTip1: '串口支持输出韦根信号，设备需要外接串口→韦根信号转换小板，小板由本公司定制。自定义内容传入格式：',
-      thunkTip2: '韦根26：#26WG{idcardNum
-      }#，韦根34：#34WG{idcardNum
-      }#',
-      thunkTip4: '允许{phone
-      }、{idcardNum
-      }、{id
-      }、数字中英文和中英文符号',
+      thunkTip2: '韦根26：#26WG{idcardNum}#，韦根34：#34WG{idcardNum}#',
+      thunkTip4: '允许{phone}、{idcardNum}、{id}、数字中英文和中英文符号',
       thunkTip3: '串口支持输出韦根信号'
     },
     showParams: {
@@ -194,16 +173,16 @@
       screenArrow: '屏幕方向',
       arrowAcross: '横屏',
       arrowColumn: '竖屏',
-      showtext: '显示文字',
+      showText: '显示文字',
       hidden: '不显示',
       deviceGroup: '设备组',
       custom: '自定义',
-      scrDisplaytext1Content: '如：公司名称',
+      scrDisplayText1Content: '如：公司名称',
       deviceName: '设备名称',
-      scrDisplaytext2Content: '如：东门口设备',
+      scrDisplayText2Content: '如：东门口设备',
       showImg: '显示图片',
       previewDefaultImg: '查看默认图',
-      imgStandard1: '照片比例1: 1，大小不得超过2M',
+      imgStandard1: '照片比例1:1，大小不得超过2M',
       imgStandard2: '文件格式支持jpg、jpeg、png',
       imgStandard3: '如：公司logo',
       imgStandard4: '如：二维码',
@@ -253,9 +232,7 @@
     message: {
       rule1: '请输入语音播报自定义内容',
       rule2: '请输入1-255位字符',
-      rule3: '允许{name
-      }、{tag
-      }、数字、英文和汉字',
+      rule3: '允许{name}、{tag}、数字、英文和汉字',
       rule4: '请输入屏幕显示文字',
       rule5: '请输入1-255位字符',
       rule6: '请输入韦根输出自定义内容',
@@ -266,10 +243,7 @@
       rule11: '请输入1-100之间的整数',
       rule12: '请输入串口输出自定义内容',
       rule13: '允许数字、英文和英文符号',
-      rule14: '允许{phone
-      }、{idcardNum
-      }、{id
-      }、数字、英文和英文符号',
+      rule14: '允许{phone}、{idcardNum}、{id}、数字、英文和英文符号',
       rule15: '请输入时间窗',
       rule16: '请输入继电器控制时间',
       rule17: '请输入100-25500之间的整数',
@@ -282,14 +256,13 @@
       rule27: '文件格式不正确，请重新选择',
       rule28: '文件过大，请重新选择',
       rule29: '请输入1-20的整数',
-      rule30: '只允许{idcardNum
-      }、{id
-      }和数字',
+      rule30: '只允许{idcardNum}、{id}和数字',
       rule31: '请输入0-2147483647之间的整数'
     },
     configSuccess: '设备配置成功！',
     configError: '设备配置内容存在错误，请切换标签页核对后重新提交'
   },
+  // 设备列表>>检查设备
   device_check: {
     title: '检查设备',
     search: {
@@ -340,6 +313,7 @@
       hasDelete: '设备已删除'
     }
   },
+  // 设备列表>>添加设备>>手动添加
   device_addManual: {
     title: '手动添加',
     name: '名称',
@@ -364,6 +338,7 @@
       nameLeg: '设备名称仅限255个字符'
     }
   },
+  // 设备列表>>添加设备>>自动添加
   device_addAuto: {
     title: '自动添加',
     search: {
@@ -400,6 +375,7 @@
       nameLeg: '设备名称仅限255个字符'
     }
   },
+  // 设备组>>添加设备组
   group_add: {
     editTitle: '编辑设备组',
     addTitle: '添加设备组',
@@ -419,12 +395,18 @@
       addSuccess: '添加成功'
     }
   },
+  device_config_help_icon_alert_content: '不同设备版本屏幕界面会有差异，以实际界面为准。',
+  device_add_auto_table_top_message1: '可',
+  device_add_auto_table_top_message2: '，若多次检查均搜索不到设备，请尝试',
+
+  // 手动添加设备 key 值新增
   device_add_manual_confirm_self_message: '无法在自证机设备列表添加门禁设备',
   device_add_manual_confirm_self_message2: '是否把该设备添加到门禁设备列表？',
   device_add_manual_confirm_device_message: '无法在门禁设备列表添加自证机设备',
   device_add_manual_confirm_device_message2: '是否把该设备添加到自证机设备列表？',
   device_add_manual_confirm_button_text: '是',
   device_add_manual_confirm_cancel_button_text: '否',
+
   device_info_device_ip_type: 'IP类型',
   device_info_device_ip_type_1: 'DHCP',
   device_info_device_ip_type_2: '固定IP',
@@ -440,6 +422,9 @@
   device_info_device_type5: 'DV300 模组',
   device_info_device_type6: 'CV500 模组',
   device_info_device_type7: '5K',
+  device_info_device_type8: '自证机',
+
+  // 1.2期增加文字
   ip_input_copy_error: '格式不正确',
   device_batch_operate_restore_text: '恢复默认配置',
   device_batch_operate_restore_fail: '恢复默认配置失败设备',
@@ -479,6 +464,7 @@
   device_batch_operate_empty_success: '设备清空人员成功',
   device_batch_operate_empty_comfirm_form_submit: '清空',
   device_config_check_ip_text: 'IP地址校验中...',
+  // 体温检测
   device_batch_temperature_comfirm_title: '设置体温检测',
   device_batch_operate_temperature_form_temp_check: '体温检测',
   device_batch_operate_temperature_form_temp_invalid: '体温异常',
@@ -486,10 +472,8 @@
   device_batch_operate_temperature_form_temp_voice_type1: '播报体温异常及温度',
   device_batch_operate_temperature_form_temp_voice_type2: '不播报',
   device_batch_operate_temperature_form_temp_voice_type3: '自定义',
-  device_batch_operate_temperature_form_custom_voice_placeholder: '允许{temperature
-  }、数字、英文和汉字',
-  device_batch_operate_temperature_form_custom_voice_example: '如：{temperature
-  }体温异常',
+  device_batch_operate_temperature_form_custom_voice_placeholder: '允许{temperature}、数字、英文和汉字',
+  device_batch_operate_temperature_form_custom_voice_example: '如：{temperature}体温异常',
   device_batch_operate_temperature_form_custom_voice_validator1: '请输入自定义语音播报',
   device_batch_operate_temperature_text: '设置体温检测',
   device_batch_operate_temperature_fail: '设置体温检测失败设备',
@@ -511,6 +495,7 @@
   device_batch_operate_over_lab_value_label: '测温区域重叠率',
   device_batch_operate_over_lab_value_tip: '数值越大，人脸与屏幕上的测温区域的匹配度要求越高；此参数对设备模式-闸机平板不生效',
   device_batch_operate_over_lab_value_placeholder: '请输入测温区域重叠率',
+  // 2020-03-12
   device_batch_operate_temperature_position: '测温位置',
   device_batch_operate_temperature_position_label1: '额头',
   device_batch_operate_temperature_position_label2: '手腕',
@@ -523,15 +508,15 @@
   device_batch_operate_temperature_measure_range_tip: '若测温结果不在此范围内，则设备会提示请重新测量体温',
   device_batch_operate_temperature_measure_range_label1: '有效温度最低值',
   device_batch_operate_temperature_measure_range_label2: '有效温度最高值',
-  device_batch_operate_temperature_measure_validator: '只允许{min
-  }-{max
-  }范围内小数点1位的数值',
+  device_batch_operate_temperature_measure_validator: '只允许{min}-{max}范围内小数点1位的数值',
   device_batch_operate_temperature_measure_placeholder1: '请输入有效温度最低值',
   device_batch_operate_temperature_measure_placeholder2: '请输入有效温度最高值',
+  // 新增修改 key 值
   device_batch_operate_temperature_env_effect1: '低温补偿',
   device_batch_operate_temperature_env_effect1_tip: '开启后，当测量温度受环境影响低于人体正常体温后，将自动补偿为人体正常体温',
   device_batch_operate_temperature_env_effect_label1: '温度映射源',
   device_batch_operate_temperature_env_effect_label2: '温度映射目标',
+
   device_batch_operate_temperature_env_effect2: '高温补偿',
   device_batch_operate_temperature_env_effect2_tip: '开启后，检测到处于下方映射源的范围内的温度值将会被调整成映射目标范围',
   device_batch_operate_temperature_env_effect_validator5: '最高值必需大于最低值',
@@ -544,6 +529,7 @@
   device_batch_operate_temperature_unit: '体温单位',
   device_batch_operate_temperature_unit_type1: '摄氏度℃',
   device_batch_operate_temperature_unit_type2: '华氏度℉',
+  // 设置口罩检测
   device_batch_mask_check_comfirm_title: '设置口罩检测',
   device_batch_operate_mask_check_form_temp_check: '口罩检测',
   device_batch_operate_mask_check_form_temp_invalid_voice: '未佩戴口罩语音播报模式',
@@ -556,11 +542,17 @@
   device_batch_operate_mask_check_text: '设置口罩检测',
   device_batch_operate_mask_check_fail: '设置口罩检测失败设备',
   device_batch_operate_mask_check_success: '设备设置口罩检测成功',
+  // 远程开门
   device_batch_operate_remote_opendoor_text: '远程开门',
   device_batch_operate_remote_opendoor_fail: '远程开门失败设备',
   device_batch_operate_remote_opendoor_success: '设备远程开门成功',
+
+  // 设备配置方案
   device_batch_operate_device_config: '配置方案',
   device_batch_operate_device_config_add: '添加配置',
   device_batch_operate_device_config_update_time: '方案最近更新时间',
-  device_batch_operate_device_config_default_name: '默认方案一'
+  device_batch_operate_device_config_default_name: '默认方案一',
+  device_batch_operate_device_config_button1: '保存方案',
+  device_batch_operate_device_config_button2: '应用到设备'
+
 }

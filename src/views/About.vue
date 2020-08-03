@@ -47,7 +47,7 @@
 
 </template>
 <script>
-import langData from '@/node/index'
+import langData from '@/node/index-en'
 
 export default {
   name: 'about-us',
@@ -87,8 +87,9 @@ export default {
     console.info('我是个info, 你能找到我吗？')
     // this.getDataList()
     this.initStorage('init')
+    console.log('langdata', langData)
     this.unfoldObjectKey(langData, this.newObj, '')
-    console.log(this.newObj, Object.keys(this.newObj))
+    console.log('----', this.newObj, Object.keys(this.newObj))
   },
   methods: {
     unfoldObjectKey (obj, newObj, parentsKey) {

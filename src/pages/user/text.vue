@@ -1,21 +1,21 @@
 /*
-* @Desc 主页面
+* @Desc 
 * @Author  折威
-* @Date 2020-08-01 17:41:39
+* @Date 2020-08-09 16:59:18
 */
+
 <template>
   <div>
-    <h2>用户登录</h2>
-    <p>{{$t('文件目录结构测试')}}</p>
+    <p>这是个什么鬼呢？</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'index',
+  name: 'text',
   data () {
     return {
-      foo: '你在 js 中也可以被发现喔'
+
     }
   },
   mounted () {},

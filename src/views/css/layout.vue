@@ -17,6 +17,14 @@
           <div class="child"> childB childB childB childB childB childB childB childB childB childB childB childB childB childB  </div>
         </div>
       </div>
+      <h3 class="page__title page__title--sub">
+        固定宽高比
+      </h3>
+      <div class="example__box">
+        <div class="fixed-wrapper">
+          <div class="fixed-item"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +57,21 @@ export default {
     padding: 10px;
     background: wheat;
     box-sizing: border-box;
+  }
+}
+.fixed-wrapper{
+  width: 100%;
+  height: 30vh;
+  border: 1px solid #ddd;
+  margin-bottom: 50px;
+  .fixed-item {
+    position: relative;
+    border: 1px solid greenyellow;
+    &:after {
+      content: '';
+      display: inline-block;
+      padding-bottom: calc(100% * (9 / 45));
+    }
   }
 }
 </style>

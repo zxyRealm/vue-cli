@@ -5,18 +5,16 @@
     <p title="这是要国际化的内容哦！"></p>
     <div class="" :content="$t('当前数量{count}个', { count: count })">
     </div> -->
-    {{$t(`pages_App_thisIsA`)}}{{$t('pages_App_thisIsAnother')}}
-    {{`${$t('pages_App_notInThisTemplate')}`}}
-    <span>{{$t('pages_App_iAmADifferentText')}}</span>
-    <div>
-      {{`${$t('pages_App_thisIsATemplate2')}${count}${$t('pages_App_hahaha')}`}}
-    </div>
-    <p>{{`${$t('pages_App_hahahahahaha')}${textContent} ${$t('pages_App_empty')}`}}</p>
-    {{`hhhhh`}}
-    <!-- ggggg -->
-    <p :title="`${$t('pages_App_thisIsATemplate')}${count}${$t('pages_App_example')}`" :data-name="$t('pages_App_hahahaha')" :content="$t('pages_App_but')">{{$t('pages_App_thisIsALabel')}}</p>
-    {{$t('pages_App_comeFromBehind')}}
-    <router-view :name="$t('pages_App_onlyAfterTomorrow')"></router-view>
+    普通静态文本
+    <p>标签内文本</p>
+    {{`模板中文本`}}
+    <!-- 此种插值为非正确格式 -->
+    <div>{{`模板中包含插值${textContent}多位置插值${count}人`}}</div>
+    {{$t('文本中插值法{count}, 多个插值也可以{textContent},没关系', { count })}}
+    <el-button data-name="按钮">保存</el-button>
+    <!-- 同名字段 -->
+    <el-button>保存</el-button>
+    <p :title="$t('这是一个补充说明', {})"></p>
   </div>
 </template>
 
@@ -28,16 +26,16 @@ export default {
   data () {
     const type = 'name'
     return {
-      textContent: i18n.t('App_pages_App_withinTheTest'),
-      select: `${i18n.t('pages_App_globalization')}${this.title}${i18n.t('pages_App_itHasStarted')}${this.count}`,
+      textContent: 'js 部分文本信息',
+      select: `模板语法${this.count}`,
       count: 10,
-      title: i18n.t('App_pages_App_text')
+      title: '这是一个标题，哈哈哈哈'
     }
   },
 
   filters: {
     numberFilter () {
-      return i18n.t(`App_pages_App_started`)
+      return i18n.t('怎么用都可以的')
     }
   }
 }

@@ -1,3 +1,3 @@
 function test () {
-  return user_index_thisIsATest
+  return 'js 他文本'
 }

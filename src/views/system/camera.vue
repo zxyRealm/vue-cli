@@ -9,6 +9,8 @@
       <el-button @click="startCapture">拍照</el-button>
     </div>
     <img v-if="dataUrl" :src="dataUrl" alt="">
+    <h2>原生方法调用摄像头</h2>
+    <video class="camera-video" ref="video" autoplay src=""></video>
   </div>
 </template>
 
@@ -34,8 +36,9 @@ export default {
     }
   },
   mounted () {
-    this.initCamera()
+    // this.initCamera()
     // console.log(WebCam)
+    this.getCameraApi()
   },
   methods: {
     // 初始化
@@ -69,6 +72,24 @@ export default {
     },
     handleCamError (error) {
       console.error('error', error)
+    },
+    getCameraApi () {
+      const mediaDevices = navigator.mediaDevices
+      const constraints = { video: true, audio: true }
+      const userMedia = mediaDevices.getUserMedia(constraints) || mediaDevices.webkitGetUserMedia(constraints) || navigator.mozGetUserMedia(constraints) || navigator.msGetUserMedia(constraints)
+      console.log(mediaDevices)
+      mediaDevices.enumerateDevices().then(devices => {
+        console.log(devices)
+      })
+      userMedia.then(stream => {
+        const video = this.$refs.video
+        video.srcObject = stream
+        video.onloadedmetadata = function(e) {
+          video.play();
+        }
+      }).catch(error => {
+        console.error(error)
+      })
     }
   },
   beforeDestroy () {
@@ -84,5 +105,9 @@ export default {
     border: 1px solid $border-color;
     border-radius: 3px;
   }
+}
+.camera-video {
+  width: 400px;
+  height: 300px;
 }
 </style>

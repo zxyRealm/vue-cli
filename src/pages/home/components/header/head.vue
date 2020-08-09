@@ -15,7 +15,7 @@ export default {
   name: 'index',
   data () {
     return {
-      name: i18n.t('head_header_head_name')
+      name: '验证 key 值生成规则'
     }
   },
   mounted () {},

@@ -1,12 +1,12 @@
 /*
-* @Desc 用户首页
+* @Desc 这是个 Vue 文件
 * @Author  折威
-* @Date 2020-08-02 00:48:57
+* @Date 2020-08-09 22:35:00
 */
 
 <template>
   <div>
-    <h2 title="主页信息">用户主页</h2>
+    {{$t('pages_user_index_andFileCoexistenceTest')}}
   </div>
 </template>
 
